@@ -19,6 +19,10 @@ public class WebController {
 	public ModelAndView tablon(HttpSession sesion) {
 		//TODO emartin: metodo de ModelAndView
 		
+		Product p = new Product("lg", "television", "C:\\Users\\Jorge\\Documents\\BROMA\\Desktop.tv.jpg", "blabla", 123);
+
+		repository.save(p);
+		
 		ModelAndView mv = new ModelAndView("index").addObject("productos",
 				repository.findAll());
 

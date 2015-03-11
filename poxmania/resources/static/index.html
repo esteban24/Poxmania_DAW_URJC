@@ -18,11 +18,14 @@
     </div>
     <!--contenedor grande donde estaran las imagenes y algun menu-->
     <div>
-        <!--menu de la izquierda-->
+        <!--menu de arriba-->
         <div></div>
         <!--contenedor de fotos OJO-->
         <div th:each="product: ${products}">
             <div th:href="@{/showProduct(idProduct=${product.id})}">
+                <img th:src="|${product.image}|">
+                <h2 th:text="|${product.name}|"></h2>
+                <h2 th:text="|${product.price}|"></h2>
             </div>
             
         </div>
