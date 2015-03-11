@@ -21,7 +21,11 @@
         <!--menu de la izquierda-->
         <div></div>
         <!--contenedor de fotos OJO-->
-        <div></div>
+        <div th:each="product: ${products}">
+            <div th:href="@{/showProduct(idProduct=${product.id})}">
+            </div>
+            
+        </div>
     </div>
     <!--footer-->
     <div></div>
