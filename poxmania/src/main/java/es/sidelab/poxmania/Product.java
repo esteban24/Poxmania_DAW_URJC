@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Television {
+public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -18,10 +18,10 @@ public class Television {
 	private String description;
 	private double price;
 	
-	public Television() {
+	public Product() {
 	}
 
-	public Television(String name, String category, String image, String description, double price) {
+	public Product(String name, String category, String image, String description, double price) {
 		this.name = name;
 		this.category = category;
 		this.image = image;
@@ -31,10 +31,6 @@ public class Television {
 
 	public long getId() {
 		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getName() {
