@@ -10,8 +10,18 @@ import org.springframework.web.servlet.ModelAndView;
 public class WebController {
 	
 	@RequestMapping("/")
-	public ModelAndView mainPage(HttpSession sesion){
-		//TODO emartin: Crear el método de controlador para la página principal
+	public ModelAndView tablon(HttpSession sesion) {
+		//TODO emartin: metodo de ModelAndView
+/*
+		ModelAndView mv = new ModelAndView("index").addObject("productos",
+				repository.findAll());
+
+		if (sesion.isNew()) {
+			mv.addObject("saludo", "Bienvenido!!");
+		}
+
+		return mv;*/
+		
 		return null;
 	}
 }
