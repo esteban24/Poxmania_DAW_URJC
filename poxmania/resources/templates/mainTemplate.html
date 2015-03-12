@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 <title>Poxmania</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
         <!--contenedor de fotos OJO-->
         <div th:each="product: ${products}">
             <div th:href="@{/showProduct(idProduct=${product.id})}">
-                <img th:src="|${product.image}|">
+                <img th:src="|${product.image}|"></img>
                 <h2 th:text="|${product.name}|"></h2>
                 <h2 th:text="|${product.price}|"></h2>
             </div>
