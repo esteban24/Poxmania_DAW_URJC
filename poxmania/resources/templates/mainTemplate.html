@@ -25,7 +25,7 @@
         <!--contenedor de fotos OJO-->
         <div th:each="product: ${products}" style="border-style: solid; padding: 20px">
             <div th:href="@{/showProduct(idProduct=${product.id})}">
-                <img th:src="|../images${product.image}|"></img>
+                <img th:src="@{../images${product.image}}"></img>
                 <h2 th:text="${product.name}">Name</h2>
                 <h2 th:text="${product.price}">Price</h2>
                 <a th:href="@{/showProduct(idProduct=${product.id})}"
