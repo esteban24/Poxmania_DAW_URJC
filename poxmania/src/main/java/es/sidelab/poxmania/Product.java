@@ -72,6 +72,13 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
+	@Override
+	public String toString(){
+		return "[ "+this.name+", "+this.category+", "+this.image+", "+this.description+", "
+				   +String.valueOf(this.price)+" ]";
+		
+	}
 	
 	
 

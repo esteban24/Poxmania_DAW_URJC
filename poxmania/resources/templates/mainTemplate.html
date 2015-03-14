@@ -8,7 +8,9 @@
     <!--contiene el logo, el buscador, el boton de administrador y la cesta-->
     <div>
         <!--logo-->
-        <div></div>
+        <div>
+        	<h1>Hola</h1>
+        </div>
         <!--buscador-->
         <div></div>
         <!--boton de administrador-->
@@ -24,8 +26,8 @@
         <div th:each="product: ${products}">
             <div th:href="@{/showProduct(idProduct=${product.id})}">
                 <img th:src="|${product.image}|"></img>
-                <h2 th:text="|${product.name}|"></h2>
-                <h2 th:text="|${product.price}|"></h2>
+                <h2 th:text="|${product.name}|">Name</h2>
+                <h2 th:text="|${product.price}|">Price</h2>
             </div>
             
         </div>
