@@ -22,10 +22,8 @@ public class WebController {
 	@RequestMapping("/")
 	public ModelAndView main(HttpSession sesion) {
 		//TODO emartin: metodo de ModelAndView
-		
-		//Product p = new Product("lg", "television", "C:\\Users\\Jorge\\Documents\\BROMA\\Desktop.tv.jpg", "blabla", 123);
-		
-		ModelAndView mv = new ModelAndView("mainTemplate").addObject("productos",
+				
+		ModelAndView mv = new ModelAndView("mainTemplate").addObject("products",
 				repository.findAll());
 
 		return mv;
