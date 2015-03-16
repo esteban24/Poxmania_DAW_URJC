@@ -37,4 +37,12 @@ public class WebController {
 
 		return new ModelAndView("showProduct").addObject("product", product);
 	}
+	
+	@RequestMapping("/adminTemplate")
+	public ModelAndView newAdmin(HttpSession sesion) {
+
+		ModelAndView mv1 = new ModelAndView("adminTemplate");
+		
+		return mv1;
+	}
 }
