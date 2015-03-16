@@ -16,17 +16,17 @@ public class Product {
 	private String category;
 	private String image;
 	private String description;
-	private double price;
+	private double prize;
 	
 	public Product() {
 	}
 
-	public Product(String name, String category, String image, String description, double price) {
+	public Product(String name, String category, String image, String description, double prize) {
 		this.name = name;
 		this.category = category;
 		this.image = image;
 		this.description = description;
-		this.price = price;
+		this.prize = prize;
 	}
 
 	public long getId() {
@@ -65,18 +65,18 @@ public class Product {
 		this.description = description;
 	}
 
-	public double getPrice() {
-		return price;
+	public double getPrize() {
+		return prize;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPrize(double prize) {
+		this.prize = prize;
 	}
 
 	@Override
 	public String toString(){
 		return "[ "+this.name+", "+this.category+", "+this.image+", "+this.description+", "
-				   +String.valueOf(this.price)+" ]";
+				   +String.valueOf(this.prize)+" ]";
 		
 	}
 	
