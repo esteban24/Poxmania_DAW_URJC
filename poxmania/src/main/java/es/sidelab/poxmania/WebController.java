@@ -62,6 +62,18 @@ public class WebController {
 													.addObject("password", password);
 	}
 	
+	@RequestMapping("/adminTemplate")
+	public ModelAndView confirm(@RequestParam String user, @RequestParam String password){
+		if ((user.equals("admin"))&&(password.equals("1234"))){
+			return new ModelAndView("adminTemplate").addObject("user",user)
+														.addObject("password",password);
+		}else{
+			return new ModelAndView("confirmationForm").addObject("error",true);
+			/*return new ModelAndView("/mainTemplate").addObject("products",
+					productrepository.findAll());*/
+		}
+	}
+	
 	@RequestMapping("/addToStorageCartConfirmation")
 	public ModelAndView addToStorageCart(@RequestParam long idProduct){
 		
