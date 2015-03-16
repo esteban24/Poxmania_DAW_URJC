@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 
+	<h1>Producto</h1>
+
+	<p th:text="|Nombre: ${product.name}|" />
+	<p th:text="|Asunto: ${product.price}|" />
+	<p th:text="|Comentario: ${product.description}|" />
+
+	<a href="/">Volver</a>
 </body>
 </html>
