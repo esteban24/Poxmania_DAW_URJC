@@ -18,7 +18,9 @@
             <a href="confirmationForm">admin</a>
         </div>
         <!--cesta-->
-        <div></div>
+        <div>
+        	<a href="storageCart">Carrito</a>
+        </div>
     </div>
     <!--contenedor grande donde estaran las imagenes y algun menu-->
     <div>
@@ -29,7 +31,7 @@
             <div th:href="@{/showProduct(idProduct=${product.id})}">
                 <img th:src="@{../images${product.image}}"></img>
                 <h2 th:text="${product.name}">Name</h2>
-                <h2 th:text="${product.price}">Price</h2>
+                <h2 th:text="${product.prize}">Price</h2>
                 <a th:href="@{/showProduct(idProduct=${product.id})}"
 		   			th:text="|${product.name} ${product.category}|">Link</a>
             </div>

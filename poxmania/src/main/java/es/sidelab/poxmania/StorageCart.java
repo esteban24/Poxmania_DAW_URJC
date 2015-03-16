@@ -19,10 +19,12 @@ public class StorageCart {
 	
 	public StorageCart(){
 		this.productsList = new ArrayList<Product>();
+		this.totalPrize = calculatePrize();
 	}
 	
 	public StorageCart(ArrayList<Product> productsList){
 		this.productsList = productsList;
+		this.totalPrize = calculatePrize();
 	}
 	
 	public void addItem(Product product){

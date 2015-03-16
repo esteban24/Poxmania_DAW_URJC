@@ -15,26 +15,43 @@ import es.sidelab.poxmania.DataBaseController;
 public class WebController {
 	
 	@Autowired
-	private ProductRepository repository;
+	private ProductRepository productrepository;
+	
+	@Autowired
+	private StorageCartRepository storageCartRepository;
 	
 	@Autowired
 	private DataBaseController dataBaseContoller;
 	
+	private StorageCart userStorageCart;
+	
 	@RequestMapping("/")
 	public ModelAndView main(HttpSession sesion) {
 		//TODO emartin: metodo de ModelAndView
+		
+		if (sesion.isNew()){
+			userStorageCart = new StorageCart();
+		}
 				
 		ModelAndView mv = new ModelAndView("mainTemplate").addObject("products",
-				repository.findAll());
+				productrepository.findAll());
 
+		return mv;
+	}
+	
+	@RequestMapping("/storageCart")
+	public ModelAndView showStorageCart(HttpSession sesion){
+		
+		ModelAndView mv = new ModelAndView("storageCart").addObject("products", userStorageCart.getProductsList())
+														  .addObject("prize", userStorageCart.getTotalPrize());
 		return mv;
 	}
 	
 	@RequestMapping("/showProduct")
 	public ModelAndView mostrar(@RequestParam long idProduct) {
 
-		Product product = repository.findOne(idProduct);
-
+		Product product = productrepository.findOne(idProduct);
+				
 		return new ModelAndView("showProduct").addObject("product", product);
 	}
 	
@@ -43,5 +60,16 @@ public class WebController {
 		
 		return new ModelAndView("confirmationForm").addObject("user", user)
 													.addObject("password", password);
+	}
+	
+	@RequestMapping("/addToStorageCartConfirmation")
+	public ModelAndView addToStorageCart(@RequestParam long idProduct){
+		
+		Product product = productrepository.findOne(idProduct);
+		
+		this.userStorageCart.addItem(product);
+		
+		return new ModelAndView("addToStorageCartConfirmation");
+		
 	}
 }
