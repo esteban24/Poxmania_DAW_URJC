@@ -1,10 +1,21 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8" />
 </head>
 <body>
 
+	<h1>Inicio de Sesion</h1>
+
+	<form action="/adminTemplate" method="post">
+		<p>
+			<b>User:</b> <input type='text' th:value="${user}" name='user' />
+		</p>
+
+		<p>
+			<b>Password:</b> <input type='password' name='password' />
+		</p>
+
+		<input type='submit' name='enviar' value='Enviar' />
+	</form>
 </body>
 </html>

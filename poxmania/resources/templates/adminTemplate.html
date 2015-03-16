@@ -4,18 +4,23 @@
 </head>
 <body>
 
-	<h1>Nuevo anuncio</h1>
+	<h1>INICIAR SESION</h1>
 
-	<form action="/insertar" method="post">
+	<form action="/" method="post">
 		<p>
-			<b>User:</b> <input type='text' th:value="${user}" name='user' />
+			<b>Nombre:</b> <input type='text' th:value="${nombre}" name='nombre' />
 		</p>
 
 		<p>
-			<b>Password:</b> <input type='password' name='password' />
+			<b>Asunto:</b> <input type='text' name='asunto' />
 		</p>
 
-		<input type='submit' name='send' value='Send' />
+		<p>
+			<b>Comentario:</b><br />
+			<textarea name='comentario' rows='5' cols='40'></textarea>
+		</p>
+
+		<input type='submit' name='enviar' value='Enviar' />
 	</form>
 </body>
 </html>

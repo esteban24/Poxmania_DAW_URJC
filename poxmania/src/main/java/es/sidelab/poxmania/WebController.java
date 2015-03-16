@@ -38,11 +38,10 @@ public class WebController {
 		return new ModelAndView("showProduct").addObject("product", product);
 	}
 	
-	@RequestMapping("/adminTemplate")
-	public ModelAndView newAdmin(HttpSession sesion) {
-
-		ModelAndView mv1 = new ModelAndView("adminTemplate");
+	@RequestMapping("/confirmationForm")
+	public ModelAndView admin(String user, String password){
 		
-		return mv1;
+		return new ModelAndView("confirmationForm").addObject("user", user)
+													.addObject("password", password);
 	}
 }
