@@ -14,17 +14,23 @@ public class StorageCart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	private String name;
+	private String lastName;
 	private ArrayList<Product> productsList;
 	private double totalPrize;
 	
 	public StorageCart(){
 		this.productsList = new ArrayList<Product>();
 		this.totalPrize = calculatePrize();
+		this.name = null;
+		this.lastName = null;
 	}
 	
-	public StorageCart(ArrayList<Product> productsList){
+	public StorageCart(ArrayList<Product> productsList, String name, String lastName){
 		this.productsList = productsList;
 		this.totalPrize = calculatePrize();
+		this.name = name;
+		this.lastName = lastName;
 	}
 	
 	public void addItem(Product product){
@@ -59,6 +65,22 @@ public class StorageCart {
 		return this.totalPrize;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public long getId() {
 		return id;
 	}

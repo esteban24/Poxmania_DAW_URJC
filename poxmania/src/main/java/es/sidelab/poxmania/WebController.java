@@ -64,7 +64,7 @@ public class WebController {
 	
 	@RequestMapping("/adminTemplate")
 	public ModelAndView confirm(@RequestParam String user, @RequestParam String password){
-		if ((user.equals("admin"))&&(password.equals("1234"))){
+		if ((user.equals(Constants.ADMIN))&&(password.equals(Constants.PASSWORD))){
 			return new ModelAndView("adminTemplate").addObject("user",user)
 														.addObject("password",password);
 		}else{
@@ -83,5 +83,26 @@ public class WebController {
 		
 		return new ModelAndView("addToStorageCartConfirmation");
 		
+	}
+	
+	@RequestMapping("/buyConfirmation")
+	public ModelAndView buyConfirmation(HttpSession sesion){
+		
+		
+		ModelAndView mv = new ModelAndView("buyConfirmation").addObject("products",
+				this.userStorageCart.getProductsList());
+		
+		return mv;
+	}
+	
+	@RequestMapping("/createStorageCart")
+	public ModelAndView createStorageCart(@RequestParam String name, @RequestParam String lastName){
+		
+		this.userStorageCart.setName(name);
+		this.userStorageCart.setLastName(lastName);
+		
+		this.storageCartRepository.save(this.userStorageCart);
+		
+		return new ModelAndView("createStorageCart");
 	}
 }
