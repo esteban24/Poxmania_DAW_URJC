@@ -74,6 +74,13 @@ public class WebController {
 		}
 	}
 	
+	@RequestMapping("/modifyProduct")
+	public ModelAndView modified(HttpSession sesion) {						
+		ModelAndView mv = new ModelAndView("modifyProduct").addObject("products",
+				productrepository.findAll());
+		return mv;
+	}
+	
 	@RequestMapping("/addToStorageCartConfirmation")
 	public ModelAndView addToStorageCart(@RequestParam long idProduct){
 		
