@@ -110,6 +110,9 @@ public class WebController {
 		
 		this.storageCartRepository.save(this.userStorageCart);
 		
+		this.userStorageCart.getProductsList().removeAll(this.userStorageCart.getProductsList());
+		this.userStorageCart.setTotalPrize(this.userStorageCart.calculatePrize());
+		
 		return new ModelAndView("createStorageCart");
 	}
 }

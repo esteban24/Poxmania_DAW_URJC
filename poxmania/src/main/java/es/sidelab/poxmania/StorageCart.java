@@ -1,5 +1,6 @@
 package es.sidelab.poxmania;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.Entity;
@@ -9,7 +10,12 @@ import javax.persistence.Id;
 
 
 @Entity
-public class StorageCart {
+public class StorageCart implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6309613457936170782L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -63,6 +69,10 @@ public class StorageCart {
 
 	public double getTotalPrize() {
 		return this.totalPrize;
+	}
+	
+	public void setTotalPrize(double totalPrize){
+		this.totalPrize = totalPrize;
 	}
 	
 	public String getName() {
