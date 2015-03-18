@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -58,7 +60,7 @@ public class StorageCart implements Serializable{
 		
 		return prize;
 	}
-
+	
 	public ArrayList<Product> getProductsList() {
 		return productsList;
 	}
@@ -93,6 +95,10 @@ public class StorageCart implements Serializable{
 
 	public long getId() {
 		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 }
