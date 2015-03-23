@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Modificar Producto</title>
+</head>
+<body>
+	<p th:if="${error}"> ERROR, PRODUCT NOT MODIFIED!</p>
+	<p th:if="${right}"> PRODUCT MODIFIED </p>
+	<p th:if="${errorExecution}"> error, debe escribir el precio con el siguiente formato: 00.00 </p>
+	<a href="/">Volver</a>
+</body>
+</html>
