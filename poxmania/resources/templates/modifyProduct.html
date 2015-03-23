@@ -9,30 +9,39 @@
 		<form action="/modifiedProduct" method="post">		
 			<p>
         		<img th:src="@{../images${product.image}}"></img>
-        		<!-- form action="/modifiedProduct" method="post"-->
-        			<p>
-						<b>Image:</b> <input type='text'  name='image' />
-					</p>
-        		<!-- /form-->
+        		<p>
+					<b>Image:</b> <input type='text'  name='image' />
+				</p>
         	</p>
         	<p>
             	<h2 th:text="${product.name}">Name</h2>
-            	<!--form action="/modifiedProduct" method="post"-->
-        			<p>
-						<b>Name:</b> <input type='text' name='name' />
-					</p>
-        		<!-- /form-->
+        		<p>
+					<b>Name:</b> <input type='text' name='name' />
+				</p>
+            </p>
+            <p>
+            	<h2 th:text="${product.name}">Description</h2>
+        		<p>
+					<b>Description:</b> <input type='text' name='description' />
+				</p>
+            </p>
+            <p>
+            	<h2 th:text="${product.name}">Category</h2>
+        		<p>
+					<b>Category:</b> <input type='text' name='category' />
+				</p>
             </p>
             <p>
             	<h2 th:text="${product.prize}">Price</h2>
-            	<!-- form action="/modifiedProduct" method="post"-->
-        			<p>
-						<b>Price:</b> <input type="number" name='name' />
-					</p>
-        		<!-- /form-->
+        		<p>
+					<b>Price:</b> <input type="number" name='name' />
+				</p>
             </p>
+            <a th:href="@{/modifiedProduct(idProduct=${product.id})}"></a>
             <input type='submit' name='enviar' value='Enviar' />
         </form>
+        <p th:if="${error}"> ERROR, PRODUCT NOT MODIFIED!</p>
+		<a href="/">Volver</a>
     </div>
 </body>
 </html>

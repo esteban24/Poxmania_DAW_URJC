@@ -81,6 +81,26 @@ public class WebController {
 		return mv;
 	}
 	
+	@RequestMapping("/modifyProduct")
+	public ModelAndView modified(@RequestParam String image, @RequestParam String name, @RequestParam double prize
+			,@RequestParam long idProduct, @RequestParam String description, @RequestParam String category){
+		if ((image.equals(""))||(name.equals("")||(prize==0)||(description=="")||(category==""))){
+			return new ModelAndView("modifyPruduct").addObject("error",true);
+		}else{
+			Product product = productrepository.findOne(idProduct);
+			product.setPrize(prize);
+			product.setDescription(description);
+			product.setName(name);
+			product.setCategory(category);
+			//productrepository.delete(product);
+			//Product newproduct = new Product(name,Constants.INFORMATIC,image,
+					//"Ordenador Dell de última generación",prize);
+			//newproduct.setId(idOld);
+			productrepository.save(product);
+			return new ModelAndView("modifyPruduct").addObject("ha ido bien");
+		}
+	}
+	
 	@RequestMapping("/addToStorageCartConfirmation")
 	public ModelAndView addToStorageCart(@RequestParam long idProduct){
 		
