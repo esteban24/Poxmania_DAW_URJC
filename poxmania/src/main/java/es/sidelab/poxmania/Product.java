@@ -3,12 +3,9 @@ package es.sidelab.poxmania;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -47,8 +44,6 @@ public class Product implements Serializable{
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "NAME")
 	public String getName() {
 		return name;
 	}

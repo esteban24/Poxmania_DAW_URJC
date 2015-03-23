@@ -2,11 +2,14 @@ package es.sidelab.poxmania;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -22,49 +25,61 @@ public class StorageCart implements Serializable{
 	
 	private String name;
 	private String lastName;
-	private ArrayList<Product> productsList;
 	private double totalPrize;
+	private List<StorageCartLine> storageCartLine;
+	private boolean processed = false;
 	
 	public StorageCart(){
-		this.productsList = new ArrayList<Product>();
+		this.storageCartLine = null;
 		this.totalPrize = calculatePrize();
 		this.name = null;
 		this.lastName = null;
+		this.processed = false;
 	}
 	
-	public StorageCart(ArrayList<Product> productsList, String name, String lastName){
-		this.productsList = productsList;
+	public StorageCart(List<StorageCartLine> storageCartLine, String name, String lastName){
+		this.storageCartLine = storageCartLine;
 		this.totalPrize = calculatePrize();
 		this.name = name;
 		this.lastName = lastName;
+		this.processed = false;
 	}
 	
-	public void addItem(Product product){
-		this.productsList.add(product);
+	public void addItem(StorageCartLine storageCartLine){
+		this.storageCartLine.add(storageCartLine);
 		this.totalPrize = calculatePrize();
 		
 	}
 	
-	public void deleteItem(Product product){
-		this.productsList.remove(product);
+	public void deleteItem(StorageCartLine storageCartLine){
+		this.storageCartLine.remove(storageCartLine);
 		this.totalPrize = calculatePrize();
 	}
 	
 	public double calculatePrize(){
 		double prize = 0.0;
-		for(Product pAux : this.productsList){
+		for(StorageCartLine pAux : this.storageCartLine){
 			prize += pAux.getPrize();
 		}
 		
 		return prize;
 	}
 	
-	public ArrayList<Product> getProductsList() {
-		return productsList;
+	@OneToMany(mappedBy="storageCartLine")
+	public List<StorageCartLine> getStorageCartLine() {
+		return storageCartLine;
 	}
 
-	public void setProductsList(ArrayList<Product> productsList) {
-		this.productsList = productsList;
+	public void setStorageCartLine(List<StorageCartLine> storageCartLine) {
+		this.storageCartLine = storageCartLine;
+	}
+
+	public boolean getProcessed() {
+		return processed;
+	}
+
+	public void setProcessed(boolean processed) {
+		this.processed = processed;
 	}
 
 	public double getTotalPrize() {
