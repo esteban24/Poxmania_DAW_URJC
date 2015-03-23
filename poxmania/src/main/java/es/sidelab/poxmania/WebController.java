@@ -81,23 +81,24 @@ public class WebController {
 		return mv;
 	}
 	
-	@RequestMapping("/modifyProduct")
-	public ModelAndView modified(@RequestParam String image, @RequestParam String name, @RequestParam double prize
-			,@RequestParam long idProduct, @RequestParam String description, @RequestParam String category){
-		if ((image.equals(""))||(name.equals("")||(prize==0)||(description=="")||(category==""))){
-			return new ModelAndView("modifyPruduct").addObject("error",true);
+	@RequestMapping("/modifiedProduct")
+	public ModelAndView modified(@RequestParam String image, @RequestParam String name, @RequestParam String prize
+			,@RequestParam long id, @RequestParam String description, @RequestParam String category){
+		if ((image.equals(""))||(name.equals("")||(prize=="")||(description=="")||(category==""))){
+			return new ModelAndView("modifiedProduct").addObject("error",true);
 		}else{
-			Product product = productrepository.findOne(idProduct);
-			product.setPrize(prize);
-			product.setDescription(description);
-			product.setName(name);
-			product.setCategory(category);
-			//productrepository.delete(product);
-			//Product newproduct = new Product(name,Constants.INFORMATIC,image,
-					//"Ordenador Dell de última generación",prize);
-			//newproduct.setId(idOld);
-			productrepository.save(product);
-			return new ModelAndView("modifyPruduct").addObject("ha ido bien");
+			try{
+				double mydouble = Double.parseDouble(prize); 
+				Product product = productrepository.findOne(id);
+				product.setPrize(mydouble);
+				product.setDescription(description);
+				product.setName(name);
+				product.setCategory(category);
+				productrepository.save(product);
+				return new ModelAndView("modifiedProduct").addObject("right",true);
+			}catch(Exception e){
+				return new ModelAndView("modifiedProduct").addObject("errorExecution",true);
+			}
 		}
 	}
 	

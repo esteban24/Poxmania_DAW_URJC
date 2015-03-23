@@ -6,7 +6,9 @@
 </head>
 <body>
 	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
-		<form action="/modifiedProduct" method="post">		
+		<form action="/modifiedProduct">
+			<h2 th:text="${product.id}">id</h2>
+			<input type="number" name="id" readonly="readonly" th:value="${product.id}"	/>
 			<p>
         		<img th:src="@{../images${product.image}}"></img>
         		<p>
@@ -20,13 +22,13 @@
 				</p>
             </p>
             <p>
-            	<h2 th:text="${product.name}">Description</h2>
+            	<h2 th:text="${product.description}">Description</h2>
         		<p>
 					<b>Description:</b> <input type='text' name='description' />
 				</p>
             </p>
             <p>
-            	<h2 th:text="${product.name}">Category</h2>
+            	<h2 th:text="${product.category}">Category</h2>
         		<p>
 					<b>Category:</b> <input type='text' name='category' />
 				</p>
@@ -34,10 +36,9 @@
             <p>
             	<h2 th:text="${product.prize}">Price</h2>
         		<p>
-					<b>Price:</b> <input type="number" name='name' />
+					<b>Prize:</b> <input type="text" name='prize' />
 				</p>
             </p>
-            <a th:href="@{/modifiedProduct(idProduct=${product.id})}"></a>
             <input type='submit' name='enviar' value='Enviar' />
         </form>
         <p th:if="${error}"> ERROR, PRODUCT NOT MODIFIED!</p>
