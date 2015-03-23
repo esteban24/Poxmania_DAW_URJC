@@ -47,7 +47,7 @@ public class StorageCartLine implements Serializable{
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name="product")
 	public Product getProduct() {
 		return product;
 	}

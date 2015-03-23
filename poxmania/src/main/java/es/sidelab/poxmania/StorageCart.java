@@ -1,14 +1,12 @@
 package es.sidelab.poxmania;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 
@@ -26,18 +24,19 @@ public class StorageCart implements Serializable{
 	private String name;
 	private String lastName;
 	private double totalPrize;
+	@OneToMany(mappedBy="product")
 	private List<StorageCartLine> storageCartLine;
 	private boolean processed = false;
 	
 	public StorageCart(){
 		this.storageCartLine = null;
-		this.totalPrize = calculatePrize();
+		this.totalPrize = 0.0;
 		this.name = null;
 		this.lastName = null;
 		this.processed = false;
 	}
 	
-	public StorageCart(List<StorageCartLine> storageCartLine, String name, String lastName){
+	public StorageCart(String name, String lastName, List<StorageCartLine> storageCartLine){
 		this.storageCartLine = storageCartLine;
 		this.totalPrize = calculatePrize();
 		this.name = name;
@@ -45,8 +44,39 @@ public class StorageCart implements Serializable{
 		this.processed = false;
 	}
 	
+	
+	public StorageCartLine searchById(long id, List<StorageCartLine> storageCartList){
+		StorageCartLine returned = null;
+		for(StorageCartLine aux : storageCartList){
+			if(aux.getId() == id){
+				returned = aux;
+				break;
+			}
+		}
+		return returned;
+	}
+	
+	public void addProductFromStorageCart(StorageCartLine storageCartLine){
+		int index = 0;
+		for(StorageCartLine aux : this.getStorageCartLine()){
+			if(aux.getId() == storageCartLine.getId()){
+				break;
+			}else{
+				index++;
+			}
+		}
+		
+		this.getStorageCartLine().get(index).setCuantity(this.getStorageCartLine().get(index).getCuantity() + 1);
+	}
+	
 	public void addItem(StorageCartLine storageCartLine){
-		this.storageCartLine.add(storageCartLine);
+		
+		StorageCartLine searched = this.searchById(storageCartLine.getId(), this.getStorageCartLine());
+		if(searched != null){
+			this.addProductFromStorageCart(storageCartLine);
+		}else{
+			this.getStorageCartLine().add(storageCartLine);
+		}
 		this.totalPrize = calculatePrize();
 		
 	}
@@ -58,14 +88,16 @@ public class StorageCart implements Serializable{
 	
 	public double calculatePrize(){
 		double prize = 0.0;
-		for(StorageCartLine pAux : this.storageCartLine){
-			prize += pAux.getPrize();
+		if(!this.getStorageCartLine().isEmpty()){
+			for(StorageCartLine pAux : this.storageCartLine){
+				prize += pAux.getPrize();
+			}
 		}
 		
 		return prize;
 	}
 	
-	@OneToMany(mappedBy="storageCartLine")
+	@OneToMany(mappedBy="product")
 	public List<StorageCartLine> getStorageCartLine() {
 		return storageCartLine;
 	}

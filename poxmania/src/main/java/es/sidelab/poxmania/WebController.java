@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.sidelab.poxmania.ProductRepository;
+import es.sidelab.poxmania.StorageCartRepository;
+import es.sidelab.poxmania.StorageCartLineRepository;
 import es.sidelab.poxmania.DataBaseController;
 
 @Controller
@@ -19,6 +21,9 @@ public class WebController {
 	
 	@Autowired
 	private StorageCartRepository storageCartRepository;
+	
+	@Autowired
+	private StorageCartLineRepository storageCartLineRepository;
 	
 	@Autowired
 	private DataBaseController dataBaseContoller;
@@ -42,7 +47,7 @@ public class WebController {
 	@RequestMapping("/storageCart")
 	public ModelAndView showStorageCart(HttpSession sesion){
 		
-		ModelAndView mv = new ModelAndView("storageCart").addObject("products", userStorageCart.getProductsList())
+		ModelAndView mv = new ModelAndView("storageCart").addObject("products", userStorageCart.getStorageCartLine())
 														  .addObject("prize", userStorageCart.getTotalPrize());
 		return mv;
 	}
@@ -107,7 +112,7 @@ public class WebController {
 		
 		Product product = productrepository.findOne(idProduct);
 		
-		this.userStorageCart.addItem(product);
+		this.userStorageCart.addItem(new StorageCartLine(product, 1));
 		
 		return new ModelAndView("addToStorageCartConfirmation");
 		
@@ -118,7 +123,7 @@ public class WebController {
 		
 		
 		ModelAndView mv = new ModelAndView("buyConfirmation").addObject("products",
-				this.userStorageCart.getProductsList());
+				this.userStorageCart.getStorageCartLine());
 		
 		return mv;
 	}
@@ -131,7 +136,7 @@ public class WebController {
 		
 		this.storageCartRepository.save(this.userStorageCart);
 		
-		this.userStorageCart.getProductsList().removeAll(this.userStorageCart.getProductsList());
+		this.userStorageCart.getStorageCartLine().removeAll(this.userStorageCart.getStorageCartLine());
 		this.userStorageCart.setTotalPrize(this.userStorageCart.calculatePrize());
 		
 		return new ModelAndView("createStorageCart");
