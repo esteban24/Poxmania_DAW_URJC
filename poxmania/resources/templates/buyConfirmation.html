@@ -21,8 +21,9 @@
 	</form>
 	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
 		<div>
-            <h2 th:text="${product.name}">Name</h2>
-            <h2 th:text="${product.prize}">Price</h2>
+            <h2 th:text="${product.product.name}">Name</h2>
+            <h2 th:text="${product.cuantity}">Cuantity</h2>
+            <h2 th:text="${product.product.prize}">Prize</h2>
         </div>
     </div>
 	<a href="/">Volver</a>

@@ -46,6 +46,7 @@ public class WebController {
 	
 	private StorageCart userStorageCart;
 	
+	
 	@RequestMapping("/")
 	public ModelAndView main(HttpSession sesion) {
 		//TODO emartin: metodo de ModelAndView
@@ -139,8 +140,8 @@ public class WebController {
 	@RequestMapping("/storageCart")
 	public ModelAndView showStorageCart(HttpSession sesion){
 		
-		ModelAndView mv = new ModelAndView("storageCart").addObject("products", userStorageCart.getStorageCartLine())
-														  .addObject("prize", userStorageCart.getTotalPrize());
+		ModelAndView mv = new ModelAndView("storageCart").addObject("products", this.userStorageCart.getStorageCartLine())
+														  .addObject("prize", this.userStorageCart.calculatePrize());
 		return mv;
 	}
 	
@@ -202,8 +203,10 @@ public class WebController {
 		
 		Product product = productrepository.findOne(idProduct);
 		
-		this.userStorageCart.addItem(new StorageCartLine(product, 1));
+		StorageCartLine newStCrt = new StorageCartLine(product, 1);
 		
+		this.userStorageCart.addItem(newStCrt);
+				
 		return new ModelAndView("addToStorageCartConfirmation");
 		
 	}
@@ -225,6 +228,17 @@ public class WebController {
 		this.userStorageCart.setLastName(lastName);
 		
 		this.storageCartRepository.save(this.userStorageCart);
+		
+		//----------------------------------------------------------
+		//Comprobación de que hemos guardado con éxito en la BBDD
+		Iterable<StorageCart> storageCartList = this.storageCartRepository.findAll();
+        System.out.println("Storage Cart found with findAll():");
+        System.out.println("-------------------------------");
+        for (StorageCart storageCart : storageCartList) {
+            System.out.println(storageCart.toString());
+        }
+        System.out.println();
+        //----------------------------------------------------------
 		
 		this.userStorageCart.getStorageCartLine().removeAll(this.userStorageCart.getStorageCartLine());
 		this.userStorageCart.setTotalPrize(this.userStorageCart.calculatePrize());

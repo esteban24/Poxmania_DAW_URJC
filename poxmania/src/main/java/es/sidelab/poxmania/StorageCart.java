@@ -1,6 +1,7 @@
 package es.sidelab.poxmania;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class StorageCart implements Serializable{
 	private boolean processed = false;
 	
 	public StorageCart(){
-		this.storageCartLine = null;
+		this.storageCartLine = new ArrayList<StorageCartLine>();
 		this.totalPrize = 0.0;
 		this.name = null;
 		this.lastName = null;
@@ -47,10 +48,12 @@ public class StorageCart implements Serializable{
 	
 	public StorageCartLine searchById(long id, List<StorageCartLine> storageCartList){
 		StorageCartLine returned = null;
-		for(StorageCartLine aux : storageCartList){
-			if(aux.getId() == id){
-				returned = aux;
-				break;
+		if(storageCartList !=null){
+			for(StorageCartLine aux : storageCartList){
+				if(aux.getProduct().getId() == id){
+					returned = aux;
+					break;
+				}
 			}
 		}
 		return returned;
@@ -71,7 +74,7 @@ public class StorageCart implements Serializable{
 	
 	public void addItem(StorageCartLine storageCartLine){
 		
-		StorageCartLine searched = this.searchById(storageCartLine.getId(), this.getStorageCartLine());
+		StorageCartLine searched = this.searchById(storageCartLine.getProduct().getId(), this.getStorageCartLine());
 		if(searched != null){
 			this.addProductFromStorageCart(storageCartLine);
 		}else{
@@ -90,7 +93,7 @@ public class StorageCart implements Serializable{
 		double prize = 0.0;
 		if(!this.getStorageCartLine().isEmpty()){
 			for(StorageCartLine pAux : this.storageCartLine){
-				prize += pAux.getPrize();
+				prize = (pAux.getPrize() * pAux.getCuantity());
 			}
 		}
 		
@@ -144,6 +147,12 @@ public class StorageCart implements Serializable{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	@Override
+	public String toString(){
+		return "[ "+this.getName()+", "+this.getLastName()+", "+String.valueOf(this.getTotalPrize())+", procesado: "+ this.getProcessed()+ " ]";
+		
 	}
 	
 }
