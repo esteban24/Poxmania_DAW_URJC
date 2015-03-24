@@ -35,6 +35,13 @@ public class Product implements Serializable{
 		this.description = description;
 		this.prize = prize;
 	}
+	
+	public Product(String name, String category, String description, double prize) {
+		this.name = name;
+		this.category = category;
+		this.description = description;
+		this.prize = prize;
+	}
 
 	public long getId() {
 		return id;

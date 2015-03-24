@@ -47,6 +47,8 @@ public class WebController {
 	private StorageCart userStorageCart;
 	
 	
+	
+	
 	@RequestMapping("/")
 	public ModelAndView main(HttpSession sesion) {
 		//TODO emartin: metodo de ModelAndView
@@ -64,7 +66,8 @@ public class WebController {
 	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
 	public ModelAndView handleFileUpload(
 			@RequestParam("name") String name,
-			@RequestParam("file") MultipartFile file) {
+			@RequestParam("file") MultipartFile file, @RequestParam("prize") String prize
+			, @RequestParam("description") String description, @RequestParam("category") String category) {
 
 		String fileName = imageTitles.size() + ".jpg";
 
@@ -80,9 +83,22 @@ public class WebController {
 				file.transferTo(uploadedFile);
 
 				imageTitles.add(name);
+				if ((name.equals("")||(prize=="")||(description=="")||(category==""))){
+					return new ModelAndView("addProduct").addObject("error",true);
+				}else{
+					try{
+						double mydouble = Double.parseDouble(prize); 
+						Product product = new Product(name,category,description,mydouble);
+						productrepository.save(product);
+						ModelAndView mv = new ModelAndView("addProduct").addObject("right",true);
+						return mv;
+					}catch(Exception e){
+						return new ModelAndView("addProduct").addObject("error",true);
+					}
+				}
 				
-				return new ModelAndView("mainTemplate").addObject(
-						"imageTitles", imageTitles);
+				//return new ModelAndView("mainTemplate").addObject(
+						//"imageTitles", imageTitles);
 
 			} catch (Exception e) {
 				return new ModelAndView("mainTemplate").addObject("fileName",
@@ -90,7 +106,7 @@ public class WebController {
 						e.getClass().getName() + ":" + e.getMessage());
 			}
 		} else {
-			return new ModelAndView("mainTemplate").addObject("error",
+			return new ModelAndView("addProduct").addObject("error",
 					"The file is empty");
 		}
 	}
@@ -118,24 +134,23 @@ public class WebController {
 		return mv;
 	}
 	
-	@RequestMapping("/mainTemplate")
+	/*@RequestMapping("/addedProduct")
 	public ModelAndView adds(@RequestParam String image, @RequestParam String name, @RequestParam String prize
 			, @RequestParam String description, @RequestParam String category){
 		if ((image.equals(""))||(name.equals("")||(prize=="")||(description=="")||(category==""))){
-			return new ModelAndView("addProduct").addObject("error",true);
+			return new ModelAndView("addedProduct").addObject("error",true);
 		}else{
 			try{
 				double mydouble = Double.parseDouble(prize); 
 				Product product = new Product(name,category,image,description,mydouble);
 				productrepository.save(product);
-				ModelAndView mv = new ModelAndView("mainTemplate").addObject("products",
-						productrepository.findAll());
+				ModelAndView mv = new ModelAndView("addedProduct").addObject("right",true);
 				return mv;
 			}catch(Exception e){
-				return new ModelAndView("addProduct").addObject("error",true);
+				return new ModelAndView("addedProduct").addObject("error",true);
 			}
 		}
-	}
+	}*/
 	
 	@RequestMapping("/storageCart")
 	public ModelAndView showStorageCart(HttpSession sesion){

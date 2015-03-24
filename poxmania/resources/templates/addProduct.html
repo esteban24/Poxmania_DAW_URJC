@@ -11,10 +11,10 @@
 			<b>Name:</b> <input type='text' name='name' />
 		</p>
 		<p>
-			<b>Description:</b> <textarea name='come' rows='5' cols='40'></textarea>
+			<b>Description:</b> <input type="text" name='description'/>
 		</p>
 		<p>
-			<b>Prize:</b><br /> <input type='text' name='nombre' />
+			<b>Prize:</b><br /> <input type='text' name='prize' />
 		</p>
 		<p>
 			<b>Category:</b><br /> <input type='text' name='category' />
@@ -26,6 +26,7 @@
 		<input type='submit' name='enviar' value='Enviar' />
 	</form>
 	<p th:if="${error}"> ERROR, PRODUCT HAS NOT ADDED</p>
+	<p th:if="${right}">PRODUCT HAS BEEN ADDED</p>
 	<a href="/">Volver</a>
 </body>
 </html>
