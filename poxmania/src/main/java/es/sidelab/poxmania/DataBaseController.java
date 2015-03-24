@@ -18,7 +18,7 @@ public class DataBaseController implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		
 		//guardando un artículo de cada tipo de productos
-		repository.save(new Product("Dell",Constants.INFORMATIC,"/informatic.jpg",
+		repository.save(new Product("Dell",Constants.INFORMATIC,"/image/0.jpg",
 						"Ordenador Dell de última generación",125.33));
 		repository.save(new Product("Minipimer Braun", Constants.LITTLE_APPLIANCE, "/minipimer.jpg",
 						"Minipimer Braun con la máxima potencia", 88.95));

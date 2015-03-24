@@ -1,11 +1,23 @@
 package es.sidelab.poxmania;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.sidelab.poxmania.ProductRepository;
@@ -15,6 +27,10 @@ import es.sidelab.poxmania.DataBaseController;
 
 @Controller
 public class WebController {
+	
+	private static final String FILES_FOLDER = "files";
+
+	private List<String> imageTitles = new ArrayList<>();
 	
 	@Autowired
 	private ProductRepository productrepository;
@@ -42,6 +58,82 @@ public class WebController {
 				productrepository.findAll());
 
 		return mv;
+	}
+	
+	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
+	public ModelAndView handleFileUpload(
+			@RequestParam("name") String name,
+			@RequestParam("file") MultipartFile file) {
+
+		String fileName = imageTitles.size() + ".jpg";
+
+		if (!file.isEmpty()) {
+			try {
+
+				File filesFolder = new File(FILES_FOLDER);
+				if (!filesFolder.exists()) {
+					filesFolder.mkdirs();
+				}
+
+				File uploadedFile = new File(filesFolder.getAbsolutePath(), fileName);
+				file.transferTo(uploadedFile);
+
+				imageTitles.add(name);
+				
+				return new ModelAndView("mainTemplate").addObject(
+						"imageTitles", imageTitles);
+
+			} catch (Exception e) {
+				return new ModelAndView("mainTemplate").addObject("fileName",
+						fileName).addObject("error",
+						e.getClass().getName() + ":" + e.getMessage());
+			}
+		} else {
+			return new ModelAndView("mainTemplate").addObject("error",
+					"The file is empty");
+		}
+	}
+	
+	@RequestMapping("/image/{fileName}")
+	public void handleFileDownload(@PathVariable String fileName,
+			HttpServletResponse res) throws FileNotFoundException, IOException {
+
+		File file = new File(FILES_FOLDER, fileName+".jpg");
+
+		if (file.exists()) {
+			res.setContentType("image/jpeg");
+			res.setContentLength(new Long(file.length()).intValue());
+			FileCopyUtils
+					.copy(new FileInputStream(file), res.getOutputStream());
+		} else {
+			res.sendError(404, "File" + fileName + "(" + file.getAbsolutePath()
+					+ ") does not exist");
+		}
+	}
+	
+	@RequestMapping("/addProduct")
+	public ModelAndView add(HttpSession sesion){		
+		ModelAndView mv = new ModelAndView("addProduct");
+		return mv;
+	}
+	
+	@RequestMapping("/mainTemplate")
+	public ModelAndView adds(@RequestParam String image, @RequestParam String name, @RequestParam String prize
+			, @RequestParam String description, @RequestParam String category){
+		if ((image.equals(""))||(name.equals("")||(prize=="")||(description=="")||(category==""))){
+			return new ModelAndView("addProduct").addObject("error",true);
+		}else{
+			try{
+				double mydouble = Double.parseDouble(prize); 
+				Product product = new Product(name,category,image,description,mydouble);
+				productrepository.save(product);
+				ModelAndView mv = new ModelAndView("mainTemplate").addObject("products",
+						productrepository.findAll());
+				return mv;
+			}catch(Exception e){
+				return new ModelAndView("addProduct").addObject("error",true);
+			}
+		}
 	}
 	
 	@RequestMapping("/storageCart")
@@ -74,8 +166,6 @@ public class WebController {
 														.addObject("password",password);
 		}else{
 			return new ModelAndView("confirmationForm").addObject("error",true);
-			/*return new ModelAndView("/mainTemplate").addObject("products",
-					productrepository.findAll());*/
 		}
 	}
 	

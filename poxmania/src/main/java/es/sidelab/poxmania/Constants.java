@@ -1,5 +1,6 @@
 package es.sidelab.poxmania;
 
+
 public class Constants {
 	
 	final static String INFORMATIC = "Informática";
@@ -8,5 +9,4 @@ public class Constants {
 	final static String VIDEOGAME = "Videoconsola";
 	final static String ADMIN = "admin";
 	final static String PASSWORD = "1234";
-
 }

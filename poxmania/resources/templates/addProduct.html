@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<h1>New Product</h1>
+
+	<form action="/image/upload" method="post" enctype="multipart/form-data">
+		<p>
+			<b>Name:</b> <input type='text' name='name' />
+		</p>
+		<p>
+			<b>Description:</b> <textarea name='come' rows='5' cols='40'></textarea>
+		</p>
+		<p>
+			<b>Prize:</b><br /> <input type='text' name='nombre' />
+		</p>
+		<p>
+			<b>Category:</b><br /> <input type='text' name='category' />
+		</p>
+		<p>
+			<label>Image file:</label><input type="file" name="file" />
+		</p>
+
+		<input type='submit' name='enviar' value='Enviar' />
+	</form>
+	<p th:if="${error}"> ERROR, PRODUCT HAS NOT ADDED</p>
+	<a href="/">Volver</a>
+</body>
+</html>
