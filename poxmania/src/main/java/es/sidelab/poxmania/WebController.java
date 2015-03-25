@@ -88,7 +88,7 @@ public class WebController {
 				}else{
 					try{
 						double mydouble = Double.parseDouble(prize); 
-						Product product = new Product(name,category,description,mydouble);
+						Product product = new Product(name,category,fileName,description,mydouble);
 						productrepository.save(product);
 						ModelAndView mv = new ModelAndView("addProduct").addObject("right",true);
 						return mv;
