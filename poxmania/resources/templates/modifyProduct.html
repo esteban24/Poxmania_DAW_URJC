@@ -30,7 +30,14 @@
             <p>
             	<h2 th:text="${product.category}">Category</h2>
         		<p>
-					<b>Category:</b> <input type='text' name='category' />
+					<label for="category">Category:</label><br />
+					<select id="category" name="category">
+						<option value="" selected="selected">- SELECCIONA -</option>
+						<option value="Televisión"> Televisión </option>
+						<option value="Informática"> Informática </option>
+						<option value="Videoconsola"> Videoconsola </option>
+						<option value="Pequeño electrodoméstico"> Pequeño Electrodoméstico </option>
+					</select>
 				</p>
             </p>
             <p>
