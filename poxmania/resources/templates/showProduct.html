@@ -3,14 +3,14 @@
 
 	<h1>Producto</h1>
 	<h1 th:text="|Categoria: ${product.category}|"></h1>
-	<img th:src="@{../images${product.image}}"></img>
+	<img th:src="${product.image}"></img>
 	<h2 th:text="|Nombre: ${product.name}|">></h2>
 	<p th:text="|Precio: ${product.prize}|" />
 	<p th:text="|Comentario: ${product.description}|" />
 	<div>
 		<form th:action="@{/addToStorageCartConfirmation}" method="post">
 		<p>
-			<label for="numElements">Category:</label><br /> <!--input type='text' name='category'/-->
+			<label for="numElements">Cantidad:</label><br /> <!--input type='text' name='category'/-->
 			<select id="numElements" name="numElements">
 				<option value="" selected="selected">0</option>
 				<option value="1"> 1 </option>

@@ -30,7 +30,7 @@ public class WebController {
 	
 	private static final String FILES_FOLDER = "files";
 
-	private List<String> imageTitles = new ArrayList<>();
+	private List<String> imageTitles;
 	
 	@Autowired
 	private ProductRepository productrepository;
@@ -53,6 +53,11 @@ public class WebController {
 		
 		if (sesion.isNew()){
 			userStorageCart = new StorageCart();
+			imageTitles = new ArrayList<String>();
+			imageTitles.add("/images/0.jpg");
+			imageTitles.add("/images/1.jpg");
+			imageTitles.add("/images/2.jpg");
+			imageTitles.add("/images/3.jpg");
 		}
 				
 		ModelAndView mv = new ModelAndView("mainTemplate").addObject("products",
@@ -86,7 +91,7 @@ public class WebController {
 				}else{
 					try{
 						double mydouble = Double.parseDouble(prize); 
-						Product product = new Product(name,category,fileName,description,mydouble);
+						Product product = new Product(name,category,"image/"+fileName,description,mydouble);
 						productrepository.save(product);
 						ModelAndView mv = new ModelAndView("addProduct").addObject("right",true);
 						return mv;
@@ -258,4 +263,5 @@ public class WebController {
 		
 		return new ModelAndView("createStorageCart");
 	}
+	
 }
