@@ -8,7 +8,7 @@
 	<div>
 		<p>Por favor, introduzca su nombre y apellidos para finalizar la compra</p>
 	</div>
-	<form th:action="@{/createStorageCart}">
+	<form th:action="@{/createStorageCart}" method="post">
 		<p>
 			<b>Nombre: </b> <input type='text' name='name'/>
 		</p>

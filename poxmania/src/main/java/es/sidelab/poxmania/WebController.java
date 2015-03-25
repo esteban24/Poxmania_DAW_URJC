@@ -47,8 +47,6 @@ public class WebController {
 	private StorageCart userStorageCart;
 	
 	
-	
-	
 	@RequestMapping("/")
 	public ModelAndView main(HttpSession sesion) {
 		//TODO emartin: metodo de ModelAndView
@@ -214,11 +212,11 @@ public class WebController {
 	}
 	
 	@RequestMapping("/addToStorageCartConfirmation")
-	public ModelAndView addToStorageCart(@RequestParam long idProduct){
+	public ModelAndView addToStorageCart(@RequestParam long idProduct, @RequestParam int numElements){
 		
 		Product product = productrepository.findOne(idProduct);
 		
-		StorageCartLine newStCrt = new StorageCartLine(product, 1);
+		StorageCartLine newStCrt = new StorageCartLine(product, numElements);
 		
 		this.userStorageCart.addItem(newStCrt);
 				
@@ -242,7 +240,7 @@ public class WebController {
 		this.userStorageCart.setName(name);
 		this.userStorageCart.setLastName(lastName);
 		
-		this.storageCartRepository.save(this.userStorageCart);
+		this.storageCartRepository.save(new StorageCart(this.userStorageCart));
 		
 		//----------------------------------------------------------
 		//Comprobación de que hemos guardado con éxito en la BBDD

@@ -45,6 +45,14 @@ public class StorageCart implements Serializable{
 		this.processed = false;
 	}
 	
+	public StorageCart(StorageCart storageCart){
+		this.lastName = storageCart.getLastName();
+		this.name = storageCart.getName();
+		this.processed = storageCart.getProcessed();
+		this.storageCartLine = storageCart.getStorageCartLine();
+		this.totalPrize = storageCart.getTotalPrize();
+	}
+	
 	
 	public StorageCartLine searchById(long id, List<StorageCartLine> storageCartList){
 		StorageCartLine returned = null;
@@ -93,7 +101,7 @@ public class StorageCart implements Serializable{
 		double prize = 0.0;
 		if(!this.getStorageCartLine().isEmpty()){
 			for(StorageCartLine pAux : this.storageCartLine){
-				prize = (pAux.getPrize() * pAux.getCuantity());
+				prize = prize + (pAux.getPrize() * pAux.getCuantity());
 			}
 		}
 		

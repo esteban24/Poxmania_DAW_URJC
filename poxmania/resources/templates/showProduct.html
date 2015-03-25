@@ -2,16 +2,18 @@
 <body>
 
 	<h1>Producto</h1>
-	<form action="/addToStorageCartConfirmation" method="post">
-		<h1 th:text="|Categoria: ${product.category}|"></h1>
-		<img th:src="@{../images${product.image}}"></img>
-		<h2 th:text="|Nombre: ${product.name}|">></h2>
-		<p th:text="|Precio: ${product.prize}|" />
-		<p th:text="|Comentario: ${product.description}|" />
-		<a th:href="@{/addToStorageCartConfirmation(idProduct=${product.id})}"
-			th:text="|Añadir al carrito|"></a>
-	</form>
-
+	<h1 th:text="|Categoria: ${product.category}|"></h1>
+	<img th:src="@{../images${product.image}}"></img>
+	<h2 th:text="|Nombre: ${product.name}|">></h2>
+	<p th:text="|Precio: ${product.prize}|" />
+	<p th:text="|Comentario: ${product.description}|" />
+	<div>
+		<form th:action="@{/addToStorageCartConfirmation}" method="post">
+		<label>Número de elementos:</label><input type="number" name="numElements" min="1" max="99"/>
+		<input type="hidden" name="idProduct" th:value="${product.id}"/>
+		<input type="submit" name="Enviar"/>
+		</form>
+	</div>
 	<a href="/">Volver</a>
 </body>
 </html>
