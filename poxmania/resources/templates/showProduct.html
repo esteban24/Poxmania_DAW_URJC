@@ -3,7 +3,7 @@
 
 	<h1>Producto</h1>
 	<h1 th:text="|Categoria: ${product.category}|"></h1>
-	<img th:src="${product.image}"></img>
+	<img th:src="${product.image}" height="100"></img>
 	<h2 th:text="|Nombre: ${product.name}|">></h2>
 	<p th:text="|Precio: ${product.prize}|" />
 	<p th:text="|Comentario: ${product.description}|" />
@@ -26,7 +26,7 @@
 			</select>
 		</p>
 		<input type="hidden" name="idProduct" th:value="${product.id}"/>
-		<input type="submit" name="Enviar"/>
+		<input type="submit" name="Enviar" value="Enviar al carrito"/>
 		</form>
 	</div>
 	<a href="/">Volver</a>

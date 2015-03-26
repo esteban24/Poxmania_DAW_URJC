@@ -30,8 +30,10 @@
             <img th:src="${product.image}" height="100"></img>
             <h2 th:text="${product.name}">Name</h2>
             <h2 th:text="${product.prize}">Price</h2>
-            <a th:href="@{/showProduct(idProduct=${product.id})}"
-	   			th:text="|${product.name} ${product.category}|">Link</a>
+            <form action="/showProduct" method="post">
+            	<input type="hidden" name="idProduct" th:value="${product.id}"/>
+            	<input type="submit" name="Ver detalle" value="Ver detalle"/>
+            </form>
         </div>
     </div>
     <!--footer-->
