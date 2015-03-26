@@ -9,7 +9,7 @@
     <div>
         <!--logo-->
         <div>
-        	<img src="image/logo.jpg"></img>
+        	<a href="/"><img src="/image/logo.jpg"></img></a>
         </div>
         <!--buscador-->
         <div></div>
@@ -25,7 +25,17 @@
     <!--contenedor grande donde estaran las imagenes y algún menu-->
     <div>
         <!--menu de arriba-->
-        <div></div>
+        <div>
+        	<nav>
+        		<ul>
+        			<li><a href="/">Home</a></li>
+        			<li><a th:href="@{/mainTemplate/1}">Televisión</a></li>
+        			<li><a th:href="@{/mainTemplate/2}">Informáica</a></li>
+        			<li><a th:href="@{/mainTemplate/3}">Videoconsola</a></li>
+        			<li><a th:href="@{/mainTemplate/4}">Pequeño electrodoméstico</a></li>
+        		</ul>
+        	</nav>
+        </div>
         <!--contenedor de fotos OJO-->
         <div th:each="product: ${products}" style="border-style: solid; padding: 20px">
             <img th:src="${product.image}" height="100"></img>

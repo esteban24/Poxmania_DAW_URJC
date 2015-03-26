@@ -66,6 +66,27 @@ public class WebController {
 		return mv;
 	}
 	
+	
+	@RequestMapping("mainTemplate/{show}")
+	public ModelAndView mainTemplateTelevision(HttpSession session, @PathVariable Integer show){
+		
+		ModelAndView mv = new ModelAndView("mainTemplate");
+		
+		switch(show){
+		case 1: mv.addObject("products", productrepository.findByCategory(Constants.TELEVISION));
+				break;
+		case 2: mv.addObject("products", productrepository.findByCategory(Constants.INFORMATIC));
+				break;
+		case 3: mv.addObject("products", productrepository.findByCategory(Constants.VIDEOGAME));
+				break;
+		case 4: mv.addObject("products", productrepository.findByCategory(Constants.LITTLE_APPLIANCE));	
+				break;
+		default: mv.addObject("products", productrepository.findAll());
+				 break;
+		}
+		return mv;
+	}
+	
 	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
 	public ModelAndView handleFileUpload(
 			@RequestParam("name") String name,

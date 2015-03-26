@@ -80,7 +80,7 @@ public class DataBaseController implements CommandLineRunner {
         System.out.println();
         
         //Volvemos a modificar LG a los valores originales
-        repository.setAlreadyExistingProduct(3L, "LG", Constants.INFORMATIC, "/image/2.jpg",
+        repository.setAlreadyExistingProduct(3L, "LG", Constants.TELEVISION, "/image/2.jpg",
 				"La mejor calidad de imagen con LG", 999.95);
         
         //LG original
