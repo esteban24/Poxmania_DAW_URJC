@@ -49,7 +49,6 @@ public class WebController {
 	
 	@RequestMapping("/")
 	public ModelAndView main(HttpSession sesion) {
-		//TODO emartin: metodo de ModelAndView
 		
 		if (sesion.isNew()){
 			userStorageCart = new StorageCart();
@@ -100,8 +99,6 @@ public class WebController {
 					}
 				}
 				
-				//return new ModelAndView("mainTemplate").addObject(
-						//"imageTitles", imageTitles);
 
 			} catch (Exception e) {
 				return new ModelAndView("mainTemplate").addObject("fileName",
@@ -159,7 +156,7 @@ public class WebController {
 	public ModelAndView showStorageCart(HttpSession sesion){
 		
 		ModelAndView mv = new ModelAndView("storageCart").addObject("products", this.userStorageCart.getStorageCartLine())
-														  .addObject("prize", this.userStorageCart.calculatePrize());
+														  .addObject("prize", this.userStorageCart.calculatePrize(this.userStorageCart.getStorageCartLine()));
 		return mv;
 	}
 	
@@ -259,7 +256,7 @@ public class WebController {
         //----------------------------------------------------------
 		
 		this.userStorageCart.getStorageCartLine().removeAll(this.userStorageCart.getStorageCartLine());
-		this.userStorageCart.setTotalPrize(this.userStorageCart.calculatePrize());
+		this.userStorageCart.setTotalPrize(this.userStorageCart.calculatePrize(this.userStorageCart.getStorageCartLine()));
 		
 		return new ModelAndView("createStorageCart");
 	}

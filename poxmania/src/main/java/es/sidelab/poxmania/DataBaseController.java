@@ -3,7 +3,6 @@ package es.sidelab.poxmania;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
-import es.sidelab.poxmania.WebController;
 
 import es.sidelab.poxmania.Product;
 import es.sidelab.poxmania.ProductRepository;

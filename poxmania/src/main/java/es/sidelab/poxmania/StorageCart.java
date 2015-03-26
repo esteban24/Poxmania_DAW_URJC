@@ -37,9 +37,9 @@ public class StorageCart implements Serializable{
 		this.processed = false;
 	}
 	
-	public StorageCart(String name, String lastName, List<StorageCartLine> storageCartLine){
+	public StorageCart(String name, String lastName, List<StorageCartLine> storageCartLine, double totalPrize){
 		this.storageCartLine = storageCartLine;
-		this.totalPrize = calculatePrize();
+		this.totalPrize = totalPrize;
 		this.name = name;
 		this.lastName = lastName;
 		this.processed = false;
@@ -77,7 +77,8 @@ public class StorageCart implements Serializable{
 			}
 		}
 		
-		this.getStorageCartLine().get(index).setCuantity(this.getStorageCartLine().get(index).getCuantity() + 1);
+		this.getStorageCartLine().get(index).setCuantity(this.getStorageCartLine().get(index).getCuantity() + 
+														storageCartLine.getCuantity());
 	}
 	
 	public void addItem(StorageCartLine storageCartLine){
@@ -88,19 +89,19 @@ public class StorageCart implements Serializable{
 		}else{
 			this.getStorageCartLine().add(storageCartLine);
 		}
-		this.totalPrize = calculatePrize();
+		this.totalPrize = calculatePrize(this.getStorageCartLine());
 		
 	}
 	
 	public void deleteItem(StorageCartLine storageCartLine){
 		this.storageCartLine.remove(storageCartLine);
-		this.totalPrize = calculatePrize();
+		this.setTotalPrize(calculatePrize(this.getStorageCartLine()));
 	}
 	
-	public double calculatePrize(){
+	public double calculatePrize(List<StorageCartLine> storageCartLine){
 		double prize = 0.0;
-		if(!this.getStorageCartLine().isEmpty()){
-			for(StorageCartLine pAux : this.storageCartLine){
+		if(!storageCartLine.isEmpty()){
+			for(StorageCartLine pAux : storageCartLine){
 				prize = prize + (pAux.getPrize() * pAux.getCuantity());
 			}
 		}
