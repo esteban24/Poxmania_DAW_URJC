@@ -7,7 +7,7 @@
 <body>
 	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
 		<div>
-        	<img th:src="${product.product.image}"></img>
+			<img th:src="${product.product.image}" height="100"></img>
             <h2 th:text="${product.product.name}">Name</h2>
             <h2 th:text="${product.product.prize}">Price</h2>
             <h2 th:text="| x ${product.cuantity}|">Cuantity</h2>

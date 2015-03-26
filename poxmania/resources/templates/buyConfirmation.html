@@ -21,6 +21,7 @@
 	</form>
 	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
 		<div>
+			<img th:src="${product.product.image}" height="100"></img>
             <h2 th:text="${product.product.name}">Name</h2>
             <h2 th:text="${product.cuantity}">Cuantity</h2>
             <h2 th:text="${product.product.prize}">Prize</h2>
