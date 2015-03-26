@@ -200,13 +200,23 @@ public class WebController {
 			return new ModelAndView("modifiedProduct").addObject("error",true);
 		}else{
 			try{
-				double mydouble = Double.parseDouble(prize); 
+				productrepository.setAlreadyExistingProduct(id, name, category, image, description, Double.parseDouble(prize));
+				
+				//TODO emartin: cambiado el método de modificación de un producto, queda eliminar que aparezca en el 
+				/*formulario el id, cambiarlo en el template. Estaría bien encontrar la manera de modificar la imagen seleccionándola
+				  como al añadir un artículo y si no se meten determinados campos, que tome los viejos y se modifique el producto
+				  con ellos ya que la sentencia de modificación necesita todos los parámetros. Si no es posible no importa pero al menos
+				  lo de la imagen debería aparecer/*
+				  
+				//TODO emartin: eliminar este código comentado (antigua modificación sin consultas)  
+				/*double mydouble = Double.parseDouble(prize); 
 				Product product = productrepository.findOne(id);
 				product.setPrize(mydouble);
 				product.setDescription(description);
 				product.setName(name);
 				product.setCategory(category);
-				productrepository.save(product);
+				productrepository.save(product);*/
+				
 				return new ModelAndView("modifiedProduct").addObject("right",true);
 			}catch(Exception e){
 				return new ModelAndView("modifiedProduct").addObject("errorExecution",true);

@@ -29,14 +29,68 @@ public class DataBaseController implements CommandLineRunner {
 		
 		//sacamos los productos
         Iterable<Product> products = repository.findAll();
-        System.out.println("Customers found with findAll():");
+        System.out.println("Products found with findAll():");
         System.out.println("-------------------------------");
         for (Product product : products) {
             System.out.println(product);
         }
         System.out.println();
         
+        /*
+         * Comprobación de las búsquedas en la BBDD
+         */
         
+        //findByName()
+        Iterable<Product> productsFindByName = repository.findByName("PS4");
+        System.out.println("Products found with findByName(\"PS4\"):");
+        System.out.println("-------------------------------");
+        for (Product product : productsFindByName) {
+            System.out.println(product);
+        }
+        System.out.println();
+        
+        //findByCategory
+        Iterable<Product> productsFindByCategory = repository.findByCategory(Constants.LITTLE_APPLIANCE);
+        System.out.println("Products found with findByCategory(\"Pequeño electrodoméstico\"):");
+        System.out.println("-------------------------------");
+        for (Product product : productsFindByCategory) {
+            System.out.println(product);
+        }
+        System.out.println();
+        
+        //findByPrize()
+        Iterable<Product> productsFindByPrize= repository.findByPrize(100.0, 500.0);
+        System.out.println("Products found with findByPrize(100.0, 500.0):");
+        System.out.println("-------------------------------");
+        for (Product product : productsFindByPrize) {
+            System.out.println(product);
+        }
+        System.out.println();
+        
+        //setAlreadyExistingProduct()
+        repository.setAlreadyExistingProduct(3L, "LG2", Constants.INFORMATIC, "/image/777.jpg",
+				"Modificación de LG", 300);
+        //LG modificado
+        Iterable<Product> productsNew = repository.findAll();
+        System.out.println("LG modified:");
+        System.out.println("-------------------------------");
+        for (Product product : productsNew) {
+            System.out.println(product);
+        }
+        System.out.println();
+        
+        //Volvemos a modificar LG a los valores originales
+        repository.setAlreadyExistingProduct(3L, "LG", Constants.INFORMATIC, "/image/2.jpg",
+				"La mejor calidad de imagen con LG", 999.95);
+        
+        //LG original
+        Iterable<Product> productsFinal = repository.findAll();
+        System.out.println("LG original:");
+        System.out.println("-------------------------------");
+        for (Product product : productsFinal) {
+            System.out.println(product);
+        }
+        System.out.println();
 		
 	}
 
