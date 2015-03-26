@@ -156,7 +156,7 @@ public class WebController {
 	public ModelAndView showStorageCart(HttpSession sesion){
 		
 		ModelAndView mv = new ModelAndView("storageCart").addObject("products", this.userStorageCart.getStorageCartLine())
-														  .addObject("prize", this.userStorageCart.calculatePrize(this.userStorageCart.getStorageCartLine()));
+														  .addObject("prize", this.userStorageCart.getTotalPrize());
 		return mv;
 	}
 	

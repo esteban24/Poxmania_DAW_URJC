@@ -24,7 +24,7 @@ public class StorageCart implements Serializable{
 	
 	private String name;
 	private String lastName;
-	private double totalPrize;
+	private double totalPrize = 0.0;
 	@OneToMany(mappedBy="product")
 	private List<StorageCartLine> storageCartLine;
 	private boolean processed = false;
@@ -102,7 +102,7 @@ public class StorageCart implements Serializable{
 		double prize = 0.0;
 		if(!storageCartLine.isEmpty()){
 			for(StorageCartLine pAux : storageCartLine){
-				prize = prize + (pAux.getPrize() * pAux.getCuantity());
+				prize = prize + (pAux.getPrize());
 			}
 		}
 		
