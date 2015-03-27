@@ -207,6 +207,25 @@ public class WebController {
 				"The product has been deleted");
 		return mv;
 	}
+	
+	@RequestMapping("confirmationStorage")
+	public ModelAndView confirmationStorage(HttpSession sesion) {
+		
+		ModelAndView mv = new ModelAndView("confirmationStorage").addObject("storageCarts",
+				storageCartRepository.findAll());
+
+		return mv;
+	}
+	
+	@RequestMapping("/storageConfirmated")
+	public ModelAndView confirmated(@RequestParam long idStorageCart) {	
+		StorageCart confirmed = storageCartRepository.findOne(idStorageCart);
+		confirmed.setProcessed(true);
+		storageCartRepository.delete(idStorageCart);
+		ModelAndView mv = new ModelAndView("storageConfirmated").addObject("right",
+				"The storage has been confirmated");
+		return mv;
+	}
 
 	
 	@RequestMapping("/storageCart")

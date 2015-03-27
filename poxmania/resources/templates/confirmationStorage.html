@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+  	<div th:each="storageCart: ${storageCarts}" style="border-style: solid; padding: 20px">
+   	    <h2 th:text="${storageCart.name}">Name</h2>
+       	<h2 th:text="${storageCart.lastName}">Last name</h2>
+       	<h2 th:text="${storageCart.totalPrize}">Total Prize</h2>
+       	<form action="/storageConfirmated" method="post">
+           	<input type="hidden" name="idStorageCart" th:value="${storageCart.id}"/>
+            <input type="submit" name="Comfirmation" value="Confirmation"/>
+       	</form>
+  	</div>
+  	<a href="/">Volver</a>
+</body>
+</html>
