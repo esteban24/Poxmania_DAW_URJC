@@ -174,6 +174,41 @@ public class WebController {
 		}
 	}*/
 	
+	@RequestMapping("/deleteProduct")
+	public ModelAndView mainDelete(HttpSession sesion) {				
+		ModelAndView mv = new ModelAndView("deleteProduct");
+		return mv;
+	}
+	
+	@RequestMapping("deleteProduct/{show}")
+	public ModelAndView delete(HttpSession session, @PathVariable Integer show){
+		
+		ModelAndView mv = new ModelAndView("deleteProduct");
+		
+		switch(show){
+		case 1: mv.addObject("products", productrepository.findByCategory(Constants.TELEVISION));
+				break;
+		case 2: mv.addObject("products", productrepository.findByCategory(Constants.INFORMATIC));
+				break;
+		case 3: mv.addObject("products", productrepository.findByCategory(Constants.VIDEOGAME));
+				break;
+		case 4: mv.addObject("products", productrepository.findByCategory(Constants.LITTLE_APPLIANCE));	
+				break;
+		default: mv.addObject("products", productrepository.findAll());
+				 break;
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/deletedProduct")
+	public ModelAndView deleted(@RequestParam long idProduct) {	
+		productrepository.delete(idProduct);
+		ModelAndView mv = new ModelAndView("deletedProduct").addObject("right",
+				"The product has been deleted");
+		return mv;
+	}
+
+	
 	@RequestMapping("/storageCart")
 	public ModelAndView showStorageCart(HttpSession sesion){
 		

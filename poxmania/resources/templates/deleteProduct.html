@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<div>
+    	<nav>
+    		<ul>
+    			<li><a th:href="@{/deleteProduct/1}">Televisión</a></li>
+    			<li><a th:href="@{/deleteProduct/2}">Informáica</a></li>
+    			<li><a th:href="@{/deleteProduct/3}">Videoconsola</a></li>
+    			<li><a th:href="@{/deleteProduct/4}">Pequeño electrodoméstico</a></li>
+    		</ul>
+    	</nav>
+    </div>
+    <div th:each="product: ${products}" style="border-style: solid; padding: 20px">
+      	<img th:src="${product.image}" height="100"></img>
+      	<h2 th:text="${product.name}">Name</h2>
+       	<h2 th:text="${product.prize}">Price</h2>       	
+      	<form action="/deletedProduct" method="post">
+            <input type="hidden" name="idProduct" th:value="${product.id}"/>
+            <input type='submit' name='eliminar' value='Eliminar' />
+    	</form>
+    </div>
+	<a href="/">Volver</a>
+</body>
+</html>
