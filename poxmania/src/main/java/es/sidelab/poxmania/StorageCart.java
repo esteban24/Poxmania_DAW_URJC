@@ -70,7 +70,7 @@ public class StorageCart implements Serializable{
 	public void addProductFromStorageCart(StorageCartLine storageCartLine){
 		int index = 0;
 		for(StorageCartLine aux : this.getStorageCartLine()){
-			if(aux.getId() == storageCartLine.getId()){
+			if(aux.getProduct().getId() == storageCartLine.getProduct().getId()){
 				break;
 			}else{
 				index++;
