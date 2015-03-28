@@ -359,7 +359,7 @@ public class WebController {
 		if((boolean) sesion.getAttribute("admin")){
 			Product myProduct = productrepository.findById(id);
 			//String fileName = myProduct.getName()+".jpg";
-			int i =( int )( long )id -1;
+			int i =( int )( long )id;
 			imageTitles.set(i, name);
 			String fileName = imageTitles.get(i) + ".jpg";
 			if (!file.isEmpty()) {
@@ -372,17 +372,18 @@ public class WebController {
 					file.transferTo(uploadedFile);
 					//int i =( int )( long )id -1;
 					//imageTitles.set(i, name);
-					imageTitles.add(fileName);
+					imageTitles.add("/images/"+fileName);
 					if ((name.equals("")||(prize=="")||(description=="")||(category==""))){
 						return new ModelAndView("modifiedProduct").addObject("error",true);
 					}else{
 						try{
+							imageTitles.add(fileName);
 							double mydouble = Double.parseDouble(prize); 
 							myProduct.setName(name);
 							myProduct.setDescription(description);
 							myProduct.setCategory(category);
 							myProduct.setPrize(mydouble);
-							productrepository.setAlreadyExistingProduct(id, myProduct.getName(), myProduct.getCategory(), "image/"+fileName, myProduct.getDescription(), myProduct.getPrize());
+							productrepository.setAlreadyExistingProduct(id, myProduct.getName(), myProduct.getCategory(), "/image/"+fileName, myProduct.getDescription(), myProduct.getPrize());
 							ModelAndView mv = new ModelAndView("modifiedProduct").addObject("right",true);
 							return mv;
 						}catch(Exception e){
