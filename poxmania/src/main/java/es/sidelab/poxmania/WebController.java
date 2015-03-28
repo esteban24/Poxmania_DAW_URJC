@@ -271,6 +271,18 @@ public class WebController {
 		}
 	}
 	
+	@RequestMapping("/storageCart/{delete}")
+	public ModelAndView removeFromStorageCartLine(HttpSession session, @PathVariable String delete, @RequestParam long idProduct){
+		StorageCart storageCart = (StorageCart) session.getAttribute("carro");
+		if(!storageCart.equals(null)){
+			storageCart.deleteItem((storageCart.searchById(idProduct, storageCart.getStorageCartLine())));
+		}
+		session.setAttribute("carro", storageCart);
+		
+		return new ModelAndView("storageCart").addObject("products", ((StorageCart) session.getAttribute("carro")).getStorageCartLine())
+				  .addObject("prize", ((StorageCart) session.getAttribute("carro")).getTotalPrize());
+	}
+	
 	@RequestMapping("/showProduct")
 	public ModelAndView mostrar(@RequestParam long idProduct) {
 

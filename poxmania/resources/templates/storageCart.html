@@ -11,11 +11,15 @@
             <h2 th:text="${product.product.name}">Name</h2>
             <h2 th:text="${product.product.prize}">Price</h2>
             <h2 th:text="| x ${product.cuantity}|">Cuantity</h2>
+			<form action="/storageCart/delete" method="post">
+				<input type="hidden" name="idProduct" th:value="${product.product.id}"/>
+				<input type="submit" name="borrar" value="Eliminar del carrito"/>
+			</form>
         </div>
     </div>
     <div>
-    	<h2 th:if="${prize} != null" th:text="|Precio Total: ${prize}"></h2>
-    	<h2 th:if="${prize} == null">No hay productos en el carrito</h2>
+    	<h2 th:if="!${prize} eq 0" th:text="|Precio Total: ${prize}"></h2>
+    	<h2 th:if="${prize} == null or ${prize} eq 0">No hay productos en el carrito</h2>
     </div>
     <div th:if="!${#lists.isEmpty(products)}">
     	<a href="/buyConfirmation">Pasar a finalizar la compra</a>
