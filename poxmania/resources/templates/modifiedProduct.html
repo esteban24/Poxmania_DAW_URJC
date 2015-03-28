@@ -5,9 +5,9 @@
 <title>Modificar Producto</title>
 </head>
 <body>
-	<p th:if="${error}"> ERROR, PRODUCT NOT MODIFIED!</p>
-	<p th:if="${right}"> PRODUCT MODIFIED </p>
+	<p th:if="${error}"> ERROR, PRODUCTO NO MODIFICADO, HAY QUE ESTABLECER TODOS LOS CAMPOS DEL FORMULARIO CORRECTAMENTE</p>
+	<p th:if="${right}"> PRODUCTO MODIFICADO </p>
 	<p th:if="${errorExecution}"> error, debe escribir el precio con el siguiente formato: 00.00 </p>
-	<a href="/">Volver</a>
+	<a href="/adminBack">Volver</a>
 </body>
 </html>

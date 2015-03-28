@@ -4,15 +4,22 @@
 <meta charset="UTF-8"/>
 </head>
 <body>
-  	<div th:each="storageCart: ${storageCarts}" style="border-style: solid; padding: 20px">
-   	    <h2 th:text="${storageCart.name}">Name</h2>
-       	<h2 th:text="${storageCart.lastName}">Last name</h2>
-       	<h2 th:text="${storageCart.totalPrize}">Total Prize</h2>
+	<h1>pedidos no procesados</h1>
+  	<div th:each="storageCartFalse: ${storageCartsFalse}" style="border-style: solid; padding: 20px">  		
+   	    <h2 th:text="${storageCartFalse.name}">Name</h2>
+       	<h2 th:text="${storageCartFalse.lastName}">Last name</h2>
+       	<h2 th:text="${storageCartFalse.totalPrize}">Total Prize</h2>
        	<form action="/storageConfirmated" method="post">
-           	<input type="hidden" name="idStorageCart" th:value="${storageCart.id}"/>
+           	<input type="hidden" name="idStorageCartFalse" th:value="${storageCartFalse.id}"/>
             <input type="submit" name="Comfirmation" value="Confirmation"/>
        	</form>
   	</div>
-  	<a href="/">Volver</a>
+  	<h1>pedidos procesados</h1>
+  	<div th:each="storageCartTrue: ${storageCartsTrue}" style="border-style: solid; padding: 20px">
+   	    <h2 th:text="${storageCartTrue.name}">Name</h2>
+       	<h2 th:text="${storageCartTrue.lastName}">Last name</h2>
+       	<h2 th:text="${storageCartTrue.totalPrize}">Total Prize</h2>
+  	</div>
+  	<a href="/adminBack">Volver</a>
 </body>
 </html>

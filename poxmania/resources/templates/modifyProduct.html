@@ -6,11 +6,11 @@
 </head>
 <body>
 	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
-		<form action="/modifiedProduct">
+		<form action="/modifiedProduct" method="POST">
 			<h2 th:text="${product.id}">id</h2>
-			<input type="number" name="id" readonly="readonly" th:value="${product.id}"	/>
+			<input type="hidden" name="id" readonly="readonly" th:value="${product.id}"	/>
 			<p>
-        		<img th:src="${product.image}"></img>
+        		<img th:src="${product.image}" height="100"></img>
         		<p>
 					<b>Image:</b> <input type='text'  name='image' />
 				</p>
@@ -49,7 +49,7 @@
             <input type='submit' name='enviar' value='Enviar' />
         </form>
         <p th:if="${error}"> ERROR, PRODUCT NOT MODIFIED!</p>
-		<a href="/adminTemplate">Volver</a>
+		<a href="/adminBack">Volver</a>
     </div>
 </body>
 </html>

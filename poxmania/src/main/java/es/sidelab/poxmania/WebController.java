@@ -51,6 +51,7 @@ public class WebController {
 	public ModelAndView main(HttpSession sesion) {
 		sesion.removeAttribute("user");
 		sesion.removeAttribute("password");
+		sesion.removeAttribute("admin");
 		if (sesion.isNew()){
 			//userStorageCart = new StorageCart();
 			imageTitles = new ArrayList<String>();
@@ -72,6 +73,9 @@ public class WebController {
 	public ModelAndView mainTemplateTelevision(HttpSession session, @PathVariable Integer show){
 		
 		ModelAndView mv = new ModelAndView("mainTemplate");
+		session.removeAttribute("user");
+		session.removeAttribute("password");
+		session.setAttribute("admin", false);
 		
 		switch(show){
 		case 1: mv.addObject("products", productrepository.findByCategory(Constants.TELEVISION));
@@ -152,28 +156,20 @@ public class WebController {
 	}
 	
 	@RequestMapping("/addProduct")
-	public ModelAndView add(HttpSession sesion){		
-		ModelAndView mv = new ModelAndView("addProduct");
-		return mv;
-	}
-	
-	/*@RequestMapping("/addedProduct")
-	public ModelAndView adds(@RequestParam String image, @RequestParam String name, @RequestParam String prize
-			, @RequestParam String description, @RequestParam String category){
-		if ((image.equals(""))||(name.equals("")||(prize=="")||(description=="")||(category==""))){
-			return new ModelAndView("addedProduct").addObject("error",true);
-		}else{
-			try{
-				double mydouble = Double.parseDouble(prize); 
-				Product product = new Product(name,category,image,description,mydouble);
-				productrepository.save(product);
-				ModelAndView mv = new ModelAndView("addedProduct").addObject("right",true);
+	public ModelAndView add(HttpSession sesion){
+		if (sesion.getAttribute("admin")!=null){
+			if((boolean) sesion.getAttribute("admin")){
+				ModelAndView mv = new ModelAndView("addProduct");
 				return mv;
-			}catch(Exception e){
-				return new ModelAndView("addedProduct").addObject("error",true);
+			}else{
+				ModelAndView mv = new ModelAndView("notAdmin");
+				return mv;
 			}
+		}else{
+			ModelAndView mv = new ModelAndView("notAdmin");
+			return mv;
 		}
-	}*/
+	}
 	
 	@RequestMapping("/deleteProduct")
 	public ModelAndView mainDelete(HttpSession sesion) {
@@ -236,8 +232,9 @@ public class WebController {
 	@RequestMapping("confirmationStorage")
 	public ModelAndView confirmationStorage(HttpSession sesion) {
 		if((boolean) sesion.getAttribute("admin")){
-			ModelAndView mv = new ModelAndView("confirmationStorage").addObject("storageCarts",
-					storageCartRepository.findAll());
+			ModelAndView mv = new ModelAndView("confirmationStorage").addObject("storageCartsFalse",
+					storageCartRepository.findByProcessedStorageCart(false))
+					.addObject("storageCartsTrue", storageCartRepository.findByProcessedStorageCart(true));
 	
 			return mv;
 		}else{
@@ -247,11 +244,10 @@ public class WebController {
 	}
 	
 	@RequestMapping("/storageConfirmated")
-	public ModelAndView confirmated(HttpSession sesion, @RequestParam long idStorageCart) {	
+	public ModelAndView confirmated(HttpSession sesion, @RequestParam long idStorageCartFalse) {	
 		if((boolean) sesion.getAttribute("admin")){
-			StorageCart confirmed = storageCartRepository.findOne(idStorageCart);
-			confirmed.setProcessed(true);
-			storageCartRepository.delete(idStorageCart);
+			storageCartRepository.setAlreadyExistingStorageCart(idStorageCartFalse, true);
+			//storageCartRepository.delete(idStorageCart);
 			ModelAndView mv = new ModelAndView("storageConfirmated").addObject("right",
 					"The storage has been confirmated");
 			return mv;
@@ -301,8 +297,8 @@ public class WebController {
 		}
 	}
 	
-	@RequestMapping("/adminTemplate2")
-	public ModelAndView confirm2(HttpSession sesion){
+	@RequestMapping("/adminBack")
+	public ModelAndView back(HttpSession sesion){
 		if ((sesion.getAttribute("user").equals(Constants.ADMIN))&&(sesion.getAttribute("password").equals(Constants.PASSWORD))){
 			sesion.setAttribute("admin", true);
 			return new ModelAndView("adminTemplate");
@@ -363,7 +359,7 @@ public class WebController {
 		
 		if(sesion.getAttribute("carro")!=null){
 			StorageCart list = ((StorageCart) sesion.getAttribute("carro"));
-			list.addProductFromStorageCart(newStCrt);
+			list.addItem(newStCrt);
 			sesion.setAttribute("carro", list);
 		}else{
 			StorageCart list2 = new StorageCart();

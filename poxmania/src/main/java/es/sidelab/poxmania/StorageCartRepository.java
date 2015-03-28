@@ -32,5 +32,5 @@ public interface StorageCartRepository extends CrudRepository <StorageCart, Long
 	@Modifying
 	@Transactional(readOnly=false)
 	@Query("update StorageCart s set s.processed = ?2 where s.id = ?1")
-	Integer setAlreadyExistingProduct(Long idProduct, boolean processed);
+	Integer setAlreadyExistingStorageCart(Long idProduct, boolean processed);
 }
