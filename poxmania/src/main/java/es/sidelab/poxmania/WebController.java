@@ -55,11 +55,10 @@ public class WebController {
 		if (sesion.isNew()){
 			//userStorageCart = new StorageCart();
 			imageTitles = new ArrayList<String>();
-			imageTitles.add("/images/0.jpg");
-			imageTitles.add("/images/1.jpg");
-			imageTitles.add("/images/2.jpg");
-			imageTitles.add("/images/3.jpg");
-			imageTitles.add("/images/4.jpg");
+			imageTitles.add("/image/1.jpg");
+			imageTitles.add("/image/2.jpg");
+			imageTitles.add("/image/3.jpg");
+			imageTitles.add("/image/4.jpg");
 		}
 				
 		ModelAndView mv = new ModelAndView("mainTemplate").addObject("products",
@@ -98,7 +97,7 @@ public class WebController {
 			@RequestParam("file") MultipartFile file, @RequestParam("prize") String prize
 			, @RequestParam("description") String description, @RequestParam("category") String category) {
 
-		String fileName = imageTitles.size() + ".jpg";
+		String fileName = imageTitles.size() + 1 + ".jpg";
 
 		if (!file.isEmpty()) {
 			try {
@@ -117,7 +116,7 @@ public class WebController {
 				}else{
 					try{
 						double mydouble = Double.parseDouble(prize); 
-						Product product = new Product(name,category,"image/"+fileName,description,mydouble);
+						Product product = new Product(name,category,"/image/"+fileName,description,mydouble);
 						productrepository.save(product);
 						ModelAndView mv = new ModelAndView("addProduct").addObject("right",true);
 						return mv;
@@ -215,7 +214,22 @@ public class WebController {
 	public ModelAndView deleted(HttpSession sesion, @RequestParam long idProduct) {	
 		if (sesion.getAttribute("admin")!=null){	
 			if((boolean) sesion.getAttribute("admin")){
+				Product product = productrepository.findById(idProduct);
 				productrepository.delete(idProduct);
+				try{
+					File filesFolder = new File(FILES_FOLDER);
+					if (!filesFolder.exists()) {
+						filesFolder.mkdirs();
+					}
+					String str = product.getImage().substring(6);
+					File deleteFile = new File(filesFolder.getAbsolutePath()+"/", str);
+					deleteFile.delete();
+					imageTitles.remove(product.getName());
+					
+					System.out.println();
+				}catch(Exception e){
+					e.getMessage();
+				}
 				ModelAndView mv = new ModelAndView("deletedProduct").addObject("right",
 						"The product has been deleted");
 				return mv;
@@ -358,7 +372,6 @@ public class WebController {
 			,@RequestParam long id, @RequestParam String description, @RequestParam String category){
 		if((boolean) sesion.getAttribute("admin")){
 			Product myProduct = productrepository.findById(id);
-			//String fileName = myProduct.getName()+".jpg";
 			int i =( int )( long )id;
 			imageTitles.set(i, name);
 			String fileName = imageTitles.get(i) + ".jpg";
