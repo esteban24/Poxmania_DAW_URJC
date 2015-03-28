@@ -138,7 +138,7 @@ public class WebController {
 		}
 	}
 	
-	@RequestMapping("/image/{fileName}")
+	@RequestMapping("image/{fileName}")
 	public void handleFileDownload(@PathVariable String fileName,
 			HttpServletResponse res) throws FileNotFoundException, IOException {
 
@@ -322,44 +322,85 @@ public class WebController {
 	@RequestMapping("/modifyProduct")
 	public ModelAndView modified(HttpSession sesion) {	
 		if((boolean) sesion.getAttribute("admin")){
-			ModelAndView mv = new ModelAndView("modifyProduct").addObject("products",
-					productrepository.findAll());
+			ModelAndView mv = new ModelAndView("modifyProduct");
 			return mv;
 		}else{
-			ModelAndView mv = new ModelAndView("notAdmin").addObject("products",
-					productrepository.findAll());
+			ModelAndView mv = new ModelAndView("notAdmin");
+			return mv;
+		}
+	}
+	
+	@RequestMapping("modifyProduct/{show}")
+	public ModelAndView mainModified(HttpSession sesion, @PathVariable Integer show){
+		if((boolean) sesion.getAttribute("admin")){
+			ModelAndView mv = new ModelAndView("modifyProduct");
+			
+			switch(show){
+			case 1: mv.addObject("products", productrepository.findByCategory(Constants.TELEVISION));
+					break;
+			case 2: mv.addObject("products", productrepository.findByCategory(Constants.INFORMATIC));
+					break;
+			case 3: mv.addObject("products", productrepository.findByCategory(Constants.VIDEOGAME));
+					break;
+			case 4: mv.addObject("products", productrepository.findByCategory(Constants.LITTLE_APPLIANCE));	
+					break;
+			}
+			return mv;
+		}else{
+			ModelAndView mv = new ModelAndView("notAdmin");
 			return mv;
 		}
 	}
 	
 	@RequestMapping("/modifiedProduct")
-	public ModelAndView modified(@RequestParam String image, @RequestParam String name, @RequestParam String prize
+	public ModelAndView modified(HttpSession sesion, @RequestParam("name") String name,
+			@RequestParam("file") MultipartFile file, @RequestParam String prize
 			,@RequestParam long id, @RequestParam String description, @RequestParam String category){
-		if ((image.equals(""))||(name.equals("")||(prize=="")||(description=="")||(category==""))){
-			return new ModelAndView("modifiedProduct").addObject("error",true);
-		}else{
-			try{
-				productrepository.setAlreadyExistingProduct(id, name, category, image, description, Double.parseDouble(prize));
-				
-				//TODO emartin: cambiado el método de modificación de un producto, queda eliminar que aparezca en el 
-				/*formulario el id, cambiarlo en el template. Estaría bien encontrar la manera de modificar la imagen seleccionándola
-				  como al añadir un artículo y si no se meten determinados campos, que tome los viejos y se modifique el producto
-				  con ellos ya que la sentencia de modificación necesita todos los parámetros. Si no es posible no importa pero al menos
-				  lo de la imagen debería aparecer/*
-				  
-				//TODO emartin: eliminar este código comentado (antigua modificación sin consultas)  
-				/*double mydouble = Double.parseDouble(prize); 
-				Product product = productrepository.findOne(id);
-				product.setPrize(mydouble);
-				product.setDescription(description);
-				product.setName(name);
-				product.setCategory(category);
-				productrepository.save(product);*/
-				
-				return new ModelAndView("modifiedProduct").addObject("right",true);
-			}catch(Exception e){
-				return new ModelAndView("modifiedProduct").addObject("errorExecution",true);
+		if((boolean) sesion.getAttribute("admin")){
+			Product myProduct = productrepository.findById(id);
+			//String fileName = myProduct.getName()+".jpg";
+			int i =( int )( long )id -1;
+			imageTitles.set(i, name);
+			String fileName = imageTitles.get(i) + ".jpg";
+			if (!file.isEmpty()) {
+				try {
+					File filesFolder = new File(FILES_FOLDER);
+					if (!filesFolder.exists()) {
+						filesFolder.mkdirs();
+					}
+					File uploadedFile = new File(filesFolder.getAbsolutePath(), fileName);
+					file.transferTo(uploadedFile);
+					//int i =( int )( long )id -1;
+					//imageTitles.set(i, name);
+					imageTitles.add(fileName);
+					if ((name.equals("")||(prize=="")||(description=="")||(category==""))){
+						return new ModelAndView("modifiedProduct").addObject("error",true);
+					}else{
+						try{
+							double mydouble = Double.parseDouble(prize); 
+							myProduct.setName(name);
+							myProduct.setDescription(description);
+							myProduct.setCategory(category);
+							myProduct.setPrize(mydouble);
+							productrepository.setAlreadyExistingProduct(id, myProduct.getName(), myProduct.getCategory(), "image/"+fileName, myProduct.getDescription(), myProduct.getPrize());
+							ModelAndView mv = new ModelAndView("modifiedProduct").addObject("right",true);
+							return mv;
+						}catch(Exception e){
+							return new ModelAndView("modifiedProduct").addObject("error",true);
+						}
+					}				
+				} catch (Exception e) {
+					return new ModelAndView("mainTemplate").addObject("fileName",
+							fileName).addObject("error",
+							e.getClass().getName() + ":" + e.getMessage());
+				}
+			} else {
+				return new ModelAndView("modifiedProduct").addObject("error",
+						"The file is empty");
 			}
+		}else{
+			ModelAndView mv = new ModelAndView("notAdmin");
+			return mv;
 		}
 	}
 	

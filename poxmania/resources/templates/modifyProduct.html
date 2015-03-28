@@ -5,26 +5,37 @@
 <title>Modificar Producto</title>
 </head>
 <body>
+	<div>
+       	<nav>
+        	<ul>
+        		<li><a th:href="@{/modifyProduct/1}">Televisión</a></li>
+        		<li><a th:href="@{/modifyProduct/2}">Informáica</a></li>
+        		<li><a th:href="@{/modifyProduct/3}">Videoconsola</a></li>
+        		<li><a th:href="@{/modifyProduct/4}">Pequeño electrodoméstico</a></li>
+        	</ul>
+        </nav>
+   	</div>
 	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
-		<form action="/modifiedProduct" method="POST">
-			<h2 th:text="${product.id}">id</h2>
+		<form action="/modifiedProduct" method="POST" enctype="multipart/form-data">
 			<input type="hidden" name="id" readonly="readonly" th:value="${product.id}"	/>
 			<p>
         		<img th:src="${product.image}" height="100"></img>
         		<p>
-					<b>Image:</b> <input type='text'  name='image' />
+					<label>Image file:</label><input type="file" name="file" />
 				</p>
         	</p>
         	<p>
             	<h2 th:text="${product.name}">Name</h2>
         		<p>
-					<b>Name:</b> <input type='text' name='name' />
+					<b>Name:</b> <input type="text" name="name" 
+					class="texto" th:value="${product.name}" onfocus="if(this.value=='${product.name}')this.value=''" />
 				</p>
             </p>
             <p>
             	<h2 th:text="${product.description}">Description</h2>
         		<p>
-					<b>Description:</b> <input type='text' name='description' />
+					<b>Description:</b> <input type='text' name='description'
+					class="texto" th:value="${product.description}" onfocus="if(this.value=='${product.description}')this.value=''" />
 				</p>
             </p>
             <p>
@@ -32,7 +43,7 @@
         		<p>
 					<label for="category">Category:</label><br />
 					<select id="category" name="category">
-						<option value="" selected="selected">- SELECCIONA -</option>
+						<option th:value="${product.category}" selected="selected">- SELECCIONA -</option>
 						<option value="Televisión"> Televisión </option>
 						<option value="Informática"> Informática </option>
 						<option value="Videoconsola"> Videoconsola </option>
@@ -43,13 +54,14 @@
             <p>
             	<h2 th:text="${product.prize}">Price</h2>
         		<p>
-					<b>Prize:</b> <input type="text" name='prize' />
+					<b>Prize:</b> <input type="text" name='prize'
+					class="texto" th:value="${product.prize}" onfocus="if(this.value=='${product.prize}')this.value=''" />
 				</p>
             </p>
             <input type='submit' name='enviar' value='Enviar' />
         </form>
         <p th:if="${error}"> ERROR, PRODUCT NOT MODIFIED!</p>
-		<a href="/adminBack">Volver</a>
     </div>
+    <a href="/adminBack">Volver</a>
 </body>
 </html>
