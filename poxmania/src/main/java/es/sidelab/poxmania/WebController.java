@@ -345,7 +345,7 @@ public class WebController {
 	 * @return
 	 */
 	@RequestMapping("/deletedProduct")
-	public ModelAndView deleted(HttpSession session, @RequestParam long idProduct) {	
+	public ModelAndView deleted(HttpSession session, Long idProduct) {	
 		if (session.getAttribute("admin")!=null){	
 			if((boolean) session.getAttribute("admin")){
 				Product product = productrepository.findById(idProduct);
