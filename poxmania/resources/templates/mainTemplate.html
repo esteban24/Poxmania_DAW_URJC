@@ -1,8 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"/>
-<title>Poxmania</title>
+	<meta charset="UTF-8"/>
+	<title>Poxmania</title>
+	<script type="text/javascript">
+		function nameAbail(form){
+
+			form.name.disabled = false;
+			form.prizeMin.disabled = true;
+			form.prizeMax.disabled = true;
+		};
+
+		function prizeAbail(form){
+			form.name.disabled = true;
+			form.prizeMin.disabled = false;
+			form.prizeMax.disabled = false;
+		};
+	</script>
 </head>
 <body>
     <!--contiene el logo, el buscador, el boton de administrador y la cesta-->
@@ -14,11 +28,9 @@
         <!--buscador-->
         <div>
         	<form th:action="@{/mainTemplate/search}" method="POST">
-				<p>Buscar por nombre: </p>
-				<input type="text" name="name"/>
-				<p>Buscar por precio: </p>
-				<p>Valor inferior</p><input type="range" min="0" max="1000" name="prizeMin"/>
-				<p>Valor superior</p><input type="range" th:min="minValue" max="1000" name="prizeMax"/>
+				<input type="radio" name="selectSearch" value="nameRadio" checked="checked" onclick="nameAbail(this.form)"/>Búsqueda por nombre<input type="text" name="name"/><br/>
+				<input type="radio" name="selectSearch" value="prizeRadio" onclick="prizeAbail(this.form)"/>Búsqueda por precio<br/>
+				Valor inferior<input type="number" name="prizeMin" value=""/> Valor superior<input type="number" name="prizeMax" value=""/><br/>
 				<input type="submit" name="Enviar" value="Buscar"/>
 			</form>
         </div>

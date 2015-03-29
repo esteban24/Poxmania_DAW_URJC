@@ -28,7 +28,7 @@ import es.sidelab.poxmania.DataBaseController;
 @Controller
 public class WebController {
 	
-	private static final String FILES_FOLDER = "files";
+
 
 	private List<String> imageTitles;
 	
@@ -53,7 +53,6 @@ public class WebController {
 		sesion.removeAttribute("password");
 		sesion.removeAttribute("admin");
 		if (sesion.isNew()){
-			//userStorageCart = new StorageCart();
 			imageTitles = new ArrayList<String>();
 			imageTitles.add("/image/1.jpg");
 			imageTitles.add("/image/2.jpg");
@@ -92,8 +91,7 @@ public class WebController {
 	}
 	
 	@RequestMapping("mainTemplate/search")
-	public ModelAndView mainTemplateTelevision(HttpSession session, @RequestParam String name, @RequestParam Double prizeMin,
-												@RequestParam Double prizeMax){
+	public ModelAndView mainTemplateSearch(HttpSession session, String name, Double prizeMin, Double prizeMax){
 		
 		ModelAndView mv = new ModelAndView("mainTemplate");
 		if(name != null){
@@ -116,7 +114,7 @@ public class WebController {
 		if (!file.isEmpty()) {
 			try {
 
-				File filesFolder = new File(FILES_FOLDER);
+				File filesFolder = new File(Constants.FILES_FOLDER_IMAGES);
 				if (!filesFolder.exists()) {
 					filesFolder.mkdirs();
 				}
@@ -155,10 +153,45 @@ public class WebController {
 	public void handleFileDownload(@PathVariable String fileName,
 			HttpServletResponse res) throws FileNotFoundException, IOException {
 
-		File file = new File(FILES_FOLDER, fileName+".jpg");
+		File file = new File(Constants.FILES_FOLDER_IMAGES, fileName+".jpg");
 
 		if (file.exists()) {
 			res.setContentType("image/jpeg");
+			res.setContentLength(new Long(file.length()).intValue());
+			FileCopyUtils
+					.copy(new FileInputStream(file), res.getOutputStream());
+		} else {
+			res.sendError(404, "File" + fileName + "(" + file.getAbsolutePath()
+					+ ") does not exist");
+		}
+	}
+	
+	
+	@RequestMapping("scripts/{fileName}")
+	public void handleFileDownloadScripts(@PathVariable String fileName,
+			HttpServletResponse res) throws FileNotFoundException, IOException {
+
+		File file = new File(Constants.FILES_FOLDER_SCRIPTS, fileName+ ".js");
+
+		if (file.exists()) {
+			res.setContentType("text/javascript");
+			res.setContentLength(new Long(file.length()).intValue());
+			FileCopyUtils
+					.copy(new FileInputStream(file), res.getOutputStream());
+		} else {
+			res.sendError(404, "File" + fileName + "(" + file.getAbsolutePath()
+					+ ") does not exist");
+		}
+	}
+	
+	@RequestMapping("styles/{fileName}")
+	public void handleFileDownloadStyles(@PathVariable String fileName,
+			HttpServletResponse res) throws FileNotFoundException, IOException {
+
+		File file = new File(Constants.FILES_FOLDER_STYLES, fileName+ ".css");
+
+		if (file.exists()) {
+			res.setContentType("text/css");
 			res.setContentLength(new Long(file.length()).intValue());
 			FileCopyUtils
 					.copy(new FileInputStream(file), res.getOutputStream());
@@ -231,7 +264,7 @@ public class WebController {
 				Product product = productrepository.findById(idProduct);
 				productrepository.delete(idProduct);
 				try{
-					File filesFolder = new File(FILES_FOLDER);
+					File filesFolder = new File(Constants.FILES_FOLDER_IMAGES);
 					if (!filesFolder.exists()) {
 						filesFolder.mkdirs();
 					}
@@ -390,7 +423,7 @@ public class WebController {
 			String fileName = imageTitles.get(i - 1).substring(7);
 			if (!file.isEmpty()) {
 				try {
-					File filesFolder = new File(FILES_FOLDER);
+					File filesFolder = new File(Constants.FILES_FOLDER_IMAGES);
 					if (!filesFolder.exists()) {
 						filesFolder.mkdirs();
 					}
