@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>Poxmania</title>
+    <link rel="stylesheet" href="/styles/bootstrap.css"></link>
+    <link rel="stylesheet" href="/styles/styles.css"></link>
 	<script type="text/javascript">
 		function nameAbail(form){
 
@@ -21,19 +23,62 @@
 <body>
     <!--contiene el logo, el buscador, el boton de administrador y la cesta-->
     <div>
-        <!--logo-->
-        <div>
-        	<a href="/"><img src="/image/logo.jpg"></img></a>
+        <div class="row">
+            <!--logo-->
+            <div class="col-md-8">
+        	   <a href="/"><img src="/image/logo.jpg"></img></a>
+            </div>
+            <div class="col-md-2">
+                <a href="/confirmationForm"><button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Admin
+                </button></a>
+            </div>
+            <div class="col-md-2">
+                <a href="/storageCart"><button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Carrito
+                </button></a>
+            </div>
         </div>
         <!--buscador-->
-        <div>
+        <div class="row">
+            <form th:action="@{/mainTemplate/search}" method="POST">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <input class="btn btn-default" type="submit" value="Buscar"/> 
+                        </span>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Nombre..."/>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </form>
+          <form th:action="@{/mainTemplate/search}" method="POST">    
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input id="prizeMin" name="prizeMin" type="number" class="form-control" placeholder="Precio mínimo"/>
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+              <div class="col-md-2">
+                <div class="input-group">
+                  <input id="prizeMax" name="prizeMax" type="number" class="form-control" placeholder="Precio máximo"/>
+                  <span class="input-group-btn">
+                    <input class="btn btn-default" type="submit" value="Buscar"/>
+                  </span>
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+          </form>
+        </div><!-- /.row -->
+        <!--div>
         	<form th:action="@{/mainTemplate/search}" method="POST">
-				<input type="radio" name="selectSearch" value="nameRadio" checked="checked" onclick="nameAbail(this.form)"/>Búsqueda por nombre<input type="text" name="name"/><br/>
-				<input type="radio" name="selectSearch" value="prizeRadio" onclick="prizeAbail(this.form)"/>Búsqueda por precio<br/>
-				Valor inferior<input type="number" name="prizeMin" value=""/> Valor superior<input type="number" name="prizeMax" value=""/><br/>
+				Búsqueda por nombre<input type="text" name="name" onclick="nameAbail(this.form)"/>
+                <input type="submit" name="Enviar" value="Buscar"/>
+            </form>
+            <form th:action="@{/mainTemplate/search}" method="POST">
+				Búsqueda por precio<br/>
+				Valor inferior<input type="number" name="prizeMin" value="" onclick="prizeAbail(this.form)"/> 
+                Valor superior<input type="number" name="prizeMax" value="" onclick="prizeAbail(this.form)"/>
 				<input type="submit" name="Enviar" value="Buscar"/>
 			</form>
-        </div>
+        </div-->
         <!--boton de administrador-->
         <div>
             <a href="/confirmationForm">admin</a>

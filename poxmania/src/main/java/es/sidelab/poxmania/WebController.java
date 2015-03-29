@@ -123,10 +123,12 @@ public class WebController {
 		session.setAttribute("admin", false);
 		
 		ModelAndView mv = new ModelAndView("mainTemplate");
-		if(name != null){
+		if(name != "" || name != null){
 			mv.addObject("products", productrepository.findByName(name));
-		}else{
+		}else if(prizeMin != null && prizeMax != null){
 			mv.addObject("products", productrepository.findByPrize(prizeMin, prizeMax));
+		}else{
+			mv.addObject("products", productrepository.findAll());
 		}
 		return mv;
 	
