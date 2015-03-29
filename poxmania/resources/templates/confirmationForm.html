@@ -1,23 +1,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
+<link href="styles/bootstrap.css" rel="stylesheet"></link>
 </head>
 <body>
+    <div class="container">
+        <div class="row text-center ">
+            <div class="col-md-12">
+                <br /><br />
+                <h2> Acceso a su cuenta </h2>
+                 <br />
+            </div>
+        </div>
+         <div class="row ">
+               
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>   Introduzca su nombre y contraseña </strong>  
+                    </div>
+                    <div class="panel-body">
+                        <form action="/adminTemplate" method="post" role="form"><br />
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
+                                <input type="text" name="user" class="form-control" placeholder="Usuario " />
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                                <input type="password" name="password" class="form-control"  placeholder="Contraseña " />
+                            </div>                                   
+                            <input type="submit" name="enviar" value="Enviar" class="btn btn-primary "/>
+                                    <hr />
+                        </form>
+                    </div>
+                </div>
+            </div>
+                
+                
+        </div>
+    </div>
+    <div class="alert alert-danger" role="alert" th:if="${error}">
+		<strong>Error, </strong>Usuario no permitido
+	</div>
+	<div>
+		<a href="/"><button type="button" class="btn btn-default">Volver</button></a>
+	</div>
 
-	<h1>Inicio de Sesion</h1>
 
-	<form action="/adminTemplate" method="post">
-		<p>
-			<b>User:</b> <input type='text' name='user' />
-		</p>
-
-		<p>
-			<b>Password:</b> <input type='password' name='password' />
-		</p>
-
-		<input type='submit' name='enviar' value='Enviar' />
-	</form>
-	<p th:if="${error}"> ERROR, USUARIO NO PERMITIDO</p>
-	<a href="/">Volver</a>
 </body>
 </html>

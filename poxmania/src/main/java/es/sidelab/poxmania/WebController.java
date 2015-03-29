@@ -264,6 +264,7 @@ public class WebController {
 		}
 	}
 	
+	
 	/**
 	 * The add ModelAndView method allows the user to go to the add product option.
 	 * @param session
