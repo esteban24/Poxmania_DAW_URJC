@@ -69,7 +69,7 @@ public class WebController {
 	
 	
 	@RequestMapping("mainTemplate/{show}")
-	public ModelAndView mainTemplateTelevision(HttpSession session, @PathVariable Integer show){
+	public ModelAndView mainTemplateCategory(HttpSession session, @PathVariable Integer show){
 		
 		ModelAndView mv = new ModelAndView("mainTemplate");
 		session.removeAttribute("user");
@@ -91,6 +91,20 @@ public class WebController {
 		return mv;
 	}
 	
+	@RequestMapping("mainTemplate/search")
+	public ModelAndView mainTemplateTelevision(HttpSession session, @RequestParam String name, @RequestParam Double prizeMin,
+												@RequestParam Double prizeMax){
+		
+		ModelAndView mv = new ModelAndView("mainTemplate");
+		if(name != null){
+			mv.addObject("products", productrepository.findByName(name));
+		}else{
+			mv.addObject("products", productrepository.findByPrize(prizeMin, prizeMax));
+		}
+		return mv;
+	
+	}
+	
 	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
 	public ModelAndView handleFileUpload(
 			@RequestParam("name") String name,
@@ -110,13 +124,13 @@ public class WebController {
 				File uploadedFile = new File(filesFolder.getAbsolutePath(), fileName);
 				file.transferTo(uploadedFile);
 
-				imageTitles.add(name);
 				if ((name.equals("")||(prize=="")||(description=="")||(category==""))){
 					return new ModelAndView("addProduct").addObject("error",true);
 				}else{
 					try{
 						double mydouble = Double.parseDouble(prize); 
 						Product product = new Product(name,category,"/image/"+fileName,description,mydouble);
+						imageTitles.add(product.getImage());
 						productrepository.save(product);
 						ModelAndView mv = new ModelAndView("addProduct").addObject("right",true);
 						return mv;
@@ -372,20 +386,17 @@ public class WebController {
 			,@RequestParam long id, @RequestParam String description, @RequestParam String category){
 		if((boolean) sesion.getAttribute("admin")){
 			Product myProduct = productrepository.findById(id);
-			int i =( int )( long )id;
-			imageTitles.set(i, name);
-			String fileName = imageTitles.get(i) + ".jpg";
+			int i = Integer.parseUnsignedInt(String.valueOf(id));
+			String fileName = imageTitles.get(i - 1).substring(7);
 			if (!file.isEmpty()) {
 				try {
 					File filesFolder = new File(FILES_FOLDER);
 					if (!filesFolder.exists()) {
 						filesFolder.mkdirs();
 					}
-					File uploadedFile = new File(filesFolder.getAbsolutePath(), fileName);
+					File uploadedFile = new File(filesFolder.getAbsolutePath()+"/", fileName);
 					file.transferTo(uploadedFile);
-					//int i =( int )( long )id -1;
-					//imageTitles.set(i, name);
-					imageTitles.add("/images/"+fileName);
+					imageTitles.add("/image/"+fileName);
 					if ((name.equals("")||(prize=="")||(description=="")||(category==""))){
 						return new ModelAndView("modifiedProduct").addObject("error",true);
 					}else{

@@ -12,7 +12,16 @@
         	<a href="/"><img src="/image/logo.jpg"></img></a>
         </div>
         <!--buscador-->
-        <div></div>
+        <div>
+        	<form th:action="@{/mainTemplate/search}" method="POST">
+				<p>Buscar por nombre: </p>
+				<input type="text" name="name"/>
+				<p>Buscar por precio: </p>
+				<p>Valor inferior</p><input type="range" min="0" max="1000" name="prizeMin"/>
+				<p>Valor superior</p><input type="range" th:min="minValue" max="1000" name="prizeMax"/>
+				<input type="submit" name="Enviar" value="Buscar"/>
+			</form>
+        </div>
         <!--boton de administrador-->
         <div>
             <a href="confirmationForm">admin</a>
