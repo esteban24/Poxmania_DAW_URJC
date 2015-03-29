@@ -43,16 +43,20 @@ public class WebController {
 	
 	@Autowired
 	private DataBaseController dataBaseContoller;
-	
-	//private StorageCart userStorageCart;
-	
-	
+		
+	/**
+	 * The main ModelAndView method that shows the "mainTemplate.html" template, deletes the HttpSession attributes 
+	 * "user" "password" and "admin" and, if the session is new, initializes the images list and returns the view with 
+	 * "products" object passed to the view that contains all the products from the database.
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/")
-	public ModelAndView main(HttpSession sesion) {
-		sesion.removeAttribute("user");
-		sesion.removeAttribute("password");
-		sesion.removeAttribute("admin");
-		if (sesion.isNew()){
+	public ModelAndView main(HttpSession session) {
+		session.removeAttribute("user");
+		session.removeAttribute("password");
+		session.removeAttribute("admin");
+		if (session.isNew()){
 			imageTitles = new ArrayList<String>();
 			imageTitles.add("/image/1.jpg");
 			imageTitles.add("/image/2.jpg");
@@ -66,7 +70,16 @@ public class WebController {
 		return mv;
 	}
 	
-	
+	/**
+	 * The mainTemplateCategory ModelAndView method shows the "mainTemplate/{show}.html" 
+	 * template, deletes the HttpSession attributes "user" "password" and "admin" and returns 
+	 * the view with "products" object passed to the view that contains all the products from the database from the 
+	 * selected option "show". 1=TELEVISION, 2=INFORMATIC, 3=VIDEOGAME, 4=LITTLE_APPLIANCE and all the products 
+	 * by default.
+	 * @param session
+	 * @param show
+	 * @return
+	 */
 	@RequestMapping("mainTemplate/{show}")
 	public ModelAndView mainTemplateCategory(HttpSession session, @PathVariable Integer show){
 		
@@ -90,8 +103,24 @@ public class WebController {
 		return mv;
 	}
 	
+	/**
+	 * The mainTemplateSearch ModelAndView method shows the "mainTemplate/search.html" 
+	 * template, deletes the HttpSession attributes "user" "password" and "admin" and returns 
+	 * the view with "products" object passed to the view that contains all the products from the database from the 
+	 * selected option "name" or "prizeMin" and "prizeMax". If "name" is passed as parameter, the method search by name
+	 * and, if "prizeMin" and "prizeMax" is passed as parameter, the method search by prize.
+	 * @param session
+	 * @param name
+	 * @param prizeMin
+	 * @param prizeMax
+	 * @return
+	 */
 	@RequestMapping("mainTemplate/search")
 	public ModelAndView mainTemplateSearch(HttpSession session, String name, Double prizeMin, Double prizeMax){
+		
+		session.removeAttribute("user");
+		session.removeAttribute("password");
+		session.setAttribute("admin", false);
 		
 		ModelAndView mv = new ModelAndView("mainTemplate");
 		if(name != null){
@@ -103,8 +132,19 @@ public class WebController {
 	
 	}
 	
+	/**
+	 * The newProduct ModelAndView method allows the application to move an image passed as parameter and place it
+	 * in the "files" folder in the application in order to be able to show it properly in the template and stores a new product
+	 * in the database.
+	 * @param name
+	 * @param file
+	 * @param prize
+	 * @param description
+	 * @param category
+	 * @return
+	 */
 	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
-	public ModelAndView handleFileUpload(
+	public ModelAndView newProduct(
 			@RequestParam("name") String name,
 			@RequestParam("file") MultipartFile file, @RequestParam("prize") String prize
 			, @RequestParam("description") String description, @RequestParam("category") String category) {
@@ -149,8 +189,16 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The imageManage ModelAndView method allows the application to place the image 
+	 * passed as parameter in the templates properly to be able to use it.
+	 * @param fileName
+	 * @param res
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	@RequestMapping("image/{fileName}")
-	public void handleFileDownload(@PathVariable String fileName,
+	public void imageManage(@PathVariable String fileName,
 			HttpServletResponse res) throws FileNotFoundException, IOException {
 
 		File file = new File(Constants.FILES_FOLDER_IMAGES, fileName+".jpg");
@@ -166,9 +214,16 @@ public class WebController {
 		}
 	}
 	
-	
+	/**
+	 * The scriptManage ModelAndView method allows the application to place the javascript file 
+	 * passed as parameter in the templates properly to be able to use it.
+	 * @param fileName
+	 * @param res
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	@RequestMapping("scripts/{fileName}")
-	public void handleFileDownloadScripts(@PathVariable String fileName,
+	public void scriptManage(@PathVariable String fileName,
 			HttpServletResponse res) throws FileNotFoundException, IOException {
 
 		File file = new File(Constants.FILES_FOLDER_SCRIPTS, fileName+ ".js");
@@ -184,8 +239,16 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The styleManage ModelAndView method allows the application to place the css file 
+	 * passed as parameter in the templates properly to be able to use it. 
+	 * @param fileName
+	 * @param res
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	@RequestMapping("styles/{fileName}")
-	public void handleFileDownloadStyles(@PathVariable String fileName,
+	public void styleManage(@PathVariable String fileName,
 			HttpServletResponse res) throws FileNotFoundException, IOException {
 
 		File file = new File(Constants.FILES_FOLDER_STYLES, fileName+ ".css");
@@ -201,10 +264,15 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The add ModelAndView method allows the user to go to the add product option.
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/addProduct")
-	public ModelAndView add(HttpSession sesion){
-		if (sesion.getAttribute("admin")!=null){
-			if((boolean) sesion.getAttribute("admin")){
+	public ModelAndView add(HttpSession session){
+		if (session.getAttribute("admin")!=null){
+			if((boolean) session.getAttribute("admin")){
 				ModelAndView mv = new ModelAndView("addProduct");
 				return mv;
 			}else{
@@ -217,10 +285,15 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The mainDelete ModelAndView method allows the user to go to the delete product option.
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/deleteProduct")
-	public ModelAndView mainDelete(HttpSession sesion) {
-		if (sesion.getAttribute("admin")!=null){
-			if((boolean) sesion.getAttribute("admin")){
+	public ModelAndView mainDelete(HttpSession session) {
+		if (session.getAttribute("admin")!=null){
+			if((boolean) session.getAttribute("admin")){
 				ModelAndView mv = new ModelAndView("deleteProduct");
 				return mv;
 			}else{
@@ -233,9 +306,15 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The delete ModelAndView method allows the user to delete the selected product found by category.
+	 * @param session
+	 * @param show
+	 * @return
+	 */
 	@RequestMapping("deleteProduct/{show}")
-	public ModelAndView delete(HttpSession sesion, @PathVariable Integer show){
-		if((boolean) sesion.getAttribute("admin")){
+	public ModelAndView delete(HttpSession session, @PathVariable Integer show){
+		if((boolean) session.getAttribute("admin")){
 			ModelAndView mv = new ModelAndView("deleteProduct");
 			
 			switch(show){
@@ -257,10 +336,17 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The deleted ModelAndView method shows a message about the delete process and, if possible, deletes the image
+	 * associated to the product that has been removed.
+	 * @param session
+	 * @param idProduct
+	 * @return
+	 */
 	@RequestMapping("/deletedProduct")
-	public ModelAndView deleted(HttpSession sesion, @RequestParam long idProduct) {	
-		if (sesion.getAttribute("admin")!=null){	
-			if((boolean) sesion.getAttribute("admin")){
+	public ModelAndView deleted(HttpSession session, @RequestParam long idProduct) {	
+		if (session.getAttribute("admin")!=null){	
+			if((boolean) session.getAttribute("admin")){
 				Product product = productrepository.findById(idProduct);
 				productrepository.delete(idProduct);
 				try{
@@ -290,9 +376,14 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The confirmationStorage ModelAndView method shows the storage cart list processed and pending of processing
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("confirmationStorage")
-	public ModelAndView confirmationStorage(HttpSession sesion) {
-		if((boolean) sesion.getAttribute("admin")){
+	public ModelAndView confirmationStorage(HttpSession session) {
+		if((boolean) session.getAttribute("admin")){
 			ModelAndView mv = new ModelAndView("confirmationStorage").addObject("storageCartsFalse",
 					storageCartRepository.findByProcessedStorageCart(false))
 					.addObject("storageCartsTrue", storageCartRepository.findByProcessedStorageCart(true));
@@ -304,11 +395,16 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The confirmed ModelAndView method set a not processed storage cart to processed storage cart and stores it in the DDBB.
+	 * @param session
+	 * @param idStorageCartFalse
+	 * @return
+	 */
 	@RequestMapping("/storageConfirmated")
-	public ModelAndView confirmated(HttpSession sesion, @RequestParam long idStorageCartFalse) {	
-		if((boolean) sesion.getAttribute("admin")){
+	public ModelAndView confirmed(HttpSession session, @RequestParam long idStorageCartFalse) {	
+		if((boolean) session.getAttribute("admin")){
 			storageCartRepository.setAlreadyExistingStorageCart(idStorageCartFalse, true);
-			//storageCartRepository.delete(idStorageCart);
 			ModelAndView mv = new ModelAndView("storageConfirmated").addObject("right",
 					"The storage has been confirmated");
 			return mv;
@@ -317,72 +413,113 @@ public class WebController {
 			return mv;
 		}
 	}
-		
-
 	
+	/**
+	 * The showStorageCart ModelAndView method shows the storage cart line list from a storage cart not formed yet.
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/storageCart")
-	public ModelAndView showStorageCart(HttpSession sesion){
-		if(sesion.getAttribute("carro")==null){
+	public ModelAndView showStorageCart(HttpSession session){
+		if(session.getAttribute("storageCart")==null){
 			ModelAndView mv = new ModelAndView("storageCart").addObject("no hay productos pedidos");
 			return mv;
 		}else{
-			ModelAndView mv = new ModelAndView("storageCart").addObject("products", ((StorageCart) sesion.getAttribute("carro")).getStorageCartLine())
-														  .addObject("prize", ((StorageCart) sesion.getAttribute("carro")).getTotalPrize());
+			ModelAndView mv = new ModelAndView("storageCart").addObject("products", ((StorageCart) session.getAttribute("storageCart")).getStorageCartLine())
+														  .addObject("prize", ((StorageCart) session.getAttribute("storageCart")).getTotalPrize());
 			return mv;
 		}
 	}
 	
+	/**
+	 * The removeFromStorageCartLine ModelAndView method delete a product from a storage cart line list
+	 * @param session
+	 * @param delete
+	 * @param idProduct
+	 * @return
+	 */
 	@RequestMapping("/storageCart/{delete}")
 	public ModelAndView removeFromStorageCartLine(HttpSession session, @PathVariable String delete, @RequestParam long idProduct){
-		StorageCart storageCart = (StorageCart) session.getAttribute("carro");
+		StorageCart storageCart = (StorageCart) session.getAttribute("storageCart");
 		if(!storageCart.equals(null)){
 			storageCart.deleteItem((storageCart.searchById(idProduct, storageCart.getStorageCartLine())));
 		}
-		session.setAttribute("carro", storageCart);
+		session.setAttribute("storageCart", storageCart);
 		
-		return new ModelAndView("storageCart").addObject("products", ((StorageCart) session.getAttribute("carro")).getStorageCartLine())
-				  .addObject("prize", ((StorageCart) session.getAttribute("carro")).getTotalPrize());
+		return new ModelAndView("storageCart").addObject("products", ((StorageCart) session.getAttribute("storageCart")).getStorageCartLine())
+				  .addObject("prize", ((StorageCart) session.getAttribute("storageCart")).getTotalPrize());
 	}
 	
+	/**
+	 * The show ModelAndView method shows the product selected template with its parameters and the option to store the number
+	 * of products selected in the storage cart
+	 * @param idProduct
+	 * @return
+	 */
 	@RequestMapping("/showProduct")
-	public ModelAndView mostrar(@RequestParam long idProduct) {
+	public ModelAndView show(@RequestParam long idProduct) {
 
 		Product product = productrepository.findOne(idProduct);
 				
 		return new ModelAndView("showProduct").addObject("product", product);
 	}
 	
+	/**
+	 * The confirm ModelAndView method allows the user to identify himself as administrator and redirect to the administration
+	 * template.
+	 * @param session
+	 * @param user
+	 * @param password
+	 * @return
+	 */
 	@RequestMapping("/confirmationForm")
-	public ModelAndView admin(HttpSession sesion, String user, String password){
+	public ModelAndView confirm(HttpSession session, String user, String password){
 		return new ModelAndView("confirmationForm").addObject("user", user)
 													.addObject("password", password);
 	}
 	
+	/**
+	 * The admin ModelAndView method allows the administrator to navigate between the different administration options.
+	 * @param session
+	 * @param user
+	 * @param password
+	 * @return
+	 */
 	@RequestMapping("/adminTemplate")
-	public ModelAndView confirm(HttpSession sesion, @RequestParam String user, @RequestParam String password){
+	public ModelAndView admin(HttpSession session, @RequestParam String user, @RequestParam String password){
 		if ((user.equals(Constants.ADMIN))&&(password.equals(Constants.PASSWORD))){
-			sesion.setAttribute("user",user);
-			sesion.setAttribute("password",password);
-			sesion.setAttribute("admin", true);
+			session.setAttribute("user",user);
+			session.setAttribute("password",password);
+			session.setAttribute("admin", true);
 			return new ModelAndView("adminTemplate");
 		}else{
 			return new ModelAndView("confirmationForm").addObject("error",true);
 		}
 	}
 	
+	/**
+	 * The back ModelAndView method allows the administrator to go back to the adminTemplate.html
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/adminBack")
-	public ModelAndView back(HttpSession sesion){
-		if ((sesion.getAttribute("user").equals(Constants.ADMIN))&&(sesion.getAttribute("password").equals(Constants.PASSWORD))){
-			sesion.setAttribute("admin", true);
+	public ModelAndView back(HttpSession session){
+		if ((session.getAttribute("user").equals(Constants.ADMIN))&&(session.getAttribute("password").equals(Constants.PASSWORD))){
+			session.setAttribute("admin", true);
 			return new ModelAndView("adminTemplate");
 		}else{
 			return new ModelAndView("confirmationForm").addObject("error",true);
 		}
 	}
 	
+	/**
+	 * The modified ModelAndView method allows the administrator to navigate to "modifyProduct.html" template.
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/modifyProduct")
-	public ModelAndView modified(HttpSession sesion) {	
-		if((boolean) sesion.getAttribute("admin")){
+	public ModelAndView modified(HttpSession session) {	
+		if((boolean) session.getAttribute("admin")){
 			ModelAndView mv = new ModelAndView("modifyProduct");
 			return mv;
 		}else{
@@ -391,9 +528,16 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The mainModified method allows to the administrator to navigate between the different product categories 
+	 * in order to modify any product from the selected category.
+	 * @param session
+	 * @param show
+	 * @return
+	 */
 	@RequestMapping("modifyProduct/{show}")
-	public ModelAndView mainModified(HttpSession sesion, @PathVariable Integer show){
-		if((boolean) sesion.getAttribute("admin")){
+	public ModelAndView mainModified(HttpSession session, @PathVariable Integer show){
+		if((boolean) session.getAttribute("admin")){
 			ModelAndView mv = new ModelAndView("modifyProduct");
 			
 			switch(show){
@@ -413,11 +557,22 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The modified method modify a product and stores it in the database
+	 * @param session
+	 * @param name
+	 * @param file
+	 * @param prize
+	 * @param id
+	 * @param description
+	 * @param category
+	 * @return
+	 */
 	@RequestMapping("/modifiedProduct")
-	public ModelAndView modified(HttpSession sesion, @RequestParam("name") String name,
+	public ModelAndView modified(HttpSession session, @RequestParam("name") String name,
 			@RequestParam("file") MultipartFile file, @RequestParam String prize
 			,@RequestParam long id, @RequestParam String description, @RequestParam String category){
-		if((boolean) sesion.getAttribute("admin")){
+		if((boolean) session.getAttribute("admin")){
 			Product myProduct = productrepository.findById(id);
 			int i = Integer.parseUnsignedInt(String.valueOf(id));
 			String fileName = imageTitles.get(i - 1).substring(7);
@@ -462,55 +617,65 @@ public class WebController {
 		}
 	}
 	
+	/**
+	 * The addToStorageCart method add to the storage cart line the element and the number of elements passed as parameter
+	 * @param session
+	 * @param idProduct
+	 * @param numElements
+	 * @return
+	 */
 	@RequestMapping("/addToStorageCartConfirmation")
-	public ModelAndView addToStorageCart(HttpSession sesion,@RequestParam long idProduct, @RequestParam int numElements){
+	public ModelAndView addToStorageCart(HttpSession session,@RequestParam long idProduct, @RequestParam int numElements){
 		
 		Product product = productrepository.findOne(idProduct);
 		StorageCartLine newStCrt = new StorageCartLine(product, numElements);
 		
-		if(sesion.getAttribute("carro")!=null){
-			StorageCart list = ((StorageCart) sesion.getAttribute("carro"));
+		if(session.getAttribute("storageCart")!=null){
+			StorageCart list = ((StorageCart) session.getAttribute("storageCart"));
 			list.addItem(newStCrt);
-			sesion.setAttribute("carro", list);
+			session.setAttribute("storageCart", list);
 		}else{
 			StorageCart list2 = new StorageCart();
 			list2.addItem(newStCrt);
-			sesion.setAttribute("carro", list2);			
+			session.setAttribute("storageCart", list2);			
 		}				
 		return new ModelAndView("addToStorageCartConfirmation");		
 	}
 	
+	/**
+	 * The buyConfirmation method shows the list of products in the storage cart and the form that the user has to fill up with
+	 * his name and last name to continue with the buy and order the confirmation.
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/buyConfirmation")
-	public ModelAndView buyConfirmation(HttpSession sesion){
+	public ModelAndView buyConfirmation(HttpSession session){
 		
 		
 		ModelAndView mv = new ModelAndView("buyConfirmation").addObject("products",
-				((StorageCart) sesion.getAttribute("carro")).getStorageCartLine());
+				((StorageCart) session.getAttribute("storageCart")).getStorageCartLine());
 		
 		return mv;
 	}
 	
+	/**
+	 * The createStorageCart method shows the user that the order has been completed successfully and deletes the storage cart
+	 * line in order to let the user order more products in a new storage cart.
+	 * @param session
+	 * @param name
+	 * @param lastName
+	 * @return
+	 */
 	@RequestMapping("/createStorageCart")
-	public ModelAndView createStorageCart(HttpSession sesion, @RequestParam String name, @RequestParam String lastName){
+	public ModelAndView createStorageCart(HttpSession session, @RequestParam String name, @RequestParam String lastName){
 		
-		((StorageCart) sesion.getAttribute("carro")).setName(name);
-		((StorageCart)sesion.getAttribute("carro")).setLastName(lastName);
+		((StorageCart) session.getAttribute("storageCart")).setName(name);
+		((StorageCart)session.getAttribute("storageCart")).setLastName(lastName);
 		
-		this.storageCartRepository.save(new StorageCart((StorageCart) sesion.getAttribute("carro")));
+		this.storageCartRepository.save(new StorageCart((StorageCart) session.getAttribute("storageCart")));
 		
-		//----------------------------------------------------------
-		//Comprobación de que hemos guardado con éxito en la BBDD
-		Iterable<StorageCart> storageCartList = this.storageCartRepository.findAll();
-        System.out.println("Storage Cart found with findAll():");
-        System.out.println("-------------------------------");
-        for (StorageCart storageCart : storageCartList) {
-            System.out.println(storageCart.toString());
-        }
-        System.out.println();
-        //----------------------------------------------------------
-		
-		((StorageCart)sesion.getAttribute("carro")).getStorageCartLine().removeAll(((StorageCart)sesion.getAttribute("carro")).getStorageCartLine());
-		((StorageCart)sesion.getAttribute("carro")).setTotalPrize(((StorageCart)sesion.getAttribute("carro")).calculatePrize(((StorageCart)sesion.getAttribute("carro")).getStorageCartLine()));
+		((StorageCart)session.getAttribute("storageCart")).getStorageCartLine().removeAll(((StorageCart)session.getAttribute("storageCart")).getStorageCartLine());
+		((StorageCart)session.getAttribute("storageCart")).setTotalPrize(((StorageCart)session.getAttribute("storageCart")).calculatePrize(((StorageCart)session.getAttribute("storageCart")).getStorageCartLine()));
 		
 		return new ModelAndView("createStorageCart");
 	}

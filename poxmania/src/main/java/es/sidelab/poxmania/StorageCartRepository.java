@@ -11,24 +11,45 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly=true)
 public interface StorageCartRepository extends CrudRepository <StorageCart, Long> {
 	
-	//Devuelve un pedido de carrito de la compra introducido un id
+	/**
+	 * Returns a StorageCart introducing its id 
+	 * @param id
+	 * @return
+	 */
 	@Query("FROM StorageCart s where s.id = :id")
 	StorageCart findById(@Param("id")boolean id);
 	
-	//Devuelve un pedido de carrito de la compra introducido el nombre
+	/**
+	 * Returns a StorageCart introducing its name
+	 * @param name
+	 * @return
+	 */
 	@Query("FROM StorageCart s where s.name = :name")
 	StorageCart findByName(@Param("name")String name);
 	
-	//Devuelve un pedido de carrito de la compra introducidos los apellidos
+	/**
+	 * Returns a StorageCart introducing its lastName
+	 * @param lastName
+	 * @return
+	 */
 	@Query("FROM StorageCart s where s.lastName = :lastName")
 	StorageCart findByLastName(@Param("lastName")String lastName);
 	
-	//Devuelve una lista de carritos de la compra según estén procesados o no (true, false)
+	/**
+	 * Returns a StorageCart list processed or not. processed=(true/false)
+	 * @param processed
+	 * @return
+	 */
 	@Query("FROM StorageCart s where s.processed = :processed")
 	List<StorageCart> findByProcessedStorageCart(@Param("processed")boolean processed);
 	
 	
-	//Modifica el estado de un pedido pasándole el id del pedido que quieras modificar y el nuevo parámetro booleano
+	/**
+	 * Modifies the state of processed or not processed from the id of a StorageCart passed as parameter
+	 * @param idProduct
+	 * @param processed
+	 * @return
+	 */
 	@Modifying
 	@Transactional(readOnly=false)
 	@Query("update StorageCart s set s.processed = ?2 where s.id = ?1")

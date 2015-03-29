@@ -17,7 +17,7 @@ public class StorageCart implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -6309613457936170782L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -37,6 +37,13 @@ public class StorageCart implements Serializable{
 		this.processed = false;
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @param lastName
+	 * @param storageCartLine
+	 * @param totalPrize
+	 */
 	public StorageCart(String name, String lastName, List<StorageCartLine> storageCartLine, double totalPrize){
 		this.storageCartLine = storageCartLine;
 		this.totalPrize = totalPrize;
@@ -45,6 +52,10 @@ public class StorageCart implements Serializable{
 		this.processed = false;
 	}
 	
+	/**
+	 * 
+	 * @param storageCart
+	 */
 	public StorageCart(StorageCart storageCart){
 		this.lastName = storageCart.getLastName();
 		this.name = storageCart.getName();
@@ -53,7 +64,12 @@ public class StorageCart implements Serializable{
 		this.totalPrize = storageCart.getTotalPrize();
 	}
 	
-	
+	/**
+	 * Returns a StorageCartLine object found by the id passed as parameter
+	 * @param id
+	 * @param storageCartList
+	 * @return
+	 */
 	public StorageCartLine searchById(long id, List<StorageCartLine> storageCartList){
 		StorageCartLine returned = null;
 		if(storageCartList !=null){
@@ -67,7 +83,12 @@ public class StorageCart implements Serializable{
 		return returned;
 	}
 	
-	public void addProductFromStorageCart(StorageCartLine storageCartLine){
+	
+	/**
+	 * Add a new product from a StorageCart passed as parameter
+	 * @param storageCartLine
+	 */
+	private void addProductFromStorageCart(StorageCartLine storageCartLine){
 		int index = 0;
 		for(StorageCartLine aux : this.getStorageCartLine()){
 			if(aux.getProduct().getId() == storageCartLine.getProduct().getId()){
@@ -81,6 +102,10 @@ public class StorageCart implements Serializable{
 														storageCartLine.getCuantity());
 	}
 	
+	/**
+	 * Add an StorageCartLine object to the StorageCartLine list of the StorageCart object passed
+	 * @param storageCartLine
+	 */
 	public void addItem(StorageCartLine storageCartLine){
 		
 		StorageCartLine searched = this.searchById(storageCartLine.getProduct().getId(), this.getStorageCartLine());
@@ -93,11 +118,20 @@ public class StorageCart implements Serializable{
 		
 	}
 	
+	/**
+	 * Delete the StorageCartLine object passed as parameter from the StorageCart object passed 
+	 * @param storageCartLine
+	 */
 	public void deleteItem(StorageCartLine storageCartLine){
 		this.storageCartLine.remove(storageCartLine);
 		this.setTotalPrize(calculatePrize(this.getStorageCartLine()));
 	}
 	
+	/**
+	 * Calculate the prize from StorageCartLine list passed as parameter
+	 * @param storageCartLine
+	 * @return
+	 */
 	public double calculatePrize(List<StorageCartLine> storageCartLine){
 		double prize = 0.0;
 		if(!storageCartLine.isEmpty()){
@@ -109,15 +143,16 @@ public class StorageCart implements Serializable{
 		return prize;
 	}
 	
+
 	@OneToMany(mappedBy="product")
 	public List<StorageCartLine> getStorageCartLine() {
 		return storageCartLine;
 	}
-
+    
 	public void setStorageCartLine(List<StorageCartLine> storageCartLine) {
 		this.storageCartLine = storageCartLine;
 	}
-
+	
 	public boolean getProcessed() {
 		return processed;
 	}

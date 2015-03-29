@@ -30,6 +30,11 @@ public class StorageCartLine implements Serializable{
 		this.cuantity = 0;
 	}
 	
+	/**
+	 * 
+	 * @param product
+	 * @param cuantity
+	 */
 	public StorageCartLine(Product product, int cuantity){
 		this.product = product;
 		this.cuantity = cuantity;

@@ -15,7 +15,6 @@ public class DataBaseController implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
 		
 		//guardando un artículo de cada tipo de productos
 		repository.save(new Product("Dell",Constants.INFORMATIC,"/image/1.jpg",
