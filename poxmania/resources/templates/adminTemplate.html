@@ -1,25 +1,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<title>Administración</title>
+<link rel="stylesheet" href="/styles/bootstrap.css"></link>
+<link rel="stylesheet" href="/styles/styles.css"></link>
 <meta charset="UTF-8" />
 </head>
 <body>
-	<h1>HOLA</h1>
-	<!-- modificar producto -->
-	<div>
-		<a href="/modifyProduct">Modify Products</a>
+	<div class="container">
+		<div class="row">
+  			<div class="col-sm-3">
+    			<div class="sidebar-nav">
+      				<div class="navbar navbar-default" role="navigation">
+        				<div class="navbar-header">
+          					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+            					<span class="sr-only">Toggle navigation</span>
+            					<span class="icon-bar"></span>
+            					<span class="icon-bar"></span>
+            					<span class="icon-bar"></span>
+          					</button>
+          					<span class="visible-xs navbar-brand">Sidebar menu</span>
+        				</div>
+        				<div class="navbar-collapse collapse sidebar-navbar-collapse">
+          					<ul class="nav navbar-nav">
+            					<li><a href="/addProduct">Añadir productos</a></li>
+            					<li><a href="/modifyProduct">Modificar productos</a></li>
+            					<li><a href="/deleteProduct">Eliminar productos</a></li>
+            					<li><a href="/confirmationStorage">Confirmar pedidos</a></li>
+          					</ul>
+        				</div><!--/.nav-collapse -->
+      				</div>
+    			</div>
+  			</div>
+		</div>
 	</div>
-	<!-- anadir producto -->
-	<div>
-		<a href="/addProduct">Add Products</a>
-	</div>
-	<!-- borrar producto -->
-	<div>
-		<a href="/deleteProduct">Delete Products</a>
-	</div>
-	<!-- confirmacion de pedidos -->
-	<div>
-		<a href="/confirmationStorage">Confirmation Storage</a>
-	</div>
+
 	<a href="/">Volver</a>	
 </body>
 </html>
