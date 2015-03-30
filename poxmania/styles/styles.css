@@ -1,0 +1,48 @@
+div.col-md-4{
+    width: 15%;
+}
+
+input#prizeMin.form-control{
+    margin-left: 20%;
+}
+
+button#adminButton.btn.btn-default.btn-lg{
+    margin-left: 73%;
+    background-color: #c70fb2;
+    color: #fff;
+}
+
+button#adminButton.btn.btn-default.btn-lg:hover{
+    margin-left: 73%;
+    background-color: #880a79;
+    color: #fff;
+}
+.nav-tabs.nav-justified{
+	margin-bottom:1.5em;
+}
+
+.nav-tabs.nav-justified > li > a{
+	background-color: #c70fb2;
+  	color: #fff;
+  	border-style: solid;
+  	border-radius: 0;
+  	border-color: #555;
+  	margin-top: 1.2em;
+}
+
+.nav-tabs.nav-justified > li > a:hover{
+	background-color: #880a79;
+  	color: #fff;
+  	border-style: solid;
+  	border-radius: 0;
+  	border-color: #555;
+  	margin-top: 1.2em;
+}
+
+.thumbnail > img, .thumbnail a > img{
+	height:120px;
+}
+
+div.col-md-4{
+	}
+}

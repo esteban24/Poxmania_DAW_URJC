@@ -25,6 +25,10 @@ public class DataBaseController implements CommandLineRunner {
 						"La mejor calidad de imagen con LG", 999.95));
 		repository.save(new Product("PS4", Constants.VIDEOGAME, "/image/4.jpg", 
 						"PS4 para vosotros jugadores", 399.95));
+		repository.save(new Product("Xbox One", Constants.VIDEOGAME, "/image/5.jpg",
+						"Xbox One centro multimedia y videojuegos", 425.45));
+		repository.save(new Product("WiiU", Constants.VIDEOGAME, "/image/6.jpg",
+				"WiiU la consola que recordabas a mejor precio", 295.90));
 		
 		//sacamos los productos
         Iterable<Product> products = repository.findAll();

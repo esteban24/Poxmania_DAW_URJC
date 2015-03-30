@@ -62,6 +62,9 @@ public class WebController {
 			imageTitles.add("/image/2.jpg");
 			imageTitles.add("/image/3.jpg");
 			imageTitles.add("/image/4.jpg");
+			imageTitles.add("/image/5.jpg");
+			imageTitles.add("/image/6.jpg");
+
 		}
 				
 		ModelAndView mv = new ModelAndView("mainTemplate").addObject("products",
