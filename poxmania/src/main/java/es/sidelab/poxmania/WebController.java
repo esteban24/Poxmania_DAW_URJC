@@ -126,7 +126,7 @@ public class WebController {
 		session.setAttribute("admin", false);
 		
 		ModelAndView mv = new ModelAndView("mainTemplate");
-		if(name != "" || name != null){
+		if(name != "" && name != null){
 			mv.addObject("products", productrepository.findByName(name));
 		}else if(prizeMin != null && prizeMax != null){
 			mv.addObject("products", productrepository.findByPrize(prizeMin, prizeMax));
@@ -344,8 +344,8 @@ public class WebController {
 	@RequestMapping("deleteProduct/search")
 	public ModelAndView mainDeleteSearch(HttpSession session, String name, Double prizeMin, Double prizeMax){
 		
-		ModelAndView mv = new ModelAndView("modifyProduct");
-		if(name != "" || name != null){
+		ModelAndView mv = new ModelAndView("deleteProduct");
+		if(name != "" && name != null){
 			mv.addObject("products", productrepository.findByName(name));
 		}else if(prizeMin != null && prizeMax != null){
 			mv.addObject("products", productrepository.findByPrize(prizeMin, prizeMax));
@@ -476,11 +476,15 @@ public class WebController {
 	 * @return
 	 */
 	@RequestMapping("/showProduct")
-	public ModelAndView show(@RequestParam long idProduct) {
-
-		Product product = productrepository.findOne(idProduct);
+	public ModelAndView show(Long idProduct) {
+		
+		ModelAndView mv = new ModelAndView("showProduct");
+		if(idProduct!=null){
+			Product product = productrepository.findOne(idProduct);
+			mv.addObject("product", product);
+		}
 				
-		return new ModelAndView("showProduct").addObject("product", product);
+		return mv;
 	}
 	
 	/**
@@ -580,7 +584,7 @@ public class WebController {
 	public ModelAndView mainModifySearch(HttpSession session, String name, Double prizeMin, Double prizeMax){
 		
 		ModelAndView mv = new ModelAndView("modifyProduct");
-		if(name != "" || name != null){
+		if(name != "" && name != null){
 			mv.addObject("products", productrepository.findByName(name));
 		}else if(prizeMin != null && prizeMax != null){
 			mv.addObject("products", productrepository.findByPrize(prizeMin, prizeMax));
@@ -672,7 +676,7 @@ public class WebController {
 			list2.addItem(newStCrt);
 			session.setAttribute("storageCart", list2);			
 		}				
-		return new ModelAndView("addToStorageCartConfirmation");		
+		return new ModelAndView("showProduct").addObject("added", true);		
 	}
 	
 	/**

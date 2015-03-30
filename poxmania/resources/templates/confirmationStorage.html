@@ -2,24 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8"/>
+<title>Confirmacion de pedidos</title>
+<link rel="stylesheet" href="/styles/bootstrap.css"></link>
+<link rel="stylesheet" href="/styles/styles.css"></link>
 </head>
 <body>
-	<h1>pedidos no procesados</h1>
-  	<div th:each="storageCartFalse: ${storageCartsFalse}" style="border-style: solid; padding: 20px">  		
-   	    <h2 th:text="${storageCartFalse.name}">Name</h2>
-       	<h2 th:text="${storageCartFalse.lastName}">Last name</h2>
-       	<h2 th:text="${storageCartFalse.totalPrize}">Total Prize</h2>
-       	<form action="/storageConfirmated" method="post">
-           	<input type="hidden" name="idStorageCartFalse" th:value="${storageCartFalse.id}"/>
-            <input type="submit" name="Comfirmation" value="Confirmation"/>
-       	</form>
-  	</div>
-  	<h1>pedidos procesados</h1>
-  	<div th:each="storageCartTrue: ${storageCartsTrue}" style="border-style: solid; padding: 20px">
-   	    <h2 th:text="${storageCartTrue.name}">Name</h2>
-       	<h2 th:text="${storageCartTrue.lastName}">Last name</h2>
-       	<h2 th:text="${storageCartTrue.totalPrize}">Total Prize</h2>
-  	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<h2>Productos no confirmados</h2>
+			<div th:each="storageCartFalse: ${storageCartsFalse}" class="list-group">
+				<div class="list-group-item">
+					<h3 th:text="${storageCartFalse.name}">Nombre</h3>
+			       	<h3 th:text="${storageCartFalse.lastName}">Apellidos</h3>
+			       	<h3 th:text="${storageCartFalse.totalPrize}">Precio total</h3>
+			       	<form action="/storageConfirmated" method="post">
+			           	<input type="hidden" name="idStorageCartFalse" th:value="${storageCartFalse.id}"/>
+			            <input type="submit" name="Comfirmation" value="Confirmation"/>
+			       	</form>
+		       	</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<h2>Productos confirmados</h2>
+			<div th:each="storageCartTrue: ${storageCartsTrue}" class="list-group">
+				<div class="list-group-item">
+					<h3 th:text="${storageCartTrue.name}">Nombre</h3>
+			       	<h3 th:text="${storageCartTrue.lastName}">Apellidos</h3>
+			       	<h3 th:text="${storageCartTrue.totalPrize}">Precio total</h3>
+		       	</div>
+			</div>
+		</div>
+	</div>
   	<a href="/adminBack">Volver</a>
 </body>
 </html>

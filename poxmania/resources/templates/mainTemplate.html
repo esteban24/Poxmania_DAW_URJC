@@ -5,26 +5,10 @@
 	<title>Poxmania</title>
     <link rel="stylesheet" href="/styles/bootstrap.css"></link>
     <link rel="stylesheet" href="/styles/styles.css"></link>
-    <script type="text/javascript">
-		function nameAbail(form){
-
-			form.name.disabled = false;
-			form.prizeMin.disabled = true;
-			form.prizeMax.disabled = true;
-		};
-
-		function prizeAbail(form){
-			form.name.disabled = true;
-			form.prizeMin.disabled = false;
-			form.prizeMax.disabled = false;
-		};
-	</script>
 </head>
 <body>
-    <!--contiene el logo, el buscador, el boton de administrador y la cesta-->
-    <div>
-        <div class="row">
-            <!--logo-->
+    <div class="row" id="mainRow">
+        <div class="row" id="firstMainRow">
             <div class="col-md-6">
         	   <a href="/"><img src="/image/logo.jpg"></img></a>
             </div>
@@ -39,13 +23,12 @@
                 </button></a>
             </div>
         </div>
-        <!--buscador-->
-        <div class="row">
+        <div class="row" id="secondMainRow">
             <form th:action="@{/mainTemplate/search}" method="POST">
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <input class="btn btn-default" type="submit" value="Buscar"/> 
+                            <input class="btn btn-default" id="searchByName" type="submit" value="Buscar"/> 
                         </span>
                         <input id="name" name="name" type="text" class="form-control" placeholder="Nombre..."/>
                     </div><!-- /input-group -->
@@ -61,19 +44,13 @@
                 <div class="input-group">
                   <input id="prizeMax" name="prizeMax" type="number" class="form-control" placeholder="Precio máximo"/>
                   <span class="input-group-btn">
-                    <input class="btn btn-default" type="submit" value="Buscar"/>
+                    <input class="btn btn-default" id="searchByPrize" type="submit" value="Buscar"/>
                   </span>
                 </div><!-- /input-group -->
               </div><!-- /.col-lg-6 -->
           </form>
         </div><!-- /.row -->
-    </div>
-    <!--contenedor grande donde estaran las imagenes y algún menu-->
-    <div class="row">
-        
-    </div>
-    <div>
-        <!--menu de arriba-->
+    <div class="row" id="thirdMainRow">
         <div class="masthead">
         	<nav>
         		<ul class="nav nav-tabs nav-justified">
@@ -85,13 +62,15 @@
         		</ul>
         	</nav>
         </div>
-        <div class="row">
+      </div> 
+        <div class="row" id="fourthMainRow">
           <div class="col-sm-6 col-md-4" th:each="product: ${products}">
             <div class="thumbnail">
               <img th:src="${product.image}"></img>
               <div class="caption">
                 <h3 th:text="${product.name}">Name</h3>
                 <p th:text="${product.description}">Description</p>
+                <h4 th:text="|${product.prize} €|" style="color:red">Prize</h4>
                 <form action="/showProduct" method="post">
             	   <input type="hidden" name="idProduct" th:value="${product.id}"/>
             	   <input class="btn btn-primary" type="submit" name="Ver detalle" value="Ver detalle"/>
@@ -101,7 +80,5 @@
           </div>
         </div>
     </div>
-    <!--footer-->
-    <div></div>
 </body>
 </html>

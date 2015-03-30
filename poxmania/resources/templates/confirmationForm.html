@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>Resgistro de administrador</title>
 <link href="styles/bootstrap.css" rel="stylesheet"></link>
 </head>
 <body>
@@ -30,11 +30,15 @@
                             <div class="form-group input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
                                 <input type="password" name="password" class="form-control"  placeholder="Contraseña " />
-                            </div>                                   
-                            <input type="submit" name="enviar" value="Enviar" class="btn btn-primary "/>
-                                    <hr />
+                            </div> 
+                            <center>                                
+                            	<input type="submit" name="enviar" value="Enviar" class="btn btn-primary" id="sendAdminButton"/>
+                            </center>  
                         </form>
                     </div>
+                    <center>
+                    	<a href="/"><button type="button" class="btn btn-default" id="comeBackButton" style="margin-bottom: 1.2em">Volver</button></a>
+                    </center>
                 </div>
             </div>
                 
@@ -44,10 +48,5 @@
     <div class="alert alert-danger" role="alert" th:if="${error}">
 		<strong>Error, </strong>Usuario no permitido
 	</div>
-	<div>
-		<a href="/"><button type="button" class="btn btn-default">Volver</button></a>
-	</div>
-
-
 </body>
 </html>
