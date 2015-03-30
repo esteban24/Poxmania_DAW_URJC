@@ -1,19 +1,67 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
+	<title>Poxmania</title>
+    <link rel="stylesheet" href="/styles/bootstrap.css"></link>
+    <link rel="stylesheet" href="/styles/styles.css"></link>
+    <script type="text/javascript">
+		function nameAbail(form){
+
+			form.name.disabled = false;
+			form.prizeMin.disabled = true;
+			form.prizeMax.disabled = true;
+		};
+
+		function prizeAbail(form){
+			form.name.disabled = true;
+			form.prizeMin.disabled = false;
+			form.prizeMax.disabled = false;
+		};
+	</script>
+<meta charset="UTF-8"></meta>
+<title>Modificar Producto</title>
 </head>
 <body>
-	<div>
-    	<nav>
-    		<ul>
-    			<li><a th:href="@{/deleteProduct/1}">Televisión</a></li>
-    			<li><a th:href="@{/deleteProduct/2}">Informáica</a></li>
-    			<li><a th:href="@{/deleteProduct/3}">Videoconsola</a></li>
-    			<li><a th:href="@{/deleteProduct/4}">Pequeño electrodoméstico</a></li>
-    		</ul>
-    	</nav>
-    </div>
-    <div th:each="product: ${products}" style="border-style: solid; padding: 20px">
+	<div class="row">
+      	<form th:action="@{/deleteProduct/search}" method="POST">
+         	<div class="col-md-6">
+             	<div class="input-group">
+                  	<span class="input-group-btn">
+                       	<input class="btn btn-default" type="submit" value="Buscar"/> 
+                   	</span>
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Nombre..."/>
+              	</div><!-- /input-group -->
+          	</div><!-- /.col-lg-6 -->
+      	</form>
+       	<form th:action="@{/deleteProduct/search}" method="POST">    
+       		<div class="col-md-4">
+             	<div class="input-group">
+                  	<input id="prizeMin" name="prizeMin" type="number" class="form-control" placeholder="Precio mínimo"/>
+                </div><!-- /input-group -->
+          	</div><!-- /.col-lg-6 -->
+           	<div class="col-md-2">
+         		<div class="input-group">
+                  	<input id="prizeMax" name="prizeMax" type="number" class="form-control" placeholder="Precio máximo"/>
+                  	<span class="input-group-btn">
+                    	<input class="btn btn-default" type="submit" value="Buscar"/>
+                  	</span>
+                </div><!-- /input-group -->
+        	</div><!-- /.col-lg-6 -->
+    	</form>
+	</div><!-- /.row -->
+	<div class="masthead">
+        <nav>
+        	<ul class="nav nav-tabs nav-justified">
+        		<li><a href="/">Home</a></li>
+        		<li><a th:href="@{/deleteProduct/1}">Televisión</a></li>
+        		<li><a th:href="@{/deleteProduct/2}">Informáica</a></li>
+        		<li><a th:href="@{/deleteProducte/3}">Videoconsola</a></li>
+        		<li><a th:href="@{/deleteProduct/4}">Pequeño electrodoméstico</a></li>
+        	</ul>
+        </nav>
+  	</div>
+	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
       	<img th:src="${product.image}" height="100"></img>
       	<h2 th:text="${product.name}">Name</h2>
        	<h2 th:text="${product.prize}">Price</h2>       	
@@ -22,6 +70,6 @@
             <input type='submit' name='eliminar' value='Eliminar' />
     	</form>
     </div>
-	<a href="/adminBack">Volver</a>
+    <a href="/adminBack">Volver</a>
 </body>
 </html>

@@ -1,20 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta charset="UTF-8"/>
+	<title>Poxmania</title>
+    <link rel="stylesheet" href="/styles/bootstrap.css"></link>
+    <link rel="stylesheet" href="/styles/styles.css"></link>
+    <script type="text/javascript">
+		function nameAbail(form){
+
+			form.name.disabled = false;
+			form.prizeMin.disabled = true;
+			form.prizeMax.disabled = true;
+		};
+
+		function prizeAbail(form){
+			form.name.disabled = true;
+			form.prizeMin.disabled = false;
+			form.prizeMax.disabled = false;
+		};
+	</script>
 <meta charset="UTF-8"></meta>
 <title>Modificar Producto</title>
 </head>
 <body>
-	<div>
-       	<nav>
-        	<ul>
+	<div class="row">
+      	<form th:action="@{/modifyProduct/search}" method="POST">
+         	<div class="col-md-6">
+             	<div class="input-group">
+                  	<span class="input-group-btn">
+                       	<input class="btn btn-default" type="submit" value="Buscar"/> 
+                   	</span>
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Nombre..."/>
+              	</div><!-- /input-group -->
+          	</div><!-- /.col-lg-6 -->
+      	</form>
+       	<form th:action="@{/modifyProduct/search}" method="POST">    
+       		<div class="col-md-4">
+             	<div class="input-group">
+                  	<input id="prizeMin" name="prizeMin" type="number" class="form-control" placeholder="Precio mínimo"/>
+                </div><!-- /input-group -->
+          	</div><!-- /.col-lg-6 -->
+           	<div class="col-md-2">
+         		<div class="input-group">
+                  	<input id="prizeMax" name="prizeMax" type="number" class="form-control" placeholder="Precio máximo"/>
+                  	<span class="input-group-btn">
+                    	<input class="btn btn-default" type="submit" value="Buscar"/>
+                  	</span>
+                </div><!-- /input-group -->
+        	</div><!-- /.col-lg-6 -->
+    	</form>
+	</div><!-- /.row -->
+	<div class="masthead">
+        <nav>
+        	<ul class="nav nav-tabs nav-justified">
+        		<li><a href="/">Home</a></li>
         		<li><a th:href="@{/modifyProduct/1}">Televisión</a></li>
         		<li><a th:href="@{/modifyProduct/2}">Informáica</a></li>
-        		<li><a th:href="@{/modifyProduct/3}">Videoconsola</a></li>
+        		<li><a th:href="@{/modifyProducte/3}">Videoconsola</a></li>
         		<li><a th:href="@{/modifyProduct/4}">Pequeño electrodoméstico</a></li>
         	</ul>
         </nav>
-   	</div>
+  	</div>
 	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
 		<form action="/modifiedProduct" method="POST" enctype="multipart/form-data">
 			<input type="hidden" name="id" readonly="readonly" th:value="${product.id}"	/>
