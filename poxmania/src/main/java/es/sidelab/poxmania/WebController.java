@@ -424,8 +424,8 @@ public class WebController {
 	public ModelAndView confirmed(HttpSession session, @RequestParam long idStorageCartFalse) {	
 		if((boolean) session.getAttribute("admin")){
 			storageCartRepository.setAlreadyExistingStorageCart(idStorageCartFalse, true);
-			ModelAndView mv = new ModelAndView("storageConfirmated").addObject("right",
-					"The storage has been confirmated");
+			ModelAndView mv = new ModelAndView("confirmationStorage").addObject("right",
+					true);
 			return mv;
 		}else{
 			ModelAndView mv = new ModelAndView("notAdmin");
