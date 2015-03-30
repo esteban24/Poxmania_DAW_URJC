@@ -133,8 +133,7 @@ public class WebController {
 		}else{
 			mv.addObject("products", productrepository.findAll());
 		}
-		return mv;
-	
+		return mv;	
 	}
 	
 	/**
@@ -340,6 +339,20 @@ public class WebController {
 			ModelAndView mv = new ModelAndView("notAdmin");
 			return mv;
 		}
+	}
+	
+	@RequestMapping("deleteProduct/search")
+	public ModelAndView mainDeleteSearch(HttpSession session, String name, Double prizeMin, Double prizeMax){
+		
+		ModelAndView mv = new ModelAndView("modifyProduct");
+		if(name != "" || name != null){
+			mv.addObject("products", productrepository.findByName(name));
+		}else if(prizeMin != null && prizeMax != null){
+			mv.addObject("products", productrepository.findByPrize(prizeMin, prizeMax));
+		}else{
+			mv.addObject("products", productrepository.findAll());
+		}
+		return mv;	
 	}
 	
 	/**
@@ -561,6 +574,20 @@ public class WebController {
 			ModelAndView mv = new ModelAndView("notAdmin");
 			return mv;
 		}
+	}
+	
+	@RequestMapping("modifyProduct/search")
+	public ModelAndView mainModifySearch(HttpSession session, String name, Double prizeMin, Double prizeMax){
+		
+		ModelAndView mv = new ModelAndView("modifyProduct");
+		if(name != "" || name != null){
+			mv.addObject("products", productrepository.findByName(name));
+		}else if(prizeMin != null && prizeMax != null){
+			mv.addObject("products", productrepository.findByPrize(prizeMin, prizeMax));
+		}else{
+			mv.addObject("products", productrepository.findAll());
+		}
+		return mv;	
 	}
 	
 	/**
