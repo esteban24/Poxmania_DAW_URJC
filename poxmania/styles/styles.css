@@ -109,3 +109,21 @@ input.btn.btn-primary:hover{
     color: #fff;
 }
 
+button#adminBackButtonDelete.btn.btn-default.btn-lg{
+    margin-top: 2.5em;
+    background-color: #c70fb2;
+  	color: #fff;
+}
+
+div#mainDeleteRow.row{
+    padding-left: 2em;
+    padding-right: 1.2em;
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+}
+
+button#adminBackButtonDelete.btn.btn-default.btn-lg:hover{
+    margin-top: 2.5em;
+    background-color: #880a79;
+  	color: #fff;
+}

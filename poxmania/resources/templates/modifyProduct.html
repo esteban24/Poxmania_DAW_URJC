@@ -1,26 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"/>
-	<title>Poxmania</title>
+	<meta charset="UTF-8"/>
     <link rel="stylesheet" href="/styles/bootstrap.css"></link>
     <link rel="stylesheet" href="/styles/styles.css"></link>
-    <script type="text/javascript">
-		function nameAbail(form){
-
-			form.name.disabled = false;
-			form.prizeMin.disabled = true;
-			form.prizeMax.disabled = true;
-		};
-
-		function prizeAbail(form){
-			form.name.disabled = true;
-			form.prizeMin.disabled = false;
-			form.prizeMax.disabled = false;
-		};
-	</script>
-<meta charset="UTF-8"></meta>
-<title>Modificar Producto</title>
+	<title>Modificar Producto</title>
 </head>
 <body>
 	<div class="row">
@@ -53,10 +37,9 @@
 	<div class="masthead">
         <nav>
         	<ul class="nav nav-tabs nav-justified">
-        		<li><a href="/">Home</a></li>
         		<li><a th:href="@{/modifyProduct/1}">Televisión</a></li>
         		<li><a th:href="@{/modifyProduct/2}">Informáica</a></li>
-        		<li><a th:href="@{/modifyProducte/3}">Videoconsola</a></li>
+        		<li><a th:href="@{/modifyProduct/3}">Videoconsola</a></li>
         		<li><a th:href="@{/modifyProduct/4}">Pequeño electrodoméstico</a></li>
         	</ul>
         </nav>
@@ -98,7 +81,7 @@
 				</p>
             </p>
             <p>
-            	<h2 th:text="${product.prize}">Price</h2>
+            	<h2 th:text="|${product.prize} €|">Price</h2>
         		<p>
 					<b>Prize:</b> <input type="text" name='prize'
 					class="texto" th:value="${product.prize}" onfocus="if(this.value=='${product.prize}')this.value=''" />

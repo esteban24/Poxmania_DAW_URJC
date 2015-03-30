@@ -5,25 +5,10 @@
 	<title>Poxmania</title>
     <link rel="stylesheet" href="/styles/bootstrap.css"></link>
     <link rel="stylesheet" href="/styles/styles.css"></link>
-    <script type="text/javascript">
-		function nameAbail(form){
-
-			form.name.disabled = false;
-			form.prizeMin.disabled = true;
-			form.prizeMax.disabled = true;
-		};
-
-		function prizeAbail(form){
-			form.name.disabled = true;
-			form.prizeMin.disabled = false;
-			form.prizeMax.disabled = false;
-		};
-	</script>
-<meta charset="UTF-8"></meta>
-<title>Modificar Producto</title>
+<title>Borrar Producto</title>
 </head>
 <body>
-	<div class="row">
+	<div id="mainDeleteRow" class="row">
       	<form th:action="@{/deleteProduct/search}" method="POST">
          	<div class="col-md-6">
              	<div class="input-group">
@@ -49,27 +34,26 @@
                 </div><!-- /input-group -->
         	</div><!-- /.col-lg-6 -->
     	</form>
-	</div><!-- /.row -->
-	<div class="masthead">
-        <nav>
-        	<ul class="nav nav-tabs nav-justified">
-        		<li><a href="/">Home</a></li>
-        		<li><a th:href="@{/deleteProduct/1}">Televisión</a></li>
-        		<li><a th:href="@{/deleteProduct/2}">Informáica</a></li>
-        		<li><a th:href="@{/deleteProducte/3}">Videoconsola</a></li>
-        		<li><a th:href="@{/deleteProduct/4}">Pequeño electrodoméstico</a></li>
-        	</ul>
-        </nav>
-  	</div>
-	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
-      	<img th:src="${product.image}" height="100"></img>
-      	<h2 th:text="${product.name}">Name</h2>
-       	<h2 th:text="${product.prize}">Price</h2>       	
-      	<form action="/deletedProduct" method="post">
-            <input type="hidden" name="idProduct" th:value="${product.id}"/>
-            <input type='submit' name='eliminar' value='Eliminar' />
-    	</form>
-    </div>
-    <a href="/adminBack">Volver</a>
+		<div class="masthead">
+	        <nav>
+	        	<ul class="nav nav-tabs nav-justified">
+	        		<li><a th:href="@{/deleteProduct/1}">Televisión</a></li>
+	        		<li><a th:href="@{/deleteProduct/2}">Informáica</a></li>
+	        		<li><a th:href="@{/deleteProduct/3}">Videoconsola</a></li>
+	        		<li><a th:href="@{/deleteProduct/4}">Pequeño electrodoméstico</a></li>
+	        	</ul>
+	        </nav>
+	  	</div>
+		<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
+	      	<img th:src="${product.image}" height="100"></img>
+	      	<h2 th:text="${product.name}">Name</h2>
+	       	<h2 th:text="|${product.prize} €|">Price</h2>       	
+	      	<form action="/deletedProduct" method="post">
+	            <input type="hidden" name="idProduct" th:value="${product.id}"/>
+	            <input type='submit' name='eliminar' value='Eliminar' />
+	    	</form>
+	    </div>
+    	<a href="/adminBack"><button id="adminBackButtonDelete" class="btn btn-default btn-lg" type="button">Volver</button></a>
+    </div><!-- /.row -->
 </body>
 </html>

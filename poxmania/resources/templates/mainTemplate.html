@@ -5,20 +5,6 @@
 	<title>Poxmania</title>
     <link rel="stylesheet" href="/styles/bootstrap.css"></link>
     <link rel="stylesheet" href="/styles/styles.css"></link>
-    <script type="text/javascript">
-		function nameAbail(form){
-
-			form.name.disabled = false;
-			form.prizeMin.disabled = true;
-			form.prizeMax.disabled = true;
-		};
-
-		function prizeAbail(form){
-			form.name.disabled = true;
-			form.prizeMin.disabled = false;
-			form.prizeMax.disabled = false;
-		};
-	</script>
 </head>
 <body>
     <!--contiene el logo, el buscador, el boton de administrador y la cesta-->
@@ -88,6 +74,7 @@
               <div class="caption">
                 <h3 th:text="${product.name}">Name</h3>
                 <p th:text="${product.description}">Description</p>
+                <h4 th:text="|${product.prize} €|" style="color:red">Prize</h4>
                 <form action="/showProduct" method="post">
             	   <input type="hidden" name="idProduct" th:value="${product.id}"/>
             	   <input class="btn btn-primary" type="submit" name="Ver detalle" value="Ver detalle"/>
