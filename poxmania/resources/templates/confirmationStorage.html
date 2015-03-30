@@ -33,13 +33,13 @@
 		       	</div>
 			</div>
 		</div>
+		<div class="alert alert-danger" role="alert" th:if="${error}">
+			<strong>Error, </strong>el pedido no ha sido procesado
+		</div>
+		<div class="alert alert-success" role="alert" th:if="${right}">
+			<strong>Correcto, </strong>el pedido ha sido procesado
+		</div>
+  		<a href="/adminBack"><button class="btn btn-primary">Volver</button></a>
 	</div>
-	<div class="alert alert-danger" role="alert" th:if="${error}">
-		<strong>Error, </strong>el pedido no ha sido procesado
-	</div>
-	<div class="alert alert-success" role="alert" th:if="${right}">
-		<strong>Correcto, </strong>el pedido ha sido procesado
-	</div>
-  	<a href="/adminBack">Volver</a>
 </body>
 </html>

@@ -6,38 +6,48 @@
 <link rel="stylesheet" href="/styles/styles.css"></link>
 </head>
 <body>
-	<div th:if="!${added}">
-		<h1>Producto</h1>
-		<h1 th:text="|Categoria: ${product.category}|"></h1>
-		<img th:src="${product.image}" height="100"></img>
-		<h2 th:text="|Nombre: ${product.name}|">></h2>
-		<p th:text="|Precio: ${product.prize}|" />
-		<p th:text="|Comentario: ${product.description}|" />
-		<div>
-			<form th:action="@{/addToStorageCartConfirmation}" method="post">
-			<p>
-				<label for="numElements">Cantidad:</label><br /> <!--input type='text' name='category'/-->
-				<select id="numElements" name="numElements">
-					<option value="1" selected="selected">1</option>
-					<option value="2"> 2 </option>
-					<option value="3"> 3 </option>
-					<option value="4"> 4 </option>
-					<option value="5"> 5 </option>
-					<option value="6"> 6 </option>
-					<option value="7"> 7 </option>
-					<option value="8"> 8 </option>
-					<option value="9"> 9 </option>
-					<option value="10"> 10 </option>
-				</select>
-			</p>
-			<input type="hidden" name="idProduct" th:value="${product.id}"/>
-			<input type="submit" name="Enviar" value="Enviar al carrito"/>
-			</form>
+	<div id="mainRow" class="row">
+		<div class="row"  id="productToShow" th:if="!${added}">
+			<div class="col-md-4">
+				<img th:src="${product.image}" height="100"></img>
+			</div>
+			<div class="col-md-6">
+				<h2 th:text="${product.name}">></h2>
+				<h4 th:text="|${product.prize} €|" style="color:red">Prize</h4>
+				<p th:text="${product.description}" />
+				<form th:action="@{/addToStorageCartConfirmation}" method="post">
+					<p>
+						<label for="numElements">Cantidad:</label><br />
+						<select id="numElements" name="numElements">
+							<option value="1" selected="selected">1</option>
+							<option value="2"> 2 </option>
+							<option value="3"> 3 </option>
+							<option value="4"> 4 </option>
+							<option value="5"> 5 </option>
+							<option value="6"> 6 </option>
+							<option value="7"> 7 </option>
+							<option value="8"> 8 </option>
+							<option value="9"> 9 </option>
+							<option value="10"> 10 </option>
+						</select>
+					</p>
+					<input type="hidden" name="idProduct" th:value="${product.id}"/>
+					<input type="submit" name="Enviar" value="Enviar al carrito"/>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="alert alert-success" role="alert" th:if="${added}">
+					<strong>Correcto, </strong>producto añadido satisfactoriamente
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<a href="/"><button class="btn btn-primary">Volver a la página principal</button></a>
+			</div>
 		</div>
 	</div>
-	<div class="alert alert-success" role="alert" th:if="${added}">
-		<strong>Correcto, </strong>producto añadido satisfactoriamente
-	</div>
-	<a href="/">Volver</a>
 </body>
 </html>

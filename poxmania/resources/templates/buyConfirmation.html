@@ -3,30 +3,34 @@
 <head>
 <meta charset="UTF-8"></meta>
 <title>Confirmación de compra</title>
+<link rel="stylesheet" href="/styles/bootstrap.css"></link>
+<link rel="stylesheet" href="/styles/styles.css"></link>
 </head>
 <body>
-	<div>
-		<p>Por favor, introduzca su nombre y apellidos para finalizar la compra</p>
-	</div>
-	<form th:action="@{/createStorageCart}" method="post">
-		<p>
-			<b>Nombre: </b> <input type='text' name='name'/>
-		</p>
-
-		<p>
-			<b>Apellidos: </b> <input type='text' name='lastName'/>
-		</p>
-
-		<input type='submit' name='enviar'/>
-	</form>
-	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
+	<div id="mainRow" class="row">
 		<div>
-			<img th:src="${product.product.image}" height="100"></img>
-            <h2 th:text="${product.product.name}">Name</h2>
-            <h2 th:text="${product.cuantity}">Cuantity</h2>
-            <h2 th:text="${product.product.prize}">Prize</h2>
-        </div>
-    </div>
-	<a href="/">Volver</a>
+			<p>Por favor, introduzca su nombre y apellidos para finalizar la compra</p>
+		</div>
+		<form th:action="@{/createStorageCart}" method="post">
+			<p>
+				<b>Nombre: </b> <input type='text' name='name'/>
+			</p>
+	
+			<p>
+				<b>Apellidos: </b> <input type='text' name='lastName'/>
+			</p>
+	
+			<input type='submit' name='enviar'/>
+		</form>
+		<div th:each="product: ${products}" style="border-style: solid; padding: 20px; border-width:1px; border-color:#ffff">
+			<div>
+				<img th:src="${product.product.image}" height="100"></img>
+	            <h2 th:text="${product.product.name}">Name</h2>
+	            <h2 th:text="${product.cuantity}">Cuantity</h2>
+	            <h2 th:text="${product.product.prize}">Prize</h2>
+	        </div>
+	    </div>
+	    <a href="/"><button class="btn btn-primary">Volver a la página principal</button></a>
+	</div>
 </body>
 </html>

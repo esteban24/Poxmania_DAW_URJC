@@ -7,90 +7,94 @@
 	<title>Modificar Producto</title>
 </head>
 <body>
-	<div class="row">
-      	<form th:action="@{/modifyProduct/search}" method="POST">
-         	<div class="col-md-6">
-             	<div class="input-group">
-                  	<span class="input-group-btn">
-                       	<input class="btn btn-default" type="submit" value="Buscar"/> 
-                   	</span>
-                    <input id="name" name="name" type="text" class="form-control" placeholder="Nombre..."/>
-              	</div><!-- /input-group -->
-          	</div><!-- /.col-lg-6 -->
-      	</form>
-       	<form th:action="@{/modifyProduct/search}" method="POST">    
-       		<div class="col-md-4">
-             	<div class="input-group">
-                  	<input id="prizeMin" name="prizeMin" type="number" class="form-control" placeholder="Precio mínimo"/>
-                </div><!-- /input-group -->
-          	</div><!-- /.col-lg-6 -->
-           	<div class="col-md-2">
-         		<div class="input-group">
-                  	<input id="prizeMax" name="prizeMax" type="number" class="form-control" placeholder="Precio máximo"/>
-                  	<span class="input-group-btn">
-                    	<input class="btn btn-default" type="submit" value="Buscar"/>
-                  	</span>
-                </div><!-- /input-group -->
-        	</div><!-- /.col-lg-6 -->
-    	</form>
-	</div><!-- /.row -->
-	<div class="masthead">
-        <nav>
-        	<ul class="nav nav-tabs nav-justified">
-        		<li><a th:href="@{/modifyProduct/1}">Televisión</a></li>
-        		<li><a th:href="@{/modifyProduct/2}">Informáica</a></li>
-        		<li><a th:href="@{/modifyProduct/3}">Videoconsola</a></li>
-        		<li><a th:href="@{/modifyProduct/4}">Pequeño electrodoméstico</a></li>
-        	</ul>
-        </nav>
-  	</div>
-	<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
-		<form action="/modifiedProduct" method="POST" enctype="multipart/form-data">
-			<input type="hidden" name="id" readonly="readonly" th:value="${product.id}"	/>
-			<p>
-        		<img th:src="${product.image}" height="100"></img>
-        		<p>
-					<label>Image file:</label><input type="file" name="file" />
-				</p>
-        	</p>
-        	<p>
-            	<h2 th:text="${product.name}">Name</h2>
-        		<p>
-					<b>Name:</b> <input type="text" name="name" 
-					class="texto" th:value="${product.name}" onfocus="if(this.value=='${product.name}')this.value=''" />
-				</p>
-            </p>
-            <p>
-            	<h2 th:text="${product.description}">Description</h2>
-        		<p>
-					<b>Description:</b> <input type='text' name='description'
-					class="texto" th:value="${product.description}" onfocus="if(this.value=='${product.description}')this.value=''" />
-				</p>
-            </p>
-            <p>
-            	<h2 th:text="${product.category}">Category</h2>
-        		<p>
-					<label for="category">Category:</label><br />
-					<select id="category" name="category">
-						<option th:value="${product.category}" selected="selected">- SELECCIONA -</option>
-						<option value="Televisión"> Televisión </option>
-						<option value="Informática"> Informática </option>
-						<option value="Videoconsola"> Videoconsola </option>
-						<option value="Pequeño electrodoméstico"> Pequeño Electrodoméstico </option>
-					</select>
-				</p>
-            </p>
-            <p>
-            	<h2 th:text="|${product.prize} €|">Price</h2>
-        		<p>
-					<b>Prize:</b> <input type="text" name='prize'
-					class="texto" th:value="${product.prize}" onfocus="if(this.value=='${product.prize}')this.value=''" />
-				</p>
-            </p>
-            <input type='submit' name='enviar' value='Enviar' />
-        </form>
-        <p th:if="${error}"> ERROR, PRODUCT NOT MODIFIED!</p>
-    </div>
-    <a href="/adminBack">Volver</a>
+	<div id="mainRow" class="row">
+		<div class="row">
+	      	<form th:action="@{/modifyProduct/search}" method="POST">
+	         	<div class="col-md-6">
+	             	<div class="input-group">
+	                  	<span class="input-group-btn">
+	                       	<input class="btn btn-default" type="submit" value="Buscar"/> 
+	                   	</span>
+	                    <input id="name" name="name" type="text" class="form-control" placeholder="Nombre..."/>
+	              	</div><!-- /input-group -->
+	          	</div><!-- /.col-lg-6 -->
+	      	</form>
+	       	<form th:action="@{/modifyProduct/search}" method="POST">    
+	       		<div class="col-md-4">
+	             	<div class="input-group">
+	                  	<input id="prizeMin" name="prizeMin" type="number" class="form-control" placeholder="Precio mínimo"/>
+	                </div><!-- /input-group -->
+	          	</div><!-- /.col-lg-6 -->
+	           	<div class="col-md-2">
+	         		<div class="input-group">
+	                  	<input id="prizeMax" name="prizeMax" type="number" class="form-control" placeholder="Precio máximo"/>
+	                  	<span class="input-group-btn">
+	                    	<input class="btn btn-default" type="submit" value="Buscar"/>
+	                  	</span>
+	                </div><!-- /input-group -->
+	        	</div><!-- /.col-lg-6 -->
+	    	</form>
+		</div><!-- /.row -->
+		<div class="masthead">
+	        <nav>
+	        	<ul class="nav nav-tabs nav-justified">
+	        		<li><a th:href="@{/modifyProduct/1}">Televisión</a></li>
+	        		<li><a th:href="@{/modifyProduct/2}">Informáica</a></li>
+	        		<li><a th:href="@{/modifyProduct/3}">Videoconsola</a></li>
+	        		<li><a th:href="@{/modifyProduct/4}">Pequeño electrodoméstico</a></li>
+	        	</ul>
+	        </nav>
+	  	</div>
+		<div th:each="product: ${products}" style="border-style: solid; padding: 20px">
+			<form action="/modifiedProduct" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="id" readonly="readonly" th:value="${product.id}"	/>
+				<p>
+	        		<img th:src="${product.image}" height="100"></img>
+	        		<p>
+						<label>Image file:</label><input type="file" name="file" />
+					</p>
+	        	</p>
+	        	<p>
+	            	<h2 th:text="${product.name}">Name</h2>
+	        		<p>
+						<b>Name:</b> <input type="text" name="name" 
+						class="texto" th:value="${product.name}" onfocus="if(this.value=='${product.name}')this.value=''" />
+					</p>
+	            </p>
+	            <p>
+	            	<h2 th:text="${product.description}">Description</h2>
+	        		<p>
+						<b>Description:</b> <input type='text' name='description'
+						class="texto" th:value="${product.description}" onfocus="if(this.value=='${product.description}')this.value=''" />
+					</p>
+	            </p>
+	            <p>
+	            	<h2 th:text="${product.category}">Category</h2>
+	        		<p>
+						<label for="category">Category:</label><br />
+						<select id="category" name="category">
+							<option th:value="${product.category}" selected="selected">- SELECCIONA -</option>
+							<option value="Televisión"> Televisión </option>
+							<option value="Informática"> Informática </option>
+							<option value="Videoconsola"> Videoconsola </option>
+							<option value="Pequeño electrodoméstico"> Pequeño Electrodoméstico </option>
+						</select>
+					</p>
+	            </p>
+	            <p>
+	            	<h2 th:text="|${product.prize} €|">Price</h2>
+	        		<p>
+						<b>Prize:</b> <input type="text" name='prize'
+						class="texto" th:value="${product.prize}" onfocus="if(this.value=='${product.prize}')this.value=''" />
+					</p>
+	            </p>
+	            <input type='submit' name='enviar' value='Enviar' />
+	        </form>
+	        <div class="alert alert-danger" role="alert" th:if="${error}">
+				<strong>Error </strong>, producto no modificado
+			</div>
+	    </div>
+		<a href="/adminBack"><button class="btn btn-primary">Volver</button></a>
+	</div>
 </body>
 </html>

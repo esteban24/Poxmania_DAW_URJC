@@ -3,11 +3,21 @@
 <head>
 <meta charset="UTF-8"></meta>
 <title>Modificar Producto</title>
+<link rel="stylesheet" href="/styles/bootstrap.css"></link>
+<link rel="stylesheet" href="/styles/styles.css"></link>
 </head>
 <body>
-	<p th:if="${error}"> ERROR, PRODUCTO NO MODIFICADO, HAY QUE ESTABLECER TODOS LOS CAMPOS DEL FORMULARIO CORRECTAMENTE</p>
-	<p th:if="${right}"> PRODUCTO MODIFICADO </p>
-	<p th:if="${errorExecution}"> error, debe escribir el precio con el siguiente formato: 00.00 </p>
-	<a href="/adminBack">Volver</a>
+	<div id="mainRow" class="row">
+		<div class="alert alert-danger" role="alert" th:if="${error}">
+			<strong>Error </strong>, producto no modificado, hay que establecer todos los campos del formulario correctamente
+		</div>
+		<div class="alert alert-danger" role="alert" th:if="${errorExecution}">
+			<strong>Error </strong>, debe escribir el precio con el siguiente formato: 00.00 
+		</div>
+		<div class="alert alert-success" role="alert" th:if="${right}">
+			<strong>Correcto, </strong>producto modificado
+		</div>
+	  	<a href="/adminBack"><button class="btn btn-primary">Volver</button></a>
+  	</div>
 </body>
 </html>

@@ -134,3 +134,8 @@ div#mainRow.row{
     padding-top: 2.5em;
     padding-bottom: 2.5em;
 }
+
+div#productToShow.row{
+      padding-left: 36em;
+      padding-top: 5em;
+}
