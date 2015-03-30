@@ -509,7 +509,7 @@ public class WebController {
 	 * @return
 	 */
 	@RequestMapping("/adminTemplate")
-	public ModelAndView admin(HttpSession session, @RequestParam String user, @RequestParam String password){
+	public ModelAndView admin(HttpSession session, String user,  String password){
 		if ((user.equals(Constants.ADMIN))&&(password.equals(Constants.PASSWORD))){
 			session.setAttribute("user",user);
 			session.setAttribute("password",password);
