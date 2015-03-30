@@ -1,142 +1,66 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
+<link rel="stylesheet" href="/styles/bootstrap.css"></link>
+<link rel="stylesheet" href="/styles/styles.css"></link>
+<title>Añadir Producto</title>
 </head>
 <body>
-	
-	<div class="form-group">
-        <label class="control-label col-xs-3">Nombre:</label>
-        <div class="col-xs-9">
-            <input type='text' name='name' class="form-control">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-3">Password:</label>
-        <div class="col-xs-9">
-        	<input type="text" name='description'/>
-            <input type="text" name='description' id="inputPassword" placeholder="Password">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-3">Confirmar Password:</label>
-        <div class="col-xs-9">
-            <input type="password" class="form-control" placeholder="Confirmar Password">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-3">Nombre:</label>
-        <div class="col-xs-9">
-            <input type="text" class="form-control" placeholder="Nombre">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-3">Apellido:</label>
-        <div class="col-xs-9">
-            <input type="text" class="form-control" placeholder="Apellido">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-3" >Telefono:</label>
-        <div class="col-xs-9">
-            <input type="tel" class="form-control" placeholder="Telefono">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-3">F. Nacimiento:</label>
-        <div class="col-xs-3">
-            <select class="form-control">
-                <option>Dia</option>
-            </select>
-        </div>
-        <div class="col-xs-3">
-            <select class="form-control">
-                <option>Mes</option>
-            </select>
-        </div>
-        <div class="col-xs-3">
-            <select class="form-control">
-                <option>Año</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-3">Dirección:</label>
-        <div class="col-xs-9">
-            <textarea rows="3" class="form-control" placeholder="Dirección"></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-3">Genero:</label>
-        <div class="col-xs-2">
-            <label class="radio-inline">
-                <input type="radio" name="genderRadios" value="male"> Maculino
-            </label>
-        </div>
-        <div class="col-xs-2">
-            <label class="radio-inline">
-                <input type="radio" name="genderRadios" value="female"> Femenino
-            </label>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-xs-offset-3 col-xs-9">
-            <label class="checkbox-inline">
-                <input type="checkbox" value="news"> Enviar noticias.
-            </label>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-xs-offset-3 col-xs-9">
-            <label class="checkbox-inline">
-                <input type="checkbox" value="agree">  Accepto <a href="#">Terminos y condiciones</a>.
-            </label>
-        </div>
-    </div>
-    <br>
-    <div class="form-group">
-        <div class="col-xs-offset-3 col-xs-9">
-            <input type="submit" class="btn btn-primary" value="Enviar">
-            <input type="reset" class="btn btn-default" value="Limpiar">
-        </div>
-    </div>
-</form>
-
-	
-
-
-
-
-
-
-
-
-	<h1>New Product</h1>
-
-	<form action="/image/upload" method="post" enctype="multipart/form-data">
-		<p>
-			<b>Name:</b> <input type='text' name='name' />
-		</p>
-		<p>
-			<b>Description:</b> <input type="text" name='description'/>
-		</p>
-		<p>
-			<b>Prize:</b><br /> <input type='text' name='prize' />
-		</p>
-		<p>
-			<label for="category">Category:</label><br />
-			<select id="category" name="category">
-				<option value="" selected="selected">- SELECCIONA -</option>
-				<option value="Televisión"> Televisión </option>
-				<option value="Informática"> Informática </option>
-				<option value="Videoconsola"> Videoconsola </option>
-				<option value="Pequeño electrodoméstico"> Pequeño Electrodoméstico </option>
-			</select>
-		</p>
-		<p>
-			<label>Image file:</label><input type="file" name="file" />
-		</p>
-
-		<input type='submit' name='enviar' value='Enviar' />
+	<form action="/image/upload" method="POST" enctype="multipart/form-data" class="form-horizontal">
+		
+		<div class="form-group">
+	        <label class="control-label col-xs-3">Nombre:</label>
+	        <div class="col-xs-9">
+	            <input type='text' name='name' class="form-control" placeholder="Nombre"/>
+	        </div>
+	    </div>
+	    <div class="form-group">
+	        <label class="control-label col-xs-3">Precio:</label>
+	        <div class="col-xs-9">
+	            <input type='text' name='prize' class="form-control" placeholder="0.0"/>
+	        </div>
+	    </div>
+	    <div class="form-group">
+	        <label class="control-label col-xs-3">Descripción:</label>
+	        <div class="col-xs-9">
+	            <input type="text" name='description' placeholder="Descripción"/>
+	        </div>
+	    </div>
+	    <div class="form-group">
+	        <label class="control-label col-xs-3">Categoría:</label>
+	        <div class="col-xs-2">
+	            <label class="radio-inline">
+	                <input type="radio" name="category" value="Televisión" checked="checked"/> Televisión
+	            </label>
+	        </div>
+	        <div class="col-xs-2">
+	            <label class="radio-inline">
+	                <input type="radio" name="category" value="Informática"/> Informática
+	            </label>
+	        </div>
+	        <div class="col-xs-2">
+	            <label class="radio-inline">
+	                <input type="radio" name="category" value="Videoconsola"/> Videoconsola
+	            </label>
+	        </div>
+	        <div class="col-xs-2">
+	            <label class="radio-inline">
+	                <input type="radio" name="category" value="Pequeño electrodoméstico"/> Pequeño electrodoméstico
+	            </label>
+	        </div>
+	        <div class="form-group">
+	        <label class="control-label col-xs-3">Imagen:</label>
+	        <div class="col-xs-9">
+	            <input type="file" name="file"  class="form-control"/>
+	        </div>
+	    </div>
+	    </div>
+	    <br></br>
+	    <div class="form-group">
+	        <div class="col-xs-offset-3 col-xs-9">
+	            <input type="submit" class="btn btn-primary" value="Enviar"/>
+	        </div>
+	    </div>
 	</form>
 	<p th:if="${error}"> ERROR, PRODUCT HAS NOT ADDED</p>
 	<p th:if="${right}">PRODUCT HAS BEEN ADDED</p>
