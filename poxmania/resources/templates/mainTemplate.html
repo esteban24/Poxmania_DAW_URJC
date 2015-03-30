@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="/styles/styles.css"></link>
 </head>
 <body>
-    <!--contiene el logo, el buscador, el boton de administrador y la cesta-->
     <div class="row" id="mainRow">
         <div class="row" id="firstMainRow">
-            <!--logo-->
             <div class="col-md-6">
         	   <a href="/"><img src="/image/logo.jpg"></img></a>
             </div>
@@ -25,7 +23,6 @@
                 </button></a>
             </div>
         </div>
-        <!--buscador-->
         <div class="row" id="secondMainRow">
             <form th:action="@{/mainTemplate/search}" method="POST">
                 <div class="col-md-6">
@@ -53,7 +50,6 @@
               </div><!-- /.col-lg-6 -->
           </form>
         </div><!-- /.row -->
-    <!--contenedor grande donde estaran las imagenes y algún menu-->
     <div class="row" id="thirdMainRow">
         <div class="masthead">
         	<nav>
@@ -84,7 +80,5 @@
           </div>
         </div>
     </div>
-    <!--footer-->
-    <div></div>
 </body>
 </html>

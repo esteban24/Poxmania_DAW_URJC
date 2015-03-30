@@ -476,11 +476,15 @@ public class WebController {
 	 * @return
 	 */
 	@RequestMapping("/showProduct")
-	public ModelAndView show(@RequestParam long idProduct) {
-
-		Product product = productrepository.findOne(idProduct);
+	public ModelAndView show(Long idProduct) {
+		
+		ModelAndView mv = new ModelAndView("showProduct");
+		if(idProduct!=null){
+			Product product = productrepository.findOne(idProduct);
+			mv.addObject("product", product);
+		}
 				
-		return new ModelAndView("showProduct").addObject("product", product);
+		return mv;
 	}
 	
 	/**
@@ -672,7 +676,7 @@ public class WebController {
 			list2.addItem(newStCrt);
 			session.setAttribute("storageCart", list2);			
 		}				
-		return new ModelAndView("addToStorageCartConfirmation");		
+		return new ModelAndView("showProduct").addObject("added", true);		
 	}
 	
 	/**

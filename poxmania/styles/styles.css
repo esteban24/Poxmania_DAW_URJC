@@ -127,3 +127,10 @@ button#adminBackButtonDelete.btn.btn-default.btn-lg:hover{
     background-color: #880a79;
   	color: #fff;
 }
+
+div#mainRow.row{
+    padding-left: 2em;
+    padding-right: 1.2em;
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+}
