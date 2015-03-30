@@ -2,6 +2,30 @@ div.col-md-4{
     width: 15%;
 }
 
+div#firstMainRow.row{
+    margin-left: 1.5em;
+    margin-top: 1.5em;
+    margin-right: 1.5em;
+}
+
+div#secondMainRow.row{
+    margin-left: 1.5em;
+    margin-top: 1.5em;
+    margin-right: 1.5em;
+}
+
+div#thirdMainRow.row{
+    margin-left: 1.5em;
+    margin-top: 1.5em;
+    margin-right: 1.5em;
+}
+
+div#fourthMainRow.row{
+    margin-left: 1.5em;
+    margin-top: 1.5em;
+    margin-right: 1.5em;
+}
+
 input#prizeMin.form-control{
     margin-left: 20%;
 }
@@ -17,6 +41,38 @@ button#adminButton.btn.btn-default.btn-lg:hover{
     background-color: #880a79;
     color: #fff;
 }
+
+
+button#storageCartButton.btn.btn-default.btn-lg{
+    background-color: #3ae61b;
+    color: #fff;
+}
+
+button#storageCartButton.btn.btn-default.btn-lg:hover{
+    background-color: #1e900a;
+    color: #fff;
+}
+
+input#searchByName.btn.btn-default{
+	background-color: #3ae61b;
+    color: #fff;
+}
+
+input#searchByName.btn.btn-default:hover{
+	background-color: #1e900a;
+    color: #fff;
+}
+
+input#searchByPrize.btn.btn-default{
+	background-color: #3ae61b;
+    color: #fff;
+}
+
+input#searchByPrize.btn.btn-default:hover{
+	background-color: #1e900a;
+    color: #fff;
+}
+
 .nav-tabs.nav-justified{
 	margin-bottom:1.5em;
 }
@@ -43,6 +99,13 @@ button#adminButton.btn.btn-default.btn-lg:hover{
 	height:120px;
 }
 
-div.col-md-4{
-	}
+input.btn.btn-primary{
+	background-color: #3ae61b;
+    color: #fff;
 }
+
+input.btn.btn-primary:hover{
+	background-color: #1e900a;
+    color: #fff;
+}
+
