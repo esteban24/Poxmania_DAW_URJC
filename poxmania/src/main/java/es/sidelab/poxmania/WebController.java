@@ -254,7 +254,7 @@ public class WebController {
 			HttpServletResponse res) throws FileNotFoundException, IOException {
 
 		File file = new File(Constants.FILES_FOLDER_STYLES, fileName+ ".css");
-
+		
 		if (file.exists()) {
 			res.setContentType("text/css");
 			res.setContentLength(new Long(file.length()).intValue());

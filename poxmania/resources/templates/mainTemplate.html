@@ -5,7 +5,7 @@
 	<title>Poxmania</title>
     <link rel="stylesheet" href="/styles/bootstrap.css"></link>
     <link rel="stylesheet" href="/styles/styles.css"></link>
-	<script type="text/javascript">
+    <script type="text/javascript">
 		function nameAbail(form){
 
 			form.name.disabled = false;
@@ -25,17 +25,17 @@
     <div>
         <div class="row">
             <!--logo-->
-            <div class="col-md-8">
+            <div class="col-md-6">
         	   <a href="/"><img src="/image/logo.jpg"></img></a>
             </div>
             <div class="col-md-2">
-                <a href="/confirmationForm"><button type="button" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Admin
+                <a href="/confirmationForm"><button id="adminButton" type="button" class="btn btn-default btn-lg">
+                    Admin
                 </button></a>
             </div>
             <div class="col-md-2">
-                <a href="/storageCart"><button type="button" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Carrito
+                <a href="/storageCart"><button id="storageCartButton" type="button" class="btn btn-default btn-lg">
+                    Carrito
                 </button></a>
             </div>
         </div>
@@ -67,33 +67,16 @@
               </div><!-- /.col-lg-6 -->
           </form>
         </div><!-- /.row -->
-        <!--div>
-        	<form th:action="@{/mainTemplate/search}" method="POST">
-				Búsqueda por nombre<input type="text" name="name" onclick="nameAbail(this.form)"/>
-                <input type="submit" name="Enviar" value="Buscar"/>
-            </form>
-            <form th:action="@{/mainTemplate/search}" method="POST">
-				Búsqueda por precio<br/>
-				Valor inferior<input type="number" name="prizeMin" value="" onclick="prizeAbail(this.form)"/> 
-                Valor superior<input type="number" name="prizeMax" value="" onclick="prizeAbail(this.form)"/>
-				<input type="submit" name="Enviar" value="Buscar"/>
-			</form>
-        </div-->
-        <!--boton de administrador-->
-        <div>
-            <a href="/confirmationForm">admin</a>
-        </div>
-        <!--cesta-->
-        <div>
-        	<a href="/storageCart">Carrito</a>
-        </div>
     </div>
     <!--contenedor grande donde estaran las imagenes y algún menu-->
+    <div class="row">
+        
+    </div>
     <div>
         <!--menu de arriba-->
-        <div>
+        <div class="masthead">
         	<nav>
-        		<ul>
+        		<ul class="nav nav-tabs nav-justified">
         			<li><a href="/">Home</a></li>
         			<li><a th:href="@{/mainTemplate/1}">Televisión</a></li>
         			<li><a th:href="@{/mainTemplate/2}">Informáica</a></li>
@@ -102,15 +85,20 @@
         		</ul>
         	</nav>
         </div>
-        <!--contenedor de fotos OJO-->
-        <div th:each="product: ${products}" style="border-style: solid; padding: 20px">
-            <img th:src="${product.image}" height="100"></img>
-            <h2 th:text="${product.name}">Name</h2>
-            <h2 th:text="${product.prize}">Price</h2>
-            <form action="/showProduct" method="post">
-            	<input type="hidden" name="idProduct" th:value="${product.id}"/>
-            	<input type="submit" name="Ver detalle" value="Ver detalle"/>
-            </form>
+        <div class="row">
+          <div class="col-sm-6 col-md-4" th:each="product: ${products}">
+            <div class="thumbnail">
+              <img th:src="${product.image}"></img>
+              <div class="caption">
+                <h3 th:text="${product.name}">Name</h3>
+                <p th:text="${product.description}">Description</p>
+                <form action="/showProduct" method="post">
+            	   <input type="hidden" name="idProduct" th:value="${product.id}"/>
+            	   <input class="btn btn-primary" type="submit" name="Ver detalle" value="Ver detalle"/>
+                </form>  
+              </div>
+            </div>
+          </div>
         </div>
     </div>
     <!--footer-->
