@@ -6,64 +6,72 @@
 <title>Añadir Producto</title>
 </head>
 <body>
-	<form action="/image/upload" method="POST" enctype="multipart/form-data" class="form-horizontal">
-		
-		<div class="form-group">
-	        <label class="control-label col-xs-3">Nombre:</label>
-	        <div class="col-xs-9">
-	            <input type='text' name='name' class="form-control" placeholder="Nombre"/>
-	        </div>
-	    </div>
-	    <div class="form-group">
-	        <label class="control-label col-xs-3">Precio:</label>
-	        <div class="col-xs-9">
-	            <input type='text' name='prize' class="form-control" placeholder="0.0"/>
-	        </div>
-	    </div>
-	    <div class="form-group">
-	        <label class="control-label col-xs-3">Descripción:</label>
-	        <div class="col-xs-9">
-	            <input type="text" name='description' placeholder="Descripción"/>
-	        </div>
-	    </div>
-	    <div class="form-group">
-	        <label class="control-label col-xs-3">Categoría:</label>
-	        <div class="col-xs-2">
-	            <label class="radio-inline">
-	                <input type="radio" name="category" value="Televisión" checked="checked"/> Televisión
-	            </label>
-	        </div>
-	        <div class="col-xs-2">
-	            <label class="radio-inline">
-	                <input type="radio" name="category" value="Informática"/> Informática
-	            </label>
-	        </div>
-	        <div class="col-xs-2">
-	            <label class="radio-inline">
-	                <input type="radio" name="category" value="Videoconsola"/> Videoconsola
-	            </label>
-	        </div>
-	        <div class="col-xs-2">
-	            <label class="radio-inline">
-	                <input type="radio" name="category" value="Pequeño electrodoméstico"/> Pequeño electrodoméstico
-	            </label>
-	        </div>
-	        <div class="form-group">
-	        <label class="control-label col-xs-3">Imagen:</label>
-	        <div class="col-xs-9">
-	            <input type="file" name="file"  class="form-control"/>
-	        </div>
-	    </div>
-	    </div>
-	    <br></br>
-	    <div class="form-group">
-	        <div class="col-xs-offset-3 col-xs-9">
-	            <input type="submit" class="btn btn-primary" value="Enviar"/>
-	        </div>
-	    </div>
-	</form>
-	<p th:if="${error}"> ERROR, PRODUCT HAS NOT ADDED</p>
-	<p th:if="${right}">PRODUCT HAS BEEN ADDED</p>
+	<div id="addProductMain" class="row">
+		<div class="col-md-8">
+			<form action="/image/upload" method="POST" enctype="multipart/form-data" class="form-horizontal">
+				
+				<div class="form-group">
+			        <label class="control-label col-xs-3">Nombre:</label>
+			        <div class="col-xs-9">
+			            <input type='text' name='name' class="form-control" placeholder="Nombre"/>
+			        </div>
+			    </div>
+			    <div class="form-group">
+			        <label class="control-label col-xs-3">Precio:</label>
+			        <div class="col-xs-9">
+			            <input type='text' name='prize' class="form-control" placeholder="0.0"/>
+			        </div>
+			    </div>
+			    <div class="form-group">
+			        <label class="control-label col-xs-3">Descripción:</label>
+			        <div class="col-xs-9">
+			            <input type="text" name='description' placeholder="Descripción"/>
+			        </div>
+			    </div>
+			    <div class="form-group">
+			        <label class="control-label col-xs-3">Categoría:</label>
+			        <div class="col-xs-2">
+			            <label class="radio-inline">
+			                <input type="radio" name="category" value="Televisión" checked="checked"/> Televisión
+			            </label>
+			        </div>
+			        <div class="col-xs-2">
+			            <label class="radio-inline">
+			                <input type="radio" name="category" value="Informática"/> Informática
+			            </label>
+			        </div>
+			        <div class="col-xs-2">
+			            <label class="radio-inline">
+			                <input type="radio" name="category" value="Videoconsola"/> Videoconsola
+			            </label>
+			        </div>
+			        <div class="col-xs-2">
+			            <label class="radio-inline">
+			                <input type="radio" name="category" value="Pequeño electrodoméstico"/> Pequeño electrodoméstico
+			            </label>
+			        </div>
+			        <div class="form-group">
+			        <label class="control-label col-xs-3">Imagen:</label>
+			        <div class="col-xs-9">
+			            <input type="file" name="file"  class="form-control"/>
+			        </div>
+			    </div>
+			    </div>
+			    <br></br>
+			    <div class="form-group">
+			        <div class="col-xs-offset-3 col-xs-9">
+			            <input type="submit" class="btn btn-primary" value="Enviar"/>
+			        </div>
+			    </div>
+			</form>
+		</div>
+	</div>
+	<div class="alert alert-danger" role="alert" th:if="${error}">
+		<strong>Error, </strong>producto no añadido
+	</div>
+	<div class="alert alert-success" role="alert" th:if="${right}">
+		<strong>Correcto, </strong>producto añadido satisfactoriamente
+	</div>
 	<a href="/adminBack">Volver</a>
 </body>
 </html>
